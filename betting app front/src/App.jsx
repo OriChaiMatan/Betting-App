@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
     loadLeagues()
-    loadLeague()
+    // loadLeague()
 }, [])
 
 async function loadLeagues() {
@@ -30,7 +30,7 @@ async function loadLeague() {
   }
 }
 
-if (!leagues || !league) return <div>No leagues available</div>
+if (!leagues) return <div>No leagues available</div>
   return (
     <div>
       <h1>Betting App</h1>
@@ -38,7 +38,7 @@ if (!leagues || !league) return <div>No leagues available</div>
       <pre>{JSON.stringify(leagues, null, 2)}</pre>
 
       <h2>League By Id:</h2>
-      <pre>{JSON.stringify(league, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(league, null, 2)}</pre> */}
     </div>
   )
 }
