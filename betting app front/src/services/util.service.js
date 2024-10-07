@@ -2,7 +2,9 @@
 export const utilService = {
     makeId,
     saveToStorage,
-    loadFromStorage
+    loadFromStorage,
+    getTodayDate,
+    getNextDate
 }
 
 function makeId(length = 5) {
@@ -21,4 +23,14 @@ function saveToStorage(key, value) {
 function loadFromStorage(key, defaultValue = null) {
     var value = localStorage[key] || defaultValue;
     return JSON.parse(value);
+}
+
+function getTodayDate() {
+    return new Date().toISOString().split('T')[0];
+}
+
+function getNextDate(days) {
+    const date = new Date();
+    date.setDate(date.getDate() + days);
+    return date.toISOString().split('T')[0];
 }
