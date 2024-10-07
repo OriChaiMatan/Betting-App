@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { utilService } from './services/util.service'
 import { leaguesService } from './services/leagues.service'
 import { gamesService } from './services/games.service'
 
@@ -50,28 +51,31 @@ function App() {
 
   async function loadTodayGames() {
     try {
-      const games = await gamesService.getTodayGames();
-      setTodayGames(games);
+      const today = utilService.getTodayDate()
+      const games = await gamesService.getGamesByDate(today)
+      setTodayGames(games)
     } catch (err) {
-      console.log('Error in loading today games', err);
+      console.log('Error in loading today games', err)
     }
   }
 
   async function loadTomorrowGames() {
     try {
-      const games = await gamesService.getTomorrowGames();
-      setTomorrowGames(games);
+      const tomorrow = utilService.getNextDate(1)
+      const games = await gamesService.getGamesByDate(tomorrow)
+      setTomorrowGames(games)
     } catch (err) {
-      console.log('Error in loading tomorrow games', err);
+      console.log('Error in loading tomorrow games', err)
     }
   }
 
   async function loadNextTwoDayGames() {
     try {
-      const games = await gamesService.getNextTwoDayGames();
-      setNextTwoDayGames(games);
+      const nextTwoDays = utilService.getNextDate(2)
+      const games = await gamesService.getGamesByDate(nextTwoDays)
+      setNextTwoDayGames(games)
     } catch (err) {
-      console.log('Error in loading next three day games', err);
+      console.log('Error in loading next two day games', err)
     }
   }
 

@@ -9,10 +9,9 @@ import { utilService } from './util.service.js'
 //              ]
 
 export const gamesService = {
-    getPastGames,  
-    getTodayGames,
-    getTomorrowGames,
-    getNextTwoDayGames
+    getPastGames, 
+    getFutureGames, 
+    getGamesByDate
 }
 
 const PAST_STORAGE_KEY = 'past-games-data'
@@ -27,19 +26,15 @@ async function getPastGames() {
     return Array.isArray(pastGames) ? pastGames : []
 }
 
-async function getTodayGames() {
-    let todayGames = await storageService.query(FUTURE_STORAGE_KEY)
-    return todayGames.filter(game => game.match_date === utilService.getTodayDate())
+async function getFutureGames() {
+    let futureGames = await storageService.query(FUTURE_STORAGE_KEY);
+    return Array.isArray(futureGames) ? futureGames : [];
 }
 
-async function getTomorrowGames() {
-    let tomorrowGames = await storageService.query(FUTURE_STORAGE_KEY)
-    return tomorrowGames.filter(game => game.match_date === utilService.getNextDate(1))
-}
-
-async function getNextTwoDayGames() {
-    let nextTwoDaysGames = await storageService.query(FUTURE_STORAGE_KEY)
-    return nextTwoDaysGames.filter(game => game.match_date === utilService.getNextDate(2))
+// Generic function to get games by specific date(s)
+async function getGamesByDate(date) {
+    const futureGames = await getFutureGames();
+    return futureGames.filter(game => game.match_date === date);
 }
 
 async function _createGames() {
