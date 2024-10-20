@@ -1,8 +1,7 @@
 import { Route, HashRouter as Router, Routes } from 'react-router-dom'
 import { SoccerIndex } from './pages/soccer/SoccerIndex'
 import {AppHeader} from './cmps/AppHeader'
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-// import './assets/styles/main.scss'
+import '../assets/sass/main.scss'
 
 export function App() {
 
