@@ -8,13 +8,11 @@ export function App() {
   return (
     <div>
       <AppHeader />
-      {/* <Router>
-        <section>
-          <Routes>
-            <Route path='/' element={<SoccerIndex />} />
-          </Routes>
-        </section>
-      </Router> */}
+      <section>
+        <Routes>
+          <Route path="/" element={<SoccerIndex />} />
+        </Routes>
+      </section>
     </div>
   )
 }

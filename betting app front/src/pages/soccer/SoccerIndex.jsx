@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { utilService } from '../../services/util.service'
 import {leaguesService} from '../../services/leagues.service'
 import {gamesService} from '../../services/games.service'
+import { SoccerMatchesList } from '../../cmps/soccer/SoccerMatchesList'
 
 export function SoccerIndex() {
 
@@ -81,24 +82,9 @@ export function SoccerIndex() {
         }
     }
 
-    if (!leagues && !pastGames && !todayGames && !tomorrowGames && !nextTwoDayGames) return <div>No leagues/games available</div>
     return (
-        <div>
-            <h1>Betting App</h1>
-            {/* <h2>Leagues:</h2>
-        <pre>{JSON.stringify(leagues, null, 2)}</pre> */}
-
-            {/* <h2>Past Games:</h2>
-        <pre>{JSON.stringify(pastGames, null, 2)}</pre> Display past games */}
-
-            <h2>Today's Games:</h2>
-            <pre>{JSON.stringify(todayGames, null, 2)}</pre>
-
-            <h2>Tomorrow's Games:</h2>
-            <pre>{JSON.stringify(tomorrowGames, null, 2)}</pre>
-
-            <h2>Next Three Days' Games:</h2>
-            <pre>{JSON.stringify(nextTwoDayGames, null, 2)}</pre>
-        </div>
+        <section className='soccer-index'>
+            <SoccerMatchesList matches={pastGames.slice(-5)} />
+        </section>
     )
 }
