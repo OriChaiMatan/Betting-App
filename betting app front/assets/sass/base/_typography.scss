@@ -44,3 +44,14 @@ body {
         transform: translateY(0);
     }
 }
+
+.link {
+    text-decoration: none; // Removes the underline
+    color: inherit; // Inherits the color of its parent, or you can set a specific color
+  
+    &:hover {
+      text-decoration: none;
+      color: inherit; // Keeps the same color on hover
+    }
+  }
+  

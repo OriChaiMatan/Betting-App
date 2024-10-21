@@ -11,11 +11,13 @@ import { utilService } from './util.service.js'
 export const gamesService = {
     getPastGames, 
     getFutureGames, 
-    getGamesByDate
+    getGamesByDate,
+    getPastMatchById
 }
 
 const PAST_STORAGE_KEY = 'past-games-data'
 const FUTURE_STORAGE_KEY = 'future-games-data'
+
 const API_KEY = import.meta.env.VITE_API_KEY
 const BASE_URL = import.meta.env.VITE_BASE_URL
 
@@ -35,6 +37,10 @@ async function getFutureGames() {
 async function getGamesByDate(date) {
     const futureGames = await getFutureGames();
     return futureGames.filter(game => game.match_date === date);
+}
+
+function getPastMatchById(id) {
+    return storageService.get(PAST_STORAGE_KEY, id)
 }
 
 async function _createGames() {

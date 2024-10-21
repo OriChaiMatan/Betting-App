@@ -13,7 +13,7 @@ function query(entityType, delay = 200) {
 
 function get(entityType, entityId) {
     return query(entityType).then(entities => {
-        const entity = entities.find(entity => entity.league_id === entityId)
+        const entity = entities.find(entity => entity.match_id === entityId)
         if (!entity) throw new Error(`Get failed, cannot find entity with id: ${entityId} in: ${entityType}`)
         return entity
     })

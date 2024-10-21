@@ -66,7 +66,6 @@ export function SoccerIndex() {
             const tomorrow = utilService.getNextDate(1)
             const games = await gamesService.getGamesByDate(tomorrow)
             setTomorrowGames(games)
-            console.log(games)
         } catch (err) {
             console.log('Error in loading tomorrow games', err)
         }
