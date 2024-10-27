@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { gamesService } from "../../services/games.service";
+import { ProgressBar } from "../../cmps/soccer/ProgressBar";
 
 export function SoccerPastMatchDetails() {
     const [match, setMatch] = useState(null)
@@ -20,12 +21,33 @@ export function SoccerPastMatchDetails() {
         }
     }
 
-    if (!match) return <div>Loading Match Deatails page.</div>
+    if (!match) return <div>Loading Match Details page...</div>
     return (
-            <section className="past-match-details">
-                <div>SoccerPastMatchDetails</div>
-                <h3>{match.match_id}</h3>
-                <Link to={'/'} className="link"><a className="btn-text">Back to Past Games</a></Link>
-            </section>
+        <section className="past-match-details">
+            <div className='league-data'>
+                <img src={match.league_logo} alt="League Logo" />
+                <div className="league-info">
+                    <h3 className='heading-tertiary'>{match.league_name}</h3>
+                    <span>Season: {match.league_year}</span>
+                </div>
+            </div>
+            <div className="teams-data">
+                <div className='team-preview'>
+                    <img src={match.team_home_badge} alt="Home team badge" />
+                    <span>Home Team</span>
+                    <h3 className='heading-tertiary'>{match.match_hometeam_name}</h3>
+                </div>
+                <div className='score-preview'>
+                    <h2 className='heading-secondary'>{match.match_hometeam_score} : {match.match_awayteam_score}</h2>
+                </div>
+                <div className='team-preview'>
+                    <img src={match.team_away_badge} alt="Home team badge" />
+                    <span>Away Team</span>
+                    <h3 className='heading-tertiary'>{match.match_awayteam_name}</h3>
+                </div>
+            </div>
+            <ProgressBar homeTaemData={match.match_hometeam_score} awayTeamData={match.match_awayteam_score} />
+            <Link to={'/'} className="link"><a className="btn-text">Back to Past Games</a></Link>
+        </section>
     )
 }

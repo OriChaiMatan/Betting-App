@@ -1,0 +1,70 @@
+.past-match-details{
+    padding: 3rem;
+    display: grid;
+    grid-template-areas: "league team";
+    gap: 1.5rem;
+
+    .league-data {
+        grid-area: league;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        gap: 1.5rem;
+        padding: 2rem;
+        background-color: $p2;
+        border-radius: 0.5rem;
+
+        img {
+            width: 7rem;
+            height: 7rem;
+            border-radius: 50%;
+            box-shadow: $default-box-shadow;
+        }
+
+        .league-info{
+            display: flex;
+            flex-direction: column;
+    
+            span {
+                font-size: 1.3rem;
+            }
+        }
+    }
+
+    .teams-data{
+        grid-area: team;
+        display: flex;
+        justify-content: center;
+        padding: 2rem;
+        gap: 2rem;
+        background-color: $p2;
+
+        .team-preview {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            width: 20rem;
+
+            img {
+                width: 7rem;
+                height: 7rem;
+                border-radius: 50%;
+                box-shadow: $default-box-shadow;
+            }
+
+            span {
+                border-bottom: $default-border-bottom;
+                font-size: 1.2rem;
+            }
+        }
+
+        .score-preview {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 2rem;
+            margin-right: 2rem;
+        }
+    }  
+}

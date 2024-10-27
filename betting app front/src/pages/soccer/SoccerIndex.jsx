@@ -83,7 +83,7 @@ export function SoccerIndex() {
 
     return (
         <section className='soccer-index'>
-            <SoccerMatchesList matches={pastGames.slice(-5)} />
+            <SoccerMatchesList matches={pastGames.slice(-15)} />
         </section>
     )
 }

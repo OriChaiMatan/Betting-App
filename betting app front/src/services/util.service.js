@@ -4,7 +4,8 @@ export const utilService = {
     saveToStorage,
     loadFromStorage,
     getTodayDate,
-    getNextDate
+    getNextDate,
+    formatDate
 }
 
 function makeId(length = 5) {
@@ -34,3 +35,8 @@ function getNextDate(days) {
     date.setDate(date.getDate() + days);
     return date.toISOString().split('T')[0];
 }
+
+function formatDate (date) {
+    const [year, month, day] = date.split("-")
+    return `${day}/${month}/${year}`
+  }

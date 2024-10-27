@@ -1,12 +1,8 @@
 import React from 'react'
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
+import { utilService } from '../../services/util.service'
 
 export function SoccerPastMatchesPreview({ match }) {
-
-  const formatDate = (date) => {
-    const [year, month, day] = date.split("-")
-    return `${day}/${month}/${year}`
-  }
 
   return (
     <Link to={`/match-details/${match.match_id}`} className="link">
@@ -17,7 +13,7 @@ export function SoccerPastMatchesPreview({ match }) {
           <span>Season: {match.league_year}</span>
         </div>
         <div className='past-match-date'>
-          <h3 className='heading-tertiary'>{formatDate(match.match_date)}</h3>
+          <h3 className='heading-tertiary'>{utilService.formatDate(match.match_date)}</h3>
         </div>
         <div className='teams-data-preview'>
           <div className='team-preview'>
