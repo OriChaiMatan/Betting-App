@@ -6,13 +6,15 @@ export function ProgressBar({ homeTaemData, awayTeamData }) {
     const awayPercentage = (100 - homePercentage).toFixed(1);
 
     return (
-        <div className="score-progress-bar">
-            <div className="team home" style={{ width: `${homePercentage}%` }}>
-                <span>{homePercentage}%</span>
+        <div className='progress-bar-container'>
+            <span>{homePercentage}%</span>
+            <div className="score-progress-bar">
+                <div className="team home" style={{ width: `${homePercentage}%` }}>
+                </div>
+                <div className="team away" style={{ width: `${awayPercentage}%` }}>
+                </div>
             </div>
-            <div className="team away" style={{ width: `${awayPercentage}%` }}>
-                <span>{awayPercentage}%</span>
-            </div>
+            <span>{awayPercentage}%</span>
         </div>
     )
 }

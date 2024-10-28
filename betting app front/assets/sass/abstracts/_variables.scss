@@ -15,6 +15,7 @@ $n10: #eef1ff;
 $n11: #0f1b42;
 $g1: #35c31e;
 $r1: #ff4800;
+$y1: rgb(255, 238, 0);
 
 $color-white: #fff;
 $color-black: #000;
@@ -27,3 +28,5 @@ $default-box-shadow: 0 1rem 2rem rgba($color-black, .15);
 
 // BORDER BOTTOM
 $default-border-bottom: 3px solid rgba($n2, 1);
+$default-white-border: 1px solid #ddd;
+$default-black-border: 1px solid #000000;

@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { gamesService } from "../../services/games.service";
 import { ProgressBar } from "../../cmps/soccer/ProgressBar";
+import { ScoreTable } from "../../cmps/soccer/ScoreTable";
 
 export function SoccerPastMatchDetails() {
     const [match, setMatch] = useState(null)
@@ -46,7 +47,9 @@ export function SoccerPastMatchDetails() {
                     <h3 className='heading-tertiary'>{match.match_awayteam_name}</h3>
                 </div>
             </div>
-            <ProgressBar homeTaemData={match.match_hometeam_score} awayTeamData={match.match_awayteam_score} />
+            <div className="statistic-table">
+                <ScoreTable match={match} />
+            </div>
             <Link to={'/'} className="link"><a className="btn-text">Back to Past Games</a></Link>
         </section>
     )

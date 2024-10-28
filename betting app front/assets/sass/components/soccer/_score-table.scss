@@ -1,0 +1,70 @@
+.score-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    font-size: 1.6rem;
+    text-align: center;
+    background-color: $p1;
+    border: $default-white-border;
+    border-radius: 0.5rem;
+
+    .table-header {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 2rem;
+        align-items: center;
+
+        .team-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            gap: 1rem;
+            background-color: $p2;
+            border-radius: 0.5rem;
+
+            img {
+                width: 3rem;
+                height: 3rem;
+                border-radius: 50%;
+            }
+        }
+    }
+
+    .table-content {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+
+        .table-row {
+            border-bottom: $default-border-bottom;
+            padding: 0.5rem;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            align-items: center;
+
+            .teams-cards {
+                display: flex;
+                gap: 1rem;
+
+                .yellow-card {
+                    background-color: $y1;
+                    border: $default-white-border;
+                    color: $color-black;
+                    padding: 0.8rem;
+                }
+
+                .red-card {
+                    background-color: $r1;
+                    border: $default-white-border;
+                    color: $color-white;
+                    padding: 0.8rem;
+                }
+            }
+        }
+    }
+}
