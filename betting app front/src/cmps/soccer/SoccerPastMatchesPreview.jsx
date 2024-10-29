@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from "react-router-dom"
 import { utilService } from '../../services/util.service'
 
@@ -13,6 +13,7 @@ export function SoccerPastMatchesPreview({ match }) {
           <span>Season: {match.league_year}</span>
         </div>
         <div className='past-match-date'>
+          <h3 className='heading-tertiary'>{match.match_time}</h3>
           <h3 className='heading-tertiary'>{utilService.formatDate(match.match_date)}</h3>
         </div>
         <div className='teams-data-preview'>
