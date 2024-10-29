@@ -38,7 +38,14 @@
 
         .table-row {
             border-bottom: $default-border-bottom;
-            padding: 0.5rem;
+            padding: 0 1.5rem 0.5rem;
+
+            .progress-display{
+                display: grid;
+                grid-template-columns: auto 1fr auto;
+                gap: 2rem;
+                font-size: 1.8rem;
+            }
         }
 
         .cards {

@@ -50,7 +50,6 @@ export function SoccerPastMatchDetails() {
             <div className="statistic-table">
                 <ScoreTable match={match} />
             </div>
-            <Link to={'/'} className="link"><a className="btn-text">Back to Past Games</a></Link>
         </section>
     )
 }
