@@ -1,55 +1,20 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { utilService } from '../../services/util.service'
-import {leaguesService} from '../../services/leagues.service'
 import {gamesService} from '../../services/games.service'
-import { SoccerMatchesList } from '../../cmps/soccer/SoccerMatchesList'
+import { SoccerFutureMatchesList } from '../../cmps/soccer/SoccerFutureMatchesList'
 
-export function SoccerIndex() {
+export function SoccerFutureIndex() {
 
-    const [leagues, setLeagues] = useState([])
-    const [league, setLeague] = useState(null)
-    const [pastGames, setPastGames] = useState([])
     const [todayGames, setTodayGames] = useState([])
     const [tomorrowGames, setTomorrowGames] = useState([])
     const [nextTwoDayGames, setNextTwoDayGames] = useState([])
-    const LEAGUE_ID = '149'
 
     useEffect(() => {
-        loadLeagues()
-        // loadLeague()
-        loadPastGames()
         loadTodayGames()
         loadTomorrowGames()
         loadNextTwoDayGames()
     }, [])
-
-    async function loadLeagues() {
-        try {
-            const leagues = await leaguesService.query()
-            setLeagues(leagues)
-        } catch (err) {
-            console.log('Error in load', err)
-        }
-    }
-
-    async function loadLeague() {
-        try {
-            const league = await leaguesService.getLeagueById(LEAGUE_ID)
-            setLeague(league)
-        } catch (err) {
-            console.log('Error in load', err)
-        }
-    }
-
-    async function loadPastGames() {
-        try {
-            const pastGamesData = await gamesService.getPastGames() // Fetch past games
-            setPastGames(pastGamesData)
-        } catch (err) {
-            console.log('Error in loading past games', err)
-        }
-    }
 
     async function loadTodayGames() {
         try {
@@ -81,9 +46,10 @@ export function SoccerIndex() {
         }
     }
 
+    if (tomorrowGames.length === 0) return <div>No future games available</div>
     return (
         <section className='soccer-index'>
-            <SoccerMatchesList matches={pastGames.slice(-15)} />
+            <SoccerFutureMatchesList matches={tomorrowGames} />
         </section>
     )
 }

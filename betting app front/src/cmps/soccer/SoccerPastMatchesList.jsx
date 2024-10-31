@@ -1,7 +1,7 @@
 import React from 'react'
 import { SoccerPastMatchesPreview } from './SoccerPastMatchesPreview'
 
-export function SoccerMatchesList({matches}) {
+export function SoccerPastMatchesList({matches}) {
 
   if (!matches) return <div>No past games available</div>
 
