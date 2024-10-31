@@ -13,11 +13,11 @@ export function AppHeader() {
 
 	return (
 		<header className="app-header">
-			<h3 className="heading-tertiary">BETTING APP</h3>
+			<Link to={'/'} className="link"><h3 className="heading-tertiary">BETTING APP</h3></Link>
 			<nav className="header-nav" ref={navRef}>
 				<a href="/#">Home</a>
-				<a href="/#">Past Games</a>
-				<a href="/#">Future Games</a>
+				<a href="/past-match">Past Games</a>
+				<a href="/future-match">Future Games</a>
 				<button
 					className="nav-btn nav-close-btn"
 					onClick={showNavbar}>
