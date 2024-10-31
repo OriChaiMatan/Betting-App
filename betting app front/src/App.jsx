@@ -1,9 +1,9 @@
 import { Route, HashRouter as Router, Routes } from 'react-router-dom'
 import '../assets/sass/main.scss'
 import { SoccerPastIndex } from './pages/soccer/SoccerPastIndex'
-import {SoccerFutureIndex} from './pages/soccer/SoccerFutureIndex'
+import { SoccerFutureIndex } from './pages/soccer/SoccerFutureIndex'
 import { SoccerPastMatchDetails } from './pages/soccer/SoccerPastMatchDetails'
-import {AppHeader} from './cmps/AppHeader'
+import { AppHeader } from './cmps/AppHeader'
 
 export function App() {
 

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { utilService } from '../../services/util.service'
 import {leaguesService} from '../../services/leagues.service'
 import {gamesService} from '../../services/games.service'
-import { SoccerPastMatchesList } from '../../cmps/soccer/SoccerPastMatchesList'
+import { SoccerPastMatchesList } from '../../cmps/soccer/past-match/SoccerPastMatchesList'
 
 export function SoccerPastIndex() {
 
@@ -82,7 +82,7 @@ export function SoccerPastIndex() {
     }
 
     return (
-        <section className='soccer-index'>
+        <section className='past-match-index'>
             <SoccerPastMatchesList matches={pastGames.slice(-15)} />
         </section>
     )

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { utilService } from '../../services/util.service'
+import { utilService } from '../../../services/util.service'
 import { RxCross1 } from "react-icons/rx"
 
 export function SoccerFutureMatchesPreview({ match }) {
@@ -34,7 +34,7 @@ export function SoccerFutureMatchesPreview({ match }) {
                 <span><RxCross1 /> <a>1.22</a></span>
                 <span>2 <a>4.21</a></span>
             </div>
-            <Link className='link'><a>More Odds</a></Link>
+            <Link className='link'><span>More Odds</span></Link>
         </section> 
     )
 }
