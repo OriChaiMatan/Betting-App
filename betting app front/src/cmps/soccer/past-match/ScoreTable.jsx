@@ -26,7 +26,7 @@ export function ScoreTable({ match }) {
 
     return (
         <section>
-            <Link to={'/'} className="link"><a className="btn-text">Back to Past Games</a></Link>
+            <Link to={'/past-match'} className="link"><a className="btn-text">Back to Past Games</a></Link>
             <div className="score-table">
                 <div className='table-header'>
                     <div className="team-info">
