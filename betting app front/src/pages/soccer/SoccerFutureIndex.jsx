@@ -11,7 +11,18 @@ export function SoccerFutureIndex() {
     const [todayGames, setTodayGames] = useState([])
     const [tomorrowGames, setTomorrowGames] = useState([])
     const [nextTwoDayGames, setNextTwoDayGames] = useState([])
-    const [selectedView, setSelectedView] = useState('today');
+    const [selectedView, setSelectedView] = useState('today')
+
+    const today = new Date()
+    const tomorrow = new Date(today)
+    tomorrow.setDate(today.getDate() + 1)
+    const next2days = new Date(today)
+    next2days.setDate(today.getDate() + 2)
+    const formatDate = (date) => date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    })
 
     useEffect(() => {
         loadTodayGames()
@@ -69,9 +80,9 @@ export function SoccerFutureIndex() {
     return (
         <section className='future-match-index'>
             <nav className='match-nav'>
-                <button onClick={() => setSelectedView('today')} className={selectedView === 'today' ? 'active' : ''}>Today</button>
-                <button onClick={() => setSelectedView('tomorrow')} className={selectedView === 'tomorrow' ? 'active' : ''}>Tomorrow</button>
-                <button onClick={() => setSelectedView('nextTwoDays')} className={selectedView === 'nextTwoDays' ? 'active' : ''}>Next 3 Days</button>
+                <button onClick={() => setSelectedView('today')} className={selectedView === 'today' ? 'active' : ''}>Today <span>{formatDate(today)}</span></button>
+                <button onClick={() => setSelectedView('tomorrow')} className={selectedView === 'tomorrow' ? 'active' : ''}>Tomorrow <span>{formatDate(tomorrow)}</span></button>
+                <button onClick={() => setSelectedView('nextTwoDays')} className={selectedView === 'nextTwoDays' ? 'active' : ''}>Next 2 Days <span>{formatDate(next2days)}</span></button>
             </nav>
             {matches.length === 0 ? (
                 <div>No future games available</div>
