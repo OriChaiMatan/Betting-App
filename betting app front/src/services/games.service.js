@@ -2,12 +2,6 @@ import axios from 'axios'
 import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 
-// Game service will give the option to see past games and future games and after that filter it:
-// games-data: [
-//               pastGames[games...],
-//               futureGames:[3 days ahead]
-//              ]
-
 export const gamesService = {
     getPastGames, 
     getFutureGames, 

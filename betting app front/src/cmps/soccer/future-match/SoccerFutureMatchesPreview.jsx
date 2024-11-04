@@ -34,7 +34,7 @@ export function SoccerFutureMatchesPreview({ match }) {
                 <span><RxCross1 /> <a>1.22</a></span>
                 <span>2 <a>4.21</a></span>
             </div>
-            <Link className='link'><span>More Odds</span></Link>
+            <Link to={`/future-match-details/${match.match_id}`} className='link'><span>More Odds</span></Link>
         </section> 
     )
 }

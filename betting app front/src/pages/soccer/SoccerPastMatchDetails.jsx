@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import { Link } from "react-router-dom";
-import { gamesService } from "../../services/games.service";
-import { ProgressBar } from "../../cmps/soccer/past-match/ProgressBar";
-import { ScoreTable } from "../../cmps/soccer/past-match/ScoreTable";
+import { useEffect, useState } from "react"
+import { useParams } from "react-router"
+import { gamesService } from "../../services/games.service"
+import { ScoreTable } from "../../cmps/soccer/past-match/ScoreTable"
 
 export function SoccerPastMatchDetails() {
     const [match, setMatch] = useState(null)

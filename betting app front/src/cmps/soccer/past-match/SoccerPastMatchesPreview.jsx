@@ -5,7 +5,7 @@ import { utilService } from '../../../services/util.service'
 export function SoccerPastMatchesPreview({ match }) {
 
   return (
-    <Link to={`/match-details/${match.match_id}`} className="link">
+    <Link to={`/past-match-details/${match.match_id}`} className="link">
       <section className='past-match-preview'>
         <div className='league-data-preview'>
           <img src={match.league_logo} alt="League Logo" />
