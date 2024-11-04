@@ -6,7 +6,8 @@ export const gamesService = {
     getPastGames, 
     getFutureGames, 
     getGamesByDate,
-    getPastMatchById
+    getPastMatchById,
+    getFutureMatchById
 }
 
 const PAST_STORAGE_KEY = 'past-games-data'
@@ -35,6 +36,10 @@ async function getGamesByDate(date) {
 
 function getPastMatchById(id) {
     return storageService.get(PAST_STORAGE_KEY, id)
+}
+
+function getFutureMatchById(id) {
+    return storageService.get(FUTURE_STORAGE_KEY, id)
 }
 
 async function _createGames() {

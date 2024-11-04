@@ -12,7 +12,7 @@ export function SoccerFutureMatchDetails() {
 
     async function loadMatch() {
         try {
-            const match = await gamesService.getPastMatchById(params.matchId)
+            const match = await gamesService.getFutureMatchById(params.matchId)
             setMatch(match)
         } catch (err) {
             console.log('Error in load past match', err)
