@@ -43,7 +43,10 @@ async function _fetchLeagues() {
 
         await Promise.all(leagues.map(async (league) => {
             const teams = await _fetchTeamsByLeagueId(league.league_id)
-            league.league_teams = teams
+            league.league_teams = await Promise.all(teams.map(async (team) => {
+                const teamData = await _fetchTeamMatches(team.team_key)
+                return { ...team, ...teamData }
+            }))
         }))
 
         return leagues
@@ -69,3 +72,46 @@ async function _fetchTeamsByLeagueId(leagueId) {
         return []
     }
 }
+
+async function _fetchTeamMatches(teamId) {
+    try {
+        const today = new Date();
+        const fromDate = new Date();
+        fromDate.setMonth(today.getMonth() - 1); // 1 months ago
+
+        const formatDate = (date) => date.toISOString().split('T')[0];
+
+        const response = await axios.get(`${BASE_URL}`, {
+            params: {
+                action: 'get_events',
+                APIkey: API_KEY,
+                team_id: teamId,
+                from: formatDate(fromDate),
+                to: formatDate(today),
+            }
+        });
+
+        const matches = Array.isArray(response.data) ? response.data : [];
+
+        // Filter last 5 home and away matches
+        const homeMatches = matches
+            .filter(match => match.match_hometeam_id === teamId)
+            .slice(0, 5);
+
+        const awayMatches = matches
+            .filter(match => match.match_awayteam_id === teamId)
+            .slice(0, 5);
+
+        return {
+            last5HomeMatches: homeMatches,
+            last5AwayMatches: awayMatches
+        };
+    } catch (error) {
+        console.error(`Error fetching matches for team ${teamId}:`, error);
+        return {
+            last5HomeMatches: [],
+            last5AwayMatches: []
+        };
+    }
+}
+
