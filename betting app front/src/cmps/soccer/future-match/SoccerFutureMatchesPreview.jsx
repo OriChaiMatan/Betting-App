@@ -1,9 +1,46 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { utilService } from '../../../services/util.service'
 import { RxCross1 } from "react-icons/rx"
+import axios from 'axios'
 
 export function SoccerFutureMatchesPreview({ match }) {
+    const [odds, setOdds] = useState(null)
+
+    const API_KEY = import.meta.env.VITE_API_KEY
+    const BASE_URL = import.meta.env.VITE_BASE_URL
+
+    useEffect(() => {
+        async function fetchOdds() {
+            try {
+                const response = await axios.get(`${BASE_URL}`, {
+                    params: {
+                        action: 'get_odds',
+                        match_id: match.match_id,
+                        APIkey: API_KEY
+                    }
+                })
+                
+                // Check if data exists and is an array with at least one item
+                if (Array.isArray(response.data) && response.data.length > 0) {
+                    const oddsData = response.data[0]
+                    setOdds({
+                        odd_1: oddsData.odd_1 || 'N/A',
+                        odd_x: oddsData.odd_x || 'N/A',
+                        odd_2: oddsData.odd_2 || 'N/A',
+                    });
+                } else {
+                    setOdds({ odd_1: 'N/A', odd_x: 'N/A', odd_2: 'N/A' })
+                }
+            } catch (error) {
+                console.error('Error fetching odds:', error)
+                setOdds({ odd_1: 'N/A', odd_x: 'N/A', odd_2: 'N/A' })
+            }
+        }
+
+        fetchOdds()
+    }, [match.match_id])
+
     return (
         <section className='future-match-preview'>
             <div className='match-data-preview'>
@@ -30,11 +67,11 @@ export function SoccerFutureMatchesPreview({ match }) {
                 </div>
             </div>
             <div className='odds-1x2'> {/* Option for future- when click on odds option it will take the user to affiliate site ????? */}
-                <span>1 <a>2.79</a></span>
-                <span><RxCross1 /> <a>1.22</a></span>
-                <span>2 <a>4.21</a></span>
+                <span>1 <a>{odds ? odds.odd_1 : 'Loading...'}</a></span>
+                <span><RxCross1 /> <a>{odds ? odds.odd_x : 'Loading...'}</a></span>
+                <span>2 <a>{odds ? odds.odd_2 : 'Loading...'}</a></span>
             </div>
             <Link to={`/future-match-details/${match.match_id}`} className='link'><span>More Odds</span></Link>
-        </section> 
+        </section>
     )
 }
