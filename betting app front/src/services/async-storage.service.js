@@ -11,12 +11,30 @@ function query(entityType, delay = 200) {
     return new Promise(resolve => setTimeout(() => resolve(entities), delay))
 }
 
-function get(entityType, entityId) {
+// function get(entityType, entityId, filterFn) {
+//     return query(entityType).then(entities => {
+//         const entity = entities.find(entity => entity.filterFn === entityId)
+//         if (!entity) throw new Error(`Get failed, cannot find entity with id: ${entityId} in: ${entityType}`)
+//         return entity
+//     })
+// }
+// function get(entityType, filterFn) {
+//     return query(entityType).then(entities => {
+//         const entity = entities.find(filterFn);
+//         if (!entity) {
+//             throw new Error(`Get failed, cannot find entity with filter: ${filterFn.toString()} in: ${entityType}`);
+//         }
+//         return entity;
+//     });
+// }
+function get(entityType, filterFn) {
     return query(entityType).then(entities => {
-        const entity = entities.find(entity => entity.match_id === entityId)
-        if (!entity) throw new Error(`Get failed, cannot find entity with id: ${entityId} in: ${entityType}`)
-        return entity
-    })
+        const entity = entities.find(filterFn);
+        if (!entity) {
+            throw new Error(`Get failed, cannot find entity with filter: ${filterFn.toString()} in: ${entityType}`);
+        }
+        return entity;
+    });
 }
 
 function post(entityType, newEntity) {

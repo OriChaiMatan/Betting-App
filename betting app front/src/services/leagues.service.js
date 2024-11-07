@@ -22,7 +22,7 @@ async function query() {
 }
 
 function getLeagueById(leagueId) {
-    return storageService.get(STORAGE_KEY, leagueId)
+    return storageService.get(STORAGE_KEY, (league) => league.league_id === leagueId)
 }
 
 async function getTeamByLeagueAndTeamId(leagueId, teamId) {

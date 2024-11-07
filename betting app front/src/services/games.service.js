@@ -34,12 +34,12 @@ async function getGamesByDate(date) {
     return futureGames.filter(game => game.match_date === date);
 }
 
-function getPastMatchById(id) {
-    return storageService.get(PAST_STORAGE_KEY, id)
+function getPastMatchById(matchId) {
+    return storageService.get(PAST_STORAGE_KEY, (match) => match.match_id === matchId)
 }
 
-function getFutureMatchById(id) {
-    return storageService.get(FUTURE_STORAGE_KEY, id)
+function getFutureMatchById(matchId) {
+    return storageService.get(FUTURE_STORAGE_KEY, (match) => match.match_id === matchId)
 }
 
 async function _createGames() {

@@ -7,7 +7,7 @@ import axios from "axios"
 
 export function SoccerFutureMatchDetails() {
     const [match, setMatch] = useState(null)
-    const [homeTeam, setHomeTeam] = useState(null)  
+    const [homeTeam, setHomeTeam] = useState(null)
     const [awayTeam, setAwayTeam] = useState(null)
     const [odds, setOdds] = useState(null)
     const params = useParams()
@@ -18,6 +18,28 @@ export function SoccerFutureMatchDetails() {
     useEffect(() => {
         loadMatch()
     }, [params.matchId])
+
+    useEffect(() => {
+        if (!match) return
+
+        async function loadTeams() {
+            try {
+                const league = await leaguesService.getLeagueById(match.league_id)
+                if (!league || !league.league_teams) {
+                    console.error('League data or league teams missing')
+                    return
+                }
+                const homeTeam = league.league_teams.find(team => team.team_key === match.match_hometeam_id)
+                const awayTeam = league.league_teams.find(team => team.team_key === match.match_awayteam_id)
+                setHomeTeam(homeTeam)
+                setAwayTeam(awayTeam)
+            } catch (err) {
+                console.error('Error fetching teams:', err)
+            }
+        }
+
+        loadTeams()
+    }, [match])
 
     useEffect(() => {
         async function fetchOdds() {
@@ -58,7 +80,7 @@ export function SoccerFutureMatchDetails() {
         }
     }
 
-    if (!match) return <div>Loading Match Details page...</div>
+    if (!match || !homeTeam || !awayTeam) return <div>Loading Match Details page...</div>
     return (
         <section className="future-match-details">
             <div className='league-data'>
@@ -74,7 +96,7 @@ export function SoccerFutureMatchDetails() {
                     <span>Home Team</span>
                     <h3 className='heading-tertiary'>{match.match_hometeam_name}</h3>
                 </div>
-                <div className='odds-1x2'> 
+                <div className='odds-1x2'>
                     <span>1 <a>{odds ? odds.odd_1 : 'Loading...'}</a></span>
                     <span><RxCross1 /> <a>{odds ? odds.odd_x : 'Loading...'}</a></span>
                     <span>2 <a>{odds ? odds.odd_2 : 'Loading...'}</a></span>
@@ -85,6 +107,10 @@ export function SoccerFutureMatchDetails() {
                     <h3 className='heading-tertiary'>{match.match_awayteam_name}</h3>
                 </div>
             </div>
+                <>
+                    <h1>Home Team: {homeTeam.team_name}</h1>
+                    <h1>Away Team: {awayTeam.team_name}</h1>
+                </>
         </section>
     )
 }
