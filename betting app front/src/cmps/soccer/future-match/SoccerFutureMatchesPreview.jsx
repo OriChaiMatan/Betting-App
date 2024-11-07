@@ -30,7 +30,7 @@ export function SoccerFutureMatchesPreview({ match }) {
                         odd_2: oddsData.odd_2 || 'N/A',
                     });
                 } else {
-                    setOdds({ odd_1: 'N/A', odd_x: 'N/A', odd_2: 'N/A' })
+                    setOdds({ odd_1: 'N/A', odd_x: 'N/A', odd_2: 'N/A' }) // add user msg
                 }
             } catch (error) {
                 console.error('Error fetching odds:', error)
