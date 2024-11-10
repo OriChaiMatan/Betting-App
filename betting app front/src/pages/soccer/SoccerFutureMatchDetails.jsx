@@ -53,12 +53,9 @@ export function SoccerFutureMatchDetails() {
                     }
                 })
                 if (Array.isArray(response.data) && response.data.length > 0) {
-                    const oddsData = response.data[0]
-                    setOdds({
-                        odd_1: oddsData.odd_1 || 'N/A',
-                        odd_x: oddsData.odd_x || 'N/A',
-                        odd_2: oddsData.odd_2 || 'N/A',
-                    })
+                    const oddsData = response.data
+                    const averageOdds = calculateAverageOdds(oddsData)
+                    setOdds(averageOdds)
                 } else {
                     setOdds({ odd_1: 'N/A', odd_x: 'N/A', odd_2: 'N/A' })
                 }
@@ -77,6 +74,25 @@ export function SoccerFutureMatchDetails() {
             setMatch(match)
         } catch (err) {
             console.log('Error in load future match', err)
+        }
+    }
+
+    const calculateAverageOdds = (oddsList) => {
+        if (!oddsList || oddsList.length === 0) return { odd_1: 'N/A', odd_x: 'N/A', odd_2: 'N/A' }
+        
+        let totalHome = 0, totalDraw = 0, totalAway = 0
+        let count = oddsList.length
+
+        oddsList.forEach(odds => {
+            totalHome += parseFloat(odds.odd_1)
+            totalDraw += parseFloat(odds.odd_x)
+            totalAway += parseFloat(odds.odd_2)
+        })
+
+        return {
+            odd_1: (totalHome / count).toFixed(2),
+            odd_x: (totalDraw / count).toFixed(2),
+            odd_2: (totalAway / count).toFixed(2),
         }
     }
 
