@@ -1,8 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ProgressBar } from './ProgressBar'
 
 export function ScoreTable({ match }) {
+    const navigate = useNavigate();
 
     const categorizeCards = (cards) => {
         const homeCards = { yellow: 0, red: 0 };
@@ -26,7 +27,12 @@ export function ScoreTable({ match }) {
 
     return (
         <section>
-            <Link to={'/past-match'} className="link"><a className="btn-text">Back to Past Games</a></Link>
+            {/* <Link to={'/past-match'} className="link"><a className="btn-text">Back to Previous Page</a></Link> */}
+            <div className="back-button">
+                <button onClick={() => navigate(-1)} className="btn-text">
+                    Back to Previous Page
+                </button>
+            </div>
             <div className="score-table">
                 <div className='table-header'>
                     <div className="team-info">

@@ -2,10 +2,14 @@
     padding: 3rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "league teams"
+        "data data";
     gap: 1.5rem;
     font-size: 1.6rem;
 
     .league-data {
+        grid-area: league;
         display: flex;
         align-items: center;
         justify-content: start;
@@ -32,7 +36,8 @@
         }
     }
 
-    .teams-data{
+    .teams-data {
+        grid-area: teams;
         display: flex;
         justify-content: center;
         padding: 2rem;
@@ -67,7 +72,7 @@
             justify-content: space-around;
             padding-top: 4rem;
             font-size: 1.5rem;
-    
+
             span {
                 display: flex;
                 align-items: center;
@@ -79,11 +84,11 @@
                 box-shadow: $default-box-shadow;
                 background-color: rgba($p2, 1);
                 border: 0.5px solid rgba($color-white, .4);
-    
+
                 a {
                     font-weight: bold;
                 }
-    
+
                 &:hover {
                     transform: scale(1.02);
                     text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
@@ -92,5 +97,5 @@
                 }
             }
         }
-    } 
+    }
 }

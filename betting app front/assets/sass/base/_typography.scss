@@ -21,6 +21,7 @@ body {
 }
 
 .btn-text{
+    all: unset;
     &:link,
     &:visited{
         font-size: $default-font-size;
@@ -32,10 +33,9 @@ body {
     }
 
     &:hover{
-        background-color: $color-white;
-        color: $p2;
         box-shadow: 0 1rem 2rem rgba($color-black, .15);
         transform: translateY(-2px);
+        transform: scale(1.05);
     }
 
     &:active {

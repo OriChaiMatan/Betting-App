@@ -1,15 +1,19 @@
+import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router"
 import { gamesService } from "../../services/games.service"
 import { leaguesService } from "../../services/leagues.service"
 import { RxCross1 } from "react-icons/rx"
-import axios from "axios"
+import { Link } from "react-router-dom"
+import { Last5Matches } from "../../cmps/soccer/future-match/Last5Matches"
 
 export function SoccerFutureMatchDetails() {
     const [match, setMatch] = useState(null)
     const [homeTeam, setHomeTeam] = useState(null)
     const [awayTeam, setAwayTeam] = useState(null)
     const [odds, setOdds] = useState(null)
+    const [homeLast5Games, setHomeLast5Games] = useState([])
+    const [awayLast5Games, setAwayLast5Games] = useState([])
     const params = useParams()
 
     const API_KEY = import.meta.env.VITE_API_KEY
@@ -33,6 +37,8 @@ export function SoccerFutureMatchDetails() {
                 const awayTeam = league.league_teams.find(team => team.team_key === match.match_awayteam_id)
                 setHomeTeam(homeTeam)
                 setAwayTeam(awayTeam)
+                if (homeTeam) loadLast5Matches(homeTeam.team_key, setHomeLast5Games)
+                if (awayTeam) loadLast5Matches(awayTeam.team_key, setAwayLast5Games)
             } catch (err) {
                 console.error('Error fetching teams:', err)
             }
@@ -79,7 +85,7 @@ export function SoccerFutureMatchDetails() {
 
     const calculateAverageOdds = (oddsList) => {
         if (!oddsList || oddsList.length === 0) return { odd_1: 'N/A', odd_x: 'N/A', odd_2: 'N/A' }
-        
+
         let totalHome = 0, totalDraw = 0, totalAway = 0
         let count = oddsList.length
 
@@ -95,6 +101,29 @@ export function SoccerFutureMatchDetails() {
             odd_2: (totalAway / count).toFixed(2),
         }
     }
+
+    async function loadLast5Matches(teamId, setTeamLast5Games) {
+        try {
+            const last5Games = await gamesService.getPastGames();
+            const filteredGames = last5Games
+                .filter(game => game.match_hometeam_id === teamId || game.match_awayteam_id === teamId)
+                .slice(0, 5); // Get only the last 5 games
+            setTeamLast5Games(filteredGames);
+        } catch (error) {
+            console.error('Error fetching last 5 games:', error);
+        }
+    }
+
+    const getReadableOutcome = (match, teamId) => {
+        if (match.match_hometeam_id === teamId) {
+            return match.match_hometeam_score > match.match_awayteam_score ? 'W' :
+                match.match_hometeam_score < match.match_awayteam_score ? 'L' : 'D';
+        } else {
+            return match.match_awayteam_score > match.match_hometeam_score ? 'W' :
+                match.match_awayteam_score < match.match_hometeam_score ? 'L' : 'D';
+        }
+    };
+
 
     if (!match || !homeTeam || !awayTeam) return <div>Loading Match Details page...</div>
     return (
@@ -123,10 +152,13 @@ export function SoccerFutureMatchDetails() {
                     <h3 className='heading-tertiary'>{match.match_awayteam_name}</h3>
                 </div>
             </div>
-                <>
-                    <h1>Home Team: {homeTeam.team_name}</h1>
-                    <h1>Away Team: {awayTeam.team_name}</h1>
-                </>
+            <Last5Matches 
+                homeLast5Games={homeLast5Games} 
+                awayLast5Games={awayLast5Games} 
+                homeTeam={homeTeam} 
+                awayTeam={awayTeam} 
+                getReadableOutcome={getReadableOutcome}
+            />
         </section>
     )
 }
