@@ -1,5 +1,5 @@
 import React from 'react'
-import { utilService } from '../../../services/util.service'
+import { utilService } from '../../services/util.service'
 
 export function StickyHeader({ match }) {
     return (

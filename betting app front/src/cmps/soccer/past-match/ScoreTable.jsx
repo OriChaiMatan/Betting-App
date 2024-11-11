@@ -27,12 +27,6 @@ export function ScoreTable({ match }) {
 
     return (
         <section>
-            {/* <Link to={'/past-match'} className="link"><a className="btn-text">Back to Previous Page</a></Link> */}
-            <div className="back-button">
-                <button onClick={() => navigate(-1)} className="btn-text">
-                    Back to Previous Page
-                </button>
-            </div>
             <div className="score-table">
                 <div className='table-header'>
                     <div className="team-info">
@@ -64,8 +58,8 @@ export function ScoreTable({ match }) {
                             <span>{match.match_awayteam_halftime_score}</span>
                         </div>
                     </div>
-                    {match.statistics.map(stat => (
-                        <div className='table-row' key={stat.type}>
+                    {match.statistics.map((stat, index) => (
+                        <div className='table-row' key={stat.type + index}> 
                             <span>{stat.type}</span>
                             <div className='progress-display'>
                                 <span>{stat.home}</span>

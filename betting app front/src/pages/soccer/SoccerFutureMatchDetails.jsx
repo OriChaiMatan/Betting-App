@@ -6,7 +6,7 @@ import { leaguesService } from "../../services/leagues.service"
 import { utilService } from "../../services/util.service"
 import { Last5Matches } from "../../cmps/soccer/future-match/Last5Matches"
 import { ProbabilitiesBar } from "../../cmps/soccer/future-match/ProbabilitiesBar"
-import { StickyHeader } from "../../cmps/soccer/future-match/StickyHeader"
+import { StickyHeader } from "../../cmps/soccer/StickyHeader"
 import { MdOutlinePlace } from "react-icons/md"
 
 export function SoccerFutureMatchDetails() {
@@ -77,12 +77,12 @@ export function SoccerFutureMatchDetails() {
     }, [match])
 
     const handleScroll = () => {
-        const scrollPosition = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        const threshold = viewportHeight * 0.2;  // 20% of viewport height
+        const scrollPosition = window.scrollY
+        const viewportHeight = window.innerHeight
+        const threshold = viewportHeight * 0.2  // 20% of viewport height
 
         setIsSticky(scrollPosition > threshold)
-    };
+    }
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll)
@@ -138,28 +138,6 @@ export function SoccerFutureMatchDetails() {
                 match.match_awayteam_score < match.match_hometeam_score ? 'L' : 'D'
         }
     }
-
-    const calculateNormalizedProbabilities = (odds) => {
-        if (!odds || odds.odd_1 === 'N/A' || odds.odd_x === 'N/A' || odds.odd_2 === 'N/A') {
-            return { homeWin: 'N/A', draw: 'N/A', awayWin: 'N/A' }
-        }
-
-        const probHomeWin = 1 / parseFloat(odds.odd_1)
-        const probDraw = 1 / parseFloat(odds.odd_x)
-        const probAwayWin = 1 / parseFloat(odds.odd_2)
-
-        const total = probHomeWin + probDraw + probAwayWin
-
-        const homeWin = ((probHomeWin / total) * 100).toFixed(1)
-        const draw = ((probDraw / total) * 100).toFixed(1)
-        const awayWin = ((probAwayWin / total) * 100).toFixed(1)
-
-        return { homeWin, draw, awayWin }
-    }
-
-    const oddsProbabilities = odds ? calculateNormalizedProbabilities(odds) : null
-
-
 
     if (!match || !homeTeam || !awayTeam) return <div>Loading Match Details page...</div>
     return (
