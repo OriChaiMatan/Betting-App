@@ -12,9 +12,9 @@
         justify-content: start;
         gap: 1.5rem;
         padding: 2rem;
-        background-color: $p2;
         border-radius: 0.5rem;
-        border: $default-white-border;
+        border: 2px solid rgba($n11, 1);
+        background-color: rgba($p2, .3);
 
 
         img {
@@ -40,9 +40,9 @@
         justify-content: center;
         padding: 2rem;
         gap: 2rem;
-        background-color: $p2;
         border-radius: 0.5rem;
-        border: $default-white-border;
+        border: 2px solid rgba($n11, 1);
+        background-color: rgba($p2, .3);
 
 
         .team-preview {
