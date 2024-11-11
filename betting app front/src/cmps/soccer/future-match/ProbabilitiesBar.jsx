@@ -1,5 +1,4 @@
 import React from 'react'
-import { RxCross1 } from "react-icons/rx"
 
 export function ProbabilitiesBar({ odds }) {
 
@@ -37,9 +36,9 @@ export function ProbabilitiesBar({ odds }) {
                         <h3 className='heading-tertiary'>Away</h3>
                     </div>
                     <div className='odds-1x2'>
-                        <span>1 <a>{odds ? odds.odd_1 : 'Loading...'}</a></span>
-                        <span><RxCross1 /> <a>{odds ? odds.odd_x : 'Loading...'}</a></span>
-                        <span>2 <a>{odds ? odds.odd_2 : 'Loading...'}</a></span>
+                        <span><a>{odds ? odds.odd_1 : 'Loading...'}</a></span>
+                        <span><a>{odds ? odds.odd_x : 'Loading...'}</a></span>
+                        <span><a>{odds ? odds.odd_2 : 'Loading...'}</a></span>
                     </div>
                     <div className="progress-bar-container">
                         <div

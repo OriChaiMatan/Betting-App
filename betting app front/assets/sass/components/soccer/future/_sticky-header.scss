@@ -1,0 +1,38 @@
+.sticky-header {
+    position: sticky;
+    top: 10vh;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $p2;
+    padding: 1rem 5rem;
+    border-top: 0.1px solid rgba($color-white, .45);
+    box-shadow: $default-box-shadow;
+
+    .team-data {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+
+        img {
+            height: 4rem;
+            width: 4rem;
+            border-radius: 50%;
+            box-shadow: $default-box-shadow;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+    }
+
+    .date{
+        display: flex;
+        gap: 2rem;
+
+        h3 {
+            font-size: 1.5rem;
+        }
+    }
+}

@@ -6,6 +6,7 @@ import { leaguesService } from "../../services/leagues.service"
 import { utilService } from "../../services/util.service"
 import { Last5Matches } from "../../cmps/soccer/future-match/Last5Matches"
 import { ProbabilitiesBar } from "../../cmps/soccer/future-match/ProbabilitiesBar"
+import { StickyHeader } from "../../cmps/soccer/future-match/StickyHeader"
 import { MdOutlinePlace } from "react-icons/md"
 
 export function SoccerFutureMatchDetails() {
@@ -15,6 +16,7 @@ export function SoccerFutureMatchDetails() {
     const [odds, setOdds] = useState(null)
     const [homeLast5Games, setHomeLast5Games] = useState([])
     const [awayLast5Games, setAwayLast5Games] = useState([])
+    const [isSticky, setIsSticky] = useState(false)
     const params = useParams()
 
     const API_KEY = import.meta.env.VITE_API_KEY
@@ -73,6 +75,19 @@ export function SoccerFutureMatchDetails() {
         }
         if (match) fetchOdds()
     }, [match])
+
+    const handleScroll = () => {
+        const scrollPosition = window.scrollY;
+        const viewportHeight = window.innerHeight;
+        const threshold = viewportHeight * 0.2;  // 20% of viewport height
+
+        setIsSticky(scrollPosition > threshold)
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
 
     async function loadMatch() {
         try {
@@ -148,49 +163,52 @@ export function SoccerFutureMatchDetails() {
 
     if (!match || !homeTeam || !awayTeam) return <div>Loading Match Details page...</div>
     return (
-        <section className="future-match-details">
-            <div className='league-data'>
-                <img src={match.league_logo} alt="League Logo" />
-                <div className="league-info">
-                    <h3 className='heading-tertiary'>{match.league_name}</h3>
-                    <span>Season: {match.league_year}</span>
+        <>
+            {isSticky && <StickyHeader match={match} />}
+            <section className="future-match-details">
+                <div className='league-data'>
+                    <img src={match.league_logo} alt="League Logo" />
+                    <div className="league-info">
+                        <h3 className='heading-tertiary'>{match.league_name}</h3>
+                        <span>Season: {match.league_year}</span>
+                    </div>
                 </div>
-            </div>
-            <div className="teams-data">
-                <div className='team-preview'>
-                    <img src={match.team_home_badge} alt="Home team badge" />
-                    <span>Home Team</span>
-                    <h3 className='heading-tertiary'>{match.match_hometeam_name}</h3>
+                <div className="teams-data">
+                    <div className='team-preview'>
+                        <img src={match.team_home_badge} alt="Home team badge" />
+                        <span>Home Team</span>
+                        <h3 className='heading-tertiary'>{match.match_hometeam_name}</h3>
+                    </div>
+                    <div className='vs'>
+                        <span>VS</span>
+                    </div>
+                    <div className='team-preview'>
+                        <img src={match.team_away_badge} alt="Away team badge" />
+                        <span>Away Team</span>
+                        <h3 className='heading-tertiary'>{match.match_awayteam_name}</h3>
+                    </div>
                 </div>
-                <div className='vs'>
-                    <span>VS</span>
+                <div className="place-data">
+                    <div className="date">
+                        <h3 className='heading-tertiary'>{match.match_time}</h3>
+                        <h3 className='heading-tertiary'>{utilService.formatDate(match.match_date)}</h3>
+                    </div>
+                    <div className="stadium">
+                        <MdOutlinePlace />
+                        <h3 className="heading-tertiary">{match.match_stadium}</h3>
+                    </div>
                 </div>
-                <div className='team-preview'>
-                    <img src={match.team_away_badge} alt="Home team badge" />
-                    <span>Away Team</span>
-                    <h3 className='heading-tertiary'>{match.match_awayteam_name}</h3>
+                <div className="details">
+                    {odds && <ProbabilitiesBar odds={odds} />}
+                    <Last5Matches
+                        homeLast5Games={homeLast5Games}
+                        awayLast5Games={awayLast5Games}
+                        homeTeam={homeTeam}
+                        awayTeam={awayTeam}
+                        getReadableOutcome={getReadableOutcome}
+                    />
                 </div>
-            </div>
-            <div className="place-data">
-                <div className="date">
-                    <h3 className='heading-tertiary'>{match.match_time}</h3>
-                    <h3 className='heading-tertiary'>{utilService.formatDate(match.match_date)}</h3>
-                </div>
-                <div className="stadium">
-                    <MdOutlinePlace />
-                    <h3 className="heading-tertiary">{match.match_stadium}</h3>
-                </div>
-            </div>
-            <div className="details">
-                {odds && <ProbabilitiesBar odds={odds} />}
-                <Last5Matches
-                    homeLast5Games={homeLast5Games}
-                    awayLast5Games={awayLast5Games}
-                    homeTeam={homeTeam}
-                    awayTeam={awayTeam}
-                    getReadableOutcome={getReadableOutcome}
-                />
-            </div>
-        </section>
+            </section>
+        </>
     )
 }
