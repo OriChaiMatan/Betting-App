@@ -1,10 +1,10 @@
 .future-match-details {
     padding: 3rem;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto 1fr auto;
     grid-template-rows: auto 1fr;
-    grid-template-areas: "league teams"
-        "data data";
+    grid-template-areas: "league teams place"
+        "data data data";
     gap: 1.5rem;
     font-size: 1.6rem;
 
@@ -14,9 +14,10 @@
         align-items: center;
         justify-content: start;
         gap: 1.5rem;
-        padding: 2rem;
+        padding: 1rem;
         border-radius: 0.5rem;
         border: 2px solid rgba($n11, 1);
+        background-color: rgba($p2, .3);
 
 
         img {
@@ -40,10 +41,12 @@
         grid-area: teams;
         display: flex;
         justify-content: center;
-        padding: 2rem;
-        gap: 2rem;
+        align-items: center;
+        padding: 1rem;
+        gap: 1.5rem;
         border-radius: 0.5rem;
         border: 2px solid rgba($n11, 1);
+        background-color: rgba($p2, .3);
 
 
         .team-preview {
@@ -66,35 +69,82 @@
             }
         }
 
-        .odds-1x2 {
-            display: flex;
-            gap: 1rem;
-            justify-content: space-around;
-            padding-top: 4rem;
-            font-size: 1.5rem;
+        .vs {
+            font-size: 2.5rem;
+            color: rgba($n5, 1);
 
             span {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 1rem;
-                width: 9rem;
-                height: 6rem;
-                border-radius: 1rem;
-                box-shadow: $default-box-shadow;
-                background-color: rgba($p2, 1);
-                border: 0.5px solid rgba($color-white, .4);
+                width: 5rem;
+                height: 5rem;
+                padding: 1.5rem;
+                border-radius: 50%;
+                border: 2px solid rgba($n11, 1);
+            }
+        }
 
-                a {
-                    font-weight: bold;
-                }
+        // .odds-1x2 {
+        //     display: flex;
+        //     gap: 1rem;
+        //     justify-content: space-around;
+        //     padding-top: 4rem;
+        //     font-size: 1.5rem;
 
-                &:hover {
-                    transform: scale(1.02);
-                    text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
-                    background-color: rgba($p2, .9);
-                    border: 0.5px solid rgba($color-white, 1);
-                }
+        //     span {
+        //         display: flex;
+        //         align-items: center;
+        //         justify-content: center;
+        //         gap: 1rem;
+        //         width: 9rem;
+        //         height: 6rem;
+        //         border-radius: 1rem;
+        //         box-shadow: $default-box-shadow;
+        //         background-color: rgba($p2, 1);
+        //         border: 0.5px solid rgba($color-white, .4);
+
+        //         a {
+        //             font-weight: bold;
+        //         }
+
+        //         &:hover {
+        //             transform: scale(1.02);
+        //             text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
+        //             background-color: rgba($p2, .9);
+        //             border: 0.5px solid rgba($color-white, 1);
+        //         }
+        //     }
+        // }
+    }
+
+    .place-data{
+        grid-area: place;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        gap: 1rem;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: 2px solid rgba($n11, 1);
+        background-color: rgba($p2, .3);
+
+        .date{
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            gap: 1.5rem;
+            padding-bottom: 2rem;
+        }
+
+        .stadium{
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            width: 100%;
+            gap: 1.5rem;
+            font-size: 4rem;
+
+            h3{
+                font-size: 1.4rem;
             }
         }
     }

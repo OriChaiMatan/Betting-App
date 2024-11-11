@@ -3,9 +3,9 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router"
 import { gamesService } from "../../services/games.service"
 import { leaguesService } from "../../services/leagues.service"
-import { RxCross1 } from "react-icons/rx"
-import { Link } from "react-router-dom"
+import { utilService } from "../../services/util.service"
 import { Last5Matches } from "../../cmps/soccer/future-match/Last5Matches"
+import { MdOutlinePlace } from "react-icons/md"
 
 export function SoccerFutureMatchDetails() {
     const [match, setMatch] = useState(null)
@@ -141,10 +141,13 @@ export function SoccerFutureMatchDetails() {
                     <span>Home Team</span>
                     <h3 className='heading-tertiary'>{match.match_hometeam_name}</h3>
                 </div>
-                <div className='odds-1x2'>
+                {/* <div className='odds-1x2'>
                     <span>1 <a>{odds ? odds.odd_1 : 'Loading...'}</a></span>
                     <span><RxCross1 /> <a>{odds ? odds.odd_x : 'Loading...'}</a></span>
                     <span>2 <a>{odds ? odds.odd_2 : 'Loading...'}</a></span>
+                </div> */}
+                <div className='vs'>
+                    <span>VS</span>
                 </div>
                 <div className='team-preview'>
                     <img src={match.team_away_badge} alt="Home team badge" />
@@ -152,11 +155,21 @@ export function SoccerFutureMatchDetails() {
                     <h3 className='heading-tertiary'>{match.match_awayteam_name}</h3>
                 </div>
             </div>
-            <Last5Matches 
-                homeLast5Games={homeLast5Games} 
-                awayLast5Games={awayLast5Games} 
-                homeTeam={homeTeam} 
-                awayTeam={awayTeam} 
+            <div className="place-data">
+                <div className="date">
+                    <h3 className='heading-tertiary'>{match.match_time}</h3>
+                    <h3 className='heading-tertiary'>{utilService.formatDate(match.match_date)}</h3>
+                </div>
+                <div className="stadium">
+                    <MdOutlinePlace />
+                    <h3 className="heading-tertiary">{match.match_stadium}</h3>
+                </div>
+            </div>
+            <Last5Matches
+                homeLast5Games={homeLast5Games}
+                awayLast5Games={awayLast5Games}
+                homeTeam={homeTeam}
+                awayTeam={awayTeam}
                 getReadableOutcome={getReadableOutcome}
             />
         </section>

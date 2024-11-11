@@ -10,13 +10,13 @@
 @import "base/utillities";
 
 // COMPONENTS
-@import "components/soccer/progress-bar";
-@import "components/soccer/past-matches-list";
-@import "components/soccer/past-matches-preview";
-@import "components/soccer/future-matches-list";
-@import "components/soccer/future-matches-preview";
-@import "components/soccer/score-table";
-@import "components/soccer/last-5-matches";
+@import "components/soccer/past/progress-bar";
+@import "components/soccer/past/past-matches-list";
+@import "components/soccer/past/past-matches-preview";
+@import "components/soccer/future/future-matches-list";
+@import "components/soccer/future/future-matches-preview";
+@import "components/soccer/past/score-table";
+@import "components/soccer/future/last-5-matches";
 
 // LAYOUT
 @import "layout/_header";
