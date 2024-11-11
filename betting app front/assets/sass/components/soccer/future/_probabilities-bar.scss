@@ -1,0 +1,111 @@
+.probabilities-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3rem;
+    padding: 3rem;
+    border-radius: 0.5rem;
+    border: 2px solid rgba($n11, 1);
+    background-color: rgba($p2, .3);
+
+    .title{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 1rem;
+        border-bottom: $default-border-bottom;
+        width: 100%;
+
+        h3{
+            font-size: 2.2rem;
+        }
+    }
+
+    .odds-data {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        .labels {
+            display: flex;
+            justify-content: space-around;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .odds-1x2 {
+            display: flex;
+            gap: 1rem;
+            justify-content: space-around;
+            padding-bottom: 4rem;
+            font-size: 1.5rem;
+
+            span {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+                width: 9rem;
+                height: 6rem;
+                border-radius: 1rem;
+                box-shadow: $default-box-shadow;
+                background-color: rgba($p2, 1);
+                border: 0.5px solid rgba($color-white, .4);
+
+                a {
+                    font-weight: bold;
+                }
+
+                &:hover {
+                    transform: scale(1.02);
+                    text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
+                    background-color: rgba($p2, .9);
+                    border: 0.5px solid rgba($color-white, 1);
+                }
+            }
+        }
+
+        .progress-bar-container {
+            display: flex;
+            border-radius: 1rem;
+            overflow: hidden;
+            height: 3rem;
+            background-color: rgba($n5, 1);
+            border: 0.5px solid $color-white;
+
+            .progress-segment {
+                height: 100%;
+                transition: width 0.4s ease;
+                display: flex;
+                align-items: center;
+                padding: 1.5rem;
+
+                &.home {                    
+                    justify-content: start;
+                    background-color: rgba($n11, 1);
+                    border-left: 0.5rem;
+                    clip-path: polygon(0 0, 100% 0, 98.5% 100%, 0% 100%);
+                }
+
+                &.draw {
+                    justify-content: center;
+                    background-color: rgba($n5, 1);
+                    color: $p1;
+                }
+
+                &.away {
+                    justify-content: end;
+                    background-color: rgba($n2, 1);
+                    border-right: 0.5rem;
+                    clip-path: polygon(1.5% 0, 100% 0, 100% 100%, 0% 100%);
+                }
+            }
+        }
+    }
+
+    p{
+        display: flex;
+        justify-content: center;
+        font-size: 1.4rem;
+    }
+}

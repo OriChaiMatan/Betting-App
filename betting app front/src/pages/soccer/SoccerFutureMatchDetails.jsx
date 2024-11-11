@@ -5,6 +5,7 @@ import { gamesService } from "../../services/games.service"
 import { leaguesService } from "../../services/leagues.service"
 import { utilService } from "../../services/util.service"
 import { Last5Matches } from "../../cmps/soccer/future-match/Last5Matches"
+import { ProbabilitiesBar } from "../../cmps/soccer/future-match/ProbabilitiesBar"
 import { MdOutlinePlace } from "react-icons/md"
 
 export function SoccerFutureMatchDetails() {
@@ -73,7 +74,6 @@ export function SoccerFutureMatchDetails() {
         if (match) fetchOdds()
     }, [match])
 
-
     async function loadMatch() {
         try {
             const match = await gamesService.getFutureMatchById(params.matchId)
@@ -104,25 +104,46 @@ export function SoccerFutureMatchDetails() {
 
     async function loadLast5Matches(teamId, setTeamLast5Games) {
         try {
-            const last5Games = await gamesService.getPastGames();
+            const last5Games = await gamesService.getPastGames()
             const filteredGames = last5Games
                 .filter(game => game.match_hometeam_id === teamId || game.match_awayteam_id === teamId)
                 .slice(0, 5); // Get only the last 5 games
-            setTeamLast5Games(filteredGames);
+            setTeamLast5Games(filteredGames)
         } catch (error) {
-            console.error('Error fetching last 5 games:', error);
+            console.error('Error fetching last 5 games:', error)
         }
     }
 
     const getReadableOutcome = (match, teamId) => {
         if (match.match_hometeam_id === teamId) {
             return match.match_hometeam_score > match.match_awayteam_score ? 'W' :
-                match.match_hometeam_score < match.match_awayteam_score ? 'L' : 'D';
+                match.match_hometeam_score < match.match_awayteam_score ? 'L' : 'D'
         } else {
             return match.match_awayteam_score > match.match_hometeam_score ? 'W' :
-                match.match_awayteam_score < match.match_hometeam_score ? 'L' : 'D';
+                match.match_awayteam_score < match.match_hometeam_score ? 'L' : 'D'
         }
-    };
+    }
+
+    const calculateNormalizedProbabilities = (odds) => {
+        if (!odds || odds.odd_1 === 'N/A' || odds.odd_x === 'N/A' || odds.odd_2 === 'N/A') {
+            return { homeWin: 'N/A', draw: 'N/A', awayWin: 'N/A' }
+        }
+
+        const probHomeWin = 1 / parseFloat(odds.odd_1)
+        const probDraw = 1 / parseFloat(odds.odd_x)
+        const probAwayWin = 1 / parseFloat(odds.odd_2)
+
+        const total = probHomeWin + probDraw + probAwayWin
+
+        const homeWin = ((probHomeWin / total) * 100).toFixed(1)
+        const draw = ((probDraw / total) * 100).toFixed(1)
+        const awayWin = ((probAwayWin / total) * 100).toFixed(1)
+
+        return { homeWin, draw, awayWin }
+    }
+
+    const oddsProbabilities = odds ? calculateNormalizedProbabilities(odds) : null
+
 
 
     if (!match || !homeTeam || !awayTeam) return <div>Loading Match Details page...</div>
@@ -141,11 +162,6 @@ export function SoccerFutureMatchDetails() {
                     <span>Home Team</span>
                     <h3 className='heading-tertiary'>{match.match_hometeam_name}</h3>
                 </div>
-                {/* <div className='odds-1x2'>
-                    <span>1 <a>{odds ? odds.odd_1 : 'Loading...'}</a></span>
-                    <span><RxCross1 /> <a>{odds ? odds.odd_x : 'Loading...'}</a></span>
-                    <span>2 <a>{odds ? odds.odd_2 : 'Loading...'}</a></span>
-                </div> */}
                 <div className='vs'>
                     <span>VS</span>
                 </div>
@@ -165,13 +181,16 @@ export function SoccerFutureMatchDetails() {
                     <h3 className="heading-tertiary">{match.match_stadium}</h3>
                 </div>
             </div>
-            <Last5Matches
-                homeLast5Games={homeLast5Games}
-                awayLast5Games={awayLast5Games}
-                homeTeam={homeTeam}
-                awayTeam={awayTeam}
-                getReadableOutcome={getReadableOutcome}
-            />
+            <div className="details">
+                {odds && <ProbabilitiesBar odds={odds} />}
+                <Last5Matches
+                    homeLast5Games={homeLast5Games}
+                    awayLast5Games={awayLast5Games}
+                    homeTeam={homeTeam}
+                    awayTeam={awayTeam}
+                    getReadableOutcome={getReadableOutcome}
+                />
+            </div>
         </section>
     )
 }

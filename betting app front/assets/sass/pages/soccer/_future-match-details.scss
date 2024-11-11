@@ -4,7 +4,7 @@
     grid-template-columns: auto 1fr auto;
     grid-template-rows: auto 1fr;
     grid-template-areas: "league teams place"
-        "data data data";
+        "details details details";
     gap: 1.5rem;
     font-size: 1.6rem;
 
@@ -81,38 +81,6 @@
                 border: 2px solid rgba($n11, 1);
             }
         }
-
-        // .odds-1x2 {
-        //     display: flex;
-        //     gap: 1rem;
-        //     justify-content: space-around;
-        //     padding-top: 4rem;
-        //     font-size: 1.5rem;
-
-        //     span {
-        //         display: flex;
-        //         align-items: center;
-        //         justify-content: center;
-        //         gap: 1rem;
-        //         width: 9rem;
-        //         height: 6rem;
-        //         border-radius: 1rem;
-        //         box-shadow: $default-box-shadow;
-        //         background-color: rgba($p2, 1);
-        //         border: 0.5px solid rgba($color-white, .4);
-
-        //         a {
-        //             font-weight: bold;
-        //         }
-
-        //         &:hover {
-        //             transform: scale(1.02);
-        //             text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
-        //             background-color: rgba($p2, .9);
-        //             border: 0.5px solid rgba($color-white, 1);
-        //         }
-        //     }
-        // }
     }
 
     .place-data{
@@ -140,12 +108,19 @@
             align-items: center;
             justify-content: start;
             width: 100%;
-            gap: 1.5rem;
+            gap: 1rem;
             font-size: 4rem;
 
             h3{
                 font-size: 1.4rem;
             }
         }
+    }
+
+    .details{
+        grid-area: details;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
     }
 }
