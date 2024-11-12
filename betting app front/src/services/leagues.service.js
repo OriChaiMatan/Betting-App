@@ -26,21 +26,21 @@ function getLeagueById(leagueId) {
 }
 
 async function getTeamByLeagueAndTeamId(leagueId, teamId) {
-    const league = await storageService.get(STORAGE_KEY, leagueId);
+    const league = await storageService.get(STORAGE_KEY, leagueId)
 
     if (!league) {
-        console.warn(`League with ID ${leagueId} not found`);
-        return null;
+        console.warn(`League with ID ${leagueId} not found`)
+        return null
     }
 
-    const team = league.league_teams.find((team) => team.team_key === teamId);
+    const team = league.league_teams.find((team) => team.team_key === teamId)
 
     if (!team) {
-        console.warn(`Team with ID ${teamId} not found in league ${leagueId}`);
-        return null;
+        console.warn(`Team with ID ${teamId} not found in league ${leagueId}`)
+        return null
     }
 
-    return team;
+    return team
 }
 
 
@@ -59,16 +59,19 @@ async function _fetchLeagues() {
                 action: 'get_leagues',
                 APIkey: API_KEY
             }
-        })
-        const leagues = Array.isArray(response.data) ? response.data : []
+        });
 
+        // Fetch all leagues and filter for league_id = 1
+        const leagues = Array.isArray(response.data) ? response.data.filter(league => league.league_id == 3) : []
+
+        // Fetch teams and matches for the filtered league
         await Promise.all(leagues.map(async (league) => {
             const teams = await _fetchTeamsByLeagueId(league.league_id)
             league.league_teams = await Promise.all(teams.map(async (team) => {
-                const teamData = await _fetchTeamMatches(team.team_key)
+                const teamData = await _fetchTeamMatches(team.team_key, league.league_id)
                 return { ...team, ...teamData }
-            }))
-        }))
+            }));
+        }));
 
         return leagues
     } catch (error) {
@@ -76,6 +79,33 @@ async function _fetchLeagues() {
         return []
     }
 }
+
+
+// async function _fetchLeagues() {
+//     try {
+//         const response = await axios.get(`${BASE_URL}`, {
+//             params: {
+//                 action: 'get_leagues',
+//                 APIkey: API_KEY
+//             }
+//         })
+
+//         const leagues = Array.isArray(response.data) ? response.data : []     // use it in production
+
+//         await Promise.all(leagues.map(async (league) => {
+//             const teams = await _fetchTeamsByLeagueId(league.league_id)
+//             league.league_teams = await Promise.all(teams.map(async (team) => {
+//                 const teamData = await _fetchTeamMatches(team.team_key)
+//                 return { ...team, ...teamData }
+//             }))
+//         }))
+
+//         return leagues
+//     } catch (error) {
+//         console.error('Error fetching leagues data:', error)
+//         return []
+//     }
+// }
 
 async function _fetchTeamsByLeagueId(leagueId) {
     try {
@@ -94,178 +124,131 @@ async function _fetchTeamsByLeagueId(leagueId) {
     }
 }
 
-async function _fetchTeamMatches(teamId) {
+async function _fetchTeamMatches(teamId, leagueId) {
     try {
-        const today = new Date();
-        const fromDate = new Date();
-        fromDate.setMonth(today.getMonth() - 6); // 6 months ago
+        const today = new Date()
+        const fromDate = new Date()
+        fromDate.setMonth(today.getMonth() - 6) // 6 months ago
 
-        const formatDate = (date) => date.toISOString().split('T')[0];
+        const formatDate = (date) => date.toISOString().split('T')[0]
 
         const response = await axios.get(`${BASE_URL}`, {
             params: {
                 action: 'get_events',
                 APIkey: API_KEY,
                 team_id: teamId,
+                league_id: leagueId,
                 from: formatDate(fromDate),
                 to: formatDate(today),
             }
         });
 
-        const matches = Array.isArray(response.data) ? response.data : [];
+        const matches = Array.isArray(response.data) ? response.data : []
 
         const homeMatches = matches
             .filter(match => match.match_hometeam_id === teamId)
             .slice(0, 7)
-            .map(match => ({ match_id: match.match_id }));
+            .map(match => ({ match_id: match.match_id }))
 
         const awayMatches = matches
             .filter(match => match.match_awayteam_id === teamId)
             .slice(0, 7)
-            .map(match => ({ match_id: match.match_id }));
+            .map(match => ({ match_id: match.match_id }))
 
         const homeStats = await _calculateTeamStatistics(homeMatches, teamId, 'home');
         const awayStats = await _calculateTeamStatistics(awayMatches, teamId, 'away');
 
         return {
-            last5HomeMatches: homeMatches,
-            last5AwayMatches: awayMatches,
-            homeStats,
-            awayStats
-        };
+            last_5_home_matches: homeMatches,
+            last_5_away_matches: awayMatches,
+            home_statistic: homeStats,
+            away_statistic: awayStats
+        }
+
     } catch (error) {
-        console.error(`Error fetching matches for team ${teamId}:`, error);
+        console.error(`Error fetching matches for team ${teamId}:`, error)
         return {
-            last5HomeMatches: [],
-            last5AwayMatches: [],
-            homeStats: { win: 0, draw: 0, loss: 0 },
-            awayStats: { win: 0, draw: 0, loss: 0 }
-        };
+            last_5_home_matches: [],
+            last_5_away_matches: [],
+            home_statistic: [],
+            away_statistic: []
+        }
     }
 }
 
 async function _calculateTeamStatistics(matches, teamId, type) {
-    let winCount = 0, drawCount = 0, lossCount = 0
-    let totalGoalsFirstHalf = 0, totalGoalsFullMatch = 0
-    let totalCards = 0
-    let totalCorners = 0, totalCornersFirstHalf = 0
-    let totalOnTargetShots = 0, totalSubstitutions = 0
-    let totalPenalties = 0, totalGoalKicks = 0
-    let totalGoalTime = 0, goalCount = 0
+    let winCount = 0, drawCount = 0, lossCount = 0;
+    let totalGoalsFirstHalf = 0, totalGoalsFullMatch = 0;
+    let statistics = {}; // Store statistics dynamically
+
+    // Initialize an object to store cumulative sums for statistics
+    const statsSum = {};
 
     for (const match of matches) {
         try {
-            const matchData = await gamesService.getPastMatchById(match.match_id)
+            const matchData = await gamesService.getPastMatchById(match.match_id);
 
-            if (matchData) {
-                const isHome = type === 'home'
+            if (matchData && Object.keys(matchData).length > 0) {
+                const isHome = type === 'home';
                 const teamScoreFirstHalf = isHome
                     ? parseInt(matchData.match_hometeam_halftime_score, 10) || 0
-                    : parseInt(matchData.match_awayteam_halftime_score, 10) || 0
+                    : parseInt(matchData.match_awayteam_halftime_score, 10) || 0;
                 const teamScoreFullMatch = isHome
                     ? parseInt(matchData.match_hometeam_ft_score, 10) || 0
-                    : parseInt(matchData.match_awayteam_ft_score, 10) || 0
+                    : parseInt(matchData.match_awayteam_ft_score, 10) || 0;
                 const opponentScore = isHome
                     ? parseInt(matchData.match_awayteam_ft_score, 10) || 0
-                    : parseInt(matchData.match_hometeam_ft_score, 10) || 0
+                    : parseInt(matchData.match_hometeam_ft_score, 10) || 0;
 
-                // Win/loss/draw calculations
-                if (teamScoreFullMatch > opponentScore) {
-                    winCount++
-                } else if (teamScoreFullMatch === opponentScore) {
-                    drawCount++
-                } else {
-                    lossCount++
+                // Win/draw/loss calculation
+                if (teamScoreFullMatch > opponentScore) winCount++;
+                else if (teamScoreFullMatch === opponentScore) drawCount++;
+                else lossCount++;
+
+                totalGoalsFirstHalf += teamScoreFirstHalf;
+                totalGoalsFullMatch += teamScoreFullMatch;
+
+                // Loop through the statistics in the match and accumulate values for the team
+                if (Array.isArray(matchData.statistics)) {
+                    matchData.statistics.forEach((stat) => {
+                        const statValue = isHome
+                            ? parseInt(stat.home, 10) || 0
+                            : parseInt(stat.away, 10) || 0;
+
+                        // Accumulate stats only for the current team (home/away)
+                        if (!statsSum[stat.type]) {
+                            statsSum[stat.type] = { sum: 0, count: 0 };
+                        }
+                        statsSum[stat.type].sum += statValue;
+                        statsSum[stat.type].count++;
+                    });
                 }
-
-                // Aggregate goals
-                totalGoalsFirstHalf += teamScoreFirstHalf
-                totalGoalsFullMatch += teamScoreFullMatch
-
-                // Calculate cards
-                totalCards += matchData.cards
-                    ? matchData.cards.reduce((acc, card) => {
-                        const isTeamCard = isHome ? !!card.home_fault : !!card.away_fault
-                        return isTeamCard ? acc + 1 : acc
-                    }, 0)
-                    : 0
-
-                // Extract additional statistics
-                const statistics = matchData.statistics || []
-                statistics.forEach((stat) => {
-                    const teamStat = isHome
-                        ? parseInt(stat.home, 10) || 0
-                        : parseInt(stat.away, 10) || 0
-                    switch (stat.type) {
-                        case 'Corners':
-                            totalCorners += teamStat
-                            break
-                        case 'On Target':
-                            totalOnTargetShots += teamStat
-                            break
-                        case 'Substitution':
-                            totalSubstitutions += teamStat
-                            break
-                        case 'Penalty':
-                            totalPenalties += teamStat
-                            break
-                        case 'Goal Kick':
-                            totalGoalKicks += teamStat
-                            break
-                    }
-                })
-
-                // Extract first half statistics
-                const statisticsFirstHalf = matchData.statistics_1half || []
-                statisticsFirstHalf.forEach((stat) => {
-                    const teamStat = isHome
-                        ? parseInt(stat.home, 10) || 0
-                        : parseInt(stat.away, 10) || 0
-                    if (stat.type === 'Corners') {
-                        totalCornersFirstHalf += teamStat
-                    }
-                })
-
-                // Calculate average goal time
-                matchData.goalscorer?.forEach((goal) => {
-                    const isTeamGoal = isHome
-                        ? goal.home_scorer && goal.home_scorer_id === teamId
-                        : goal.away_scorer && goal.away_scorer_id === teamId
-                    if (isTeamGoal) {
-                        totalGoalTime += parseInt(goal.time, 10) || 0
-                        goalCount++
-                    }
-                })
             }
         } catch (error) {
-            console.warn(`Match with ID ${match.match_id} not found in past-games-data. Skipping.`)
+            console.warn(`Error fetching data for match ID ${match.match_id}:`, error);
         }
     }
 
-    const totalMatches = matches.length || 1 // Prevent division by zero
-    return {
-        // Percentage calculations
+    const totalMatches = matches.length || 1; // Prevent division by zero
+
+    // Calculate win/draw/loss percentages
+    const teamStatistics = {
         winPercentage: parseFloat(((winCount / totalMatches) * 100).toFixed(2)),
         drawPercentage: parseFloat(((drawCount / totalMatches) * 100).toFixed(2)),
         lossPercentage: parseFloat(((lossCount / totalMatches) * 100).toFixed(2)),
-        
-        // First half statistics
-        avgGoalsFirstHalf: parseFloat((totalGoalsFirstHalf / totalMatches).toFixed(2)),
-        avgCornersFirstHalf: parseFloat((totalCornersFirstHalf / totalMatches).toFixed(2)),
-    
-        // Second half calculations (Full match - First half)
-        avgGoalsSecondHalf: parseFloat(((totalGoalsFullMatch - totalGoalsFirstHalf) / totalMatches).toFixed(2)),
-        avgCornersSecondHalf: parseFloat(((totalCorners - totalCornersFirstHalf) / totalMatches).toFixed(2)),   
+        avgGoalsFirstHalf: totalGoalsFirstHalf / totalMatches,
+        avgGoalsFullMatch: totalGoalsFullMatch / totalMatches,
+    };
 
-        // Full match statistics
-        avgGoalsFullMatch: parseFloat((totalGoalsFullMatch / totalMatches).toFixed(2)),
-        avgCorners: parseFloat((totalCorners / totalMatches).toFixed(2)),
-        avgCards: parseFloat((totalCards / totalMatches).toFixed(2)),
-        avgOnTargetShots: parseFloat((totalOnTargetShots / totalMatches).toFixed(2)),
-        avgSubstitutions: parseFloat((totalSubstitutions / totalMatches).toFixed(2)),
-        avgPenalties: parseFloat((totalPenalties / totalMatches).toFixed(2)),
-        avgGoalKicks: parseFloat((totalGoalKicks / totalMatches).toFixed(2)),
-        avgGoalTime: parseFloat((goalCount ? totalGoalTime / goalCount : 0).toFixed(2)),
-    }
-    
+    // Calculate averages for each statistic and filter out zero averages
+    teamStatistics.avgStatistics = Object.keys(statsSum).reduce((acc, type) => {
+        const { sum, count } = statsSum[type];
+        const avg = sum / count;
+        if (avg > 0) acc[type] = parseFloat(avg.toFixed(2)); // Only include non-zero averages
+        return acc;
+    }, {});
+
+    return teamStatistics;
 }
+
+

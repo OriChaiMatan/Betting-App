@@ -57,7 +57,8 @@ async function _createGames() {
         console.log('No future games found, fetching from API...')
         const today = utilService.getTodayDate()
         const nextTwoDays = utilService.getNextDate(3)
-        futureGames = await _fetchGames({ from: today, to: nextTwoDays })
+        //futureGames = await _fetchGames({ from: today, to: nextTwoDays })
+        futureGames = await _fetchGames({ from: today, to: '2025-01-01' })
         utilService.saveToStorage(FUTURE_STORAGE_KEY, futureGames)
     }
 }
@@ -68,7 +69,8 @@ async function _fetchGames({ from, to }) {
             action: 'get_events',
             APIkey: API_KEY,
             from,
-            to
+            to,
+            league_id: '3'  // delete when production
         }
         const { data } = await axios.get(BASE_URL, { params })
         return data
