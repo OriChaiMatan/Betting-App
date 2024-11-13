@@ -179,10 +179,10 @@ async function _fetchTeamMatches(teamId, leagueId) {
 async function _calculateTeamStatistics(matches, teamId, type) {
     let winCount = 0, drawCount = 0, lossCount = 0;
     let totalGoalsFirstHalf = 0, totalGoalsFullMatch = 0;
-    let statistics = {}; // Store statistics dynamically
 
-    // Initialize an object to store cumulative sums for statistics
-    const statsSum = {};
+    // Initialize objects to store cumulative sums for statistics
+    const fullMatchStatsSum = {};
+    const firstHalfStatsSum = {};
 
     for (const match of matches) {
         try {
@@ -202,13 +202,12 @@ async function _calculateTeamStatistics(matches, teamId, type) {
 
                 // Win/draw/loss calculation
                 if (teamScoreFullMatch > opponentScore) winCount++;
-                else if (teamScoreFullMatch === opponentScore) drawCount++;
+                else if (teamScoreFullMatch == opponentScore) drawCount++;
                 else lossCount++;
 
                 totalGoalsFirstHalf += teamScoreFirstHalf;
                 totalGoalsFullMatch += teamScoreFullMatch;
 
-                // Loop through the statistics in the match and accumulate values for the team
                 if (Array.isArray(matchData.statistics)) {
                     matchData.statistics.forEach((stat) => {
                         const statValue = isHome
@@ -216,11 +215,26 @@ async function _calculateTeamStatistics(matches, teamId, type) {
                             : parseInt(stat.away, 10) || 0;
 
                         // Accumulate stats only for the current team (home/away)
-                        if (!statsSum[stat.type]) {
-                            statsSum[stat.type] = { sum: 0, count: 0 };
+                        if (!fullMatchStatsSum[stat.type]) {
+                            fullMatchStatsSum[stat.type] = { sum: 0, count: 0 };
                         }
-                        statsSum[stat.type].sum += statValue;
-                        statsSum[stat.type].count++;
+                        fullMatchStatsSum[stat.type].sum += statValue;
+                        fullMatchStatsSum[stat.type].count++;
+                    });
+                }
+
+                if (Array.isArray(matchData.statistics_1half)) {
+                    matchData.statistics_1half.forEach((stat) => {
+                        const statValue = isHome
+                            ? parseInt(stat.home, 10) || 0
+                            : parseInt(stat.away, 10) || 0;
+
+                        // Accumulate first half stats
+                        if (!firstHalfStatsSum[stat.type]) {
+                            firstHalfStatsSum[stat.type] = { sum: 0, count: 0 };
+                        }
+                        firstHalfStatsSum[stat.type].sum += statValue;
+                        firstHalfStatsSum[stat.type].count++;
                     });
                 }
             }
@@ -233,16 +247,24 @@ async function _calculateTeamStatistics(matches, teamId, type) {
 
     // Calculate win/draw/loss percentages
     const teamStatistics = {
-        winPercentage: parseFloat(((winCount / totalMatches) * 100).toFixed(2)),
-        drawPercentage: parseFloat(((drawCount / totalMatches) * 100).toFixed(2)),
-        lossPercentage: parseFloat(((lossCount / totalMatches) * 100).toFixed(2)),
-        avgGoalsFirstHalf: totalGoalsFirstHalf / totalMatches,
-        avgGoalsFullMatch: totalGoalsFullMatch / totalMatches,
+        win_percentage: parseFloat(((winCount / totalMatches) * 100).toFixed(2)),
+        draw_percentage: parseFloat(((drawCount / totalMatches) * 100).toFixed(2)),
+        loss_percentage: parseFloat(((lossCount / totalMatches) * 100).toFixed(2)),
+        avg_goals_first_half: totalGoalsFirstHalf / totalMatches,
+        avg_goals_full_match: totalGoalsFullMatch / totalMatches,
     };
 
     // Calculate averages for each statistic and filter out zero averages
-    teamStatistics.avgStatistics = Object.keys(statsSum).reduce((acc, type) => {
-        const { sum, count } = statsSum[type];
+    teamStatistics.avg_statistics = Object.keys(fullMatchStatsSum).reduce((acc, type) => {
+        const { sum, count } = fullMatchStatsSum[type];
+        const avg = sum / count;
+        if (avg > 0) acc[type] = parseFloat(avg.toFixed(2));
+        return acc;
+    }, {});
+
+    // Calculate averages for first half statistics
+    teamStatistics.avg_first_half_statistics = Object.keys(firstHalfStatsSum).reduce((acc, type) => {
+        const { sum, count } = firstHalfStatsSum[type];
         const avg = sum / count;
         if (avg > 0) acc[type] = parseFloat(avg.toFixed(2)); // Only include non-zero averages
         return acc;
@@ -250,5 +272,6 @@ async function _calculateTeamStatistics(matches, teamId, type) {
 
     return teamStatistics;
 }
+
 
 
