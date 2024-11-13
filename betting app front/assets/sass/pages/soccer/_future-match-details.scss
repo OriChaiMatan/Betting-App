@@ -1,7 +1,7 @@
 .future-match-details {
     padding: 3rem;
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: auto 1fr;
     grid-template-areas: "league teams place"
         "details details details";
@@ -83,7 +83,7 @@
         }
     }
 
-    .place-data{
+    .place-data {
         grid-area: place;
         display: flex;
         flex-direction: column;
@@ -95,7 +95,7 @@
         border: 2px solid rgba($n11, 1);
         background-color: rgba($p2, .3);
 
-        .date{
+        .date {
             display: flex;
             width: 100%;
             justify-content: space-between;
@@ -103,7 +103,7 @@
             padding-bottom: 2rem;
         }
 
-        .stadium{
+        .stadium {
             display: flex;
             align-items: center;
             justify-content: start;
@@ -111,16 +111,77 @@
             gap: 1rem;
             font-size: 4rem;
 
-            h3{
+            h3 {
                 font-size: 1.4rem;
             }
         }
     }
 
-    .details{
+    .details {
         grid-area: details;
         display: flex;
         flex-direction: column;
         gap: 2rem;
+
+        .statistic-table {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2rem;
+            padding: 3rem;
+            border-radius: 0.5rem;
+            border: 2px solid rgba($n11, 1);
+            background-color: rgba($p2, .3);
+
+            .title {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding-bottom: 1rem;
+                border-bottom: $default-border-bottom;
+                width: 100%;
+
+                h3 {
+                    font-size: 2.2rem;
+                }
+            }
+
+            .buttons {
+                display: flex;
+                justify-content: center;
+                gap: 3rem;
+
+                button {
+                    width: 12rem;
+                    height: 4rem;
+                    font-size: 1.7rem;
+                    border: none;
+                    border-radius: 0.5rem;
+                    background-color: $p2; 
+                    color: $color-white;
+                    cursor: pointer;
+        
+                    span{
+                        font-size: 1.3rem;
+                    }
+            
+                    &.active {
+                        background-color: $p1; 
+                        font-weight: bold;
+                        border: 3px solid rgba($n11, 1);
+                    }
+            
+                    &:hover {
+                        background-color: rgba($n5, 10%); 
+                    }
+                }
+            }
+
+            .statistics-data{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
     }
 }

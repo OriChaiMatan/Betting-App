@@ -177,6 +177,20 @@ export function SoccerFutureMatchDetails() {
                     </div>
                 </div>
                 <div className="details">
+                    <div className="statistic-table">
+                        <div className="title">
+                            <h3 className='heading-tertiary'>Statistics</h3>
+                        </div>
+                        <div className="buttons">
+                            <button>First Half</button>
+                            <button>Full Match</button>
+                        </div>
+                        <div className="statistics-data">
+                            <span>{homeTeam.home_statistic.avg_statistics.Attacks}</span>
+                            <span>Attacks</span>
+                            <span>{awayTeam.away_statistic.avg_statistics.Attacks}</span>
+                        </div>
+                    </div>
                     {odds && <ProbabilitiesBar odds={odds} />}
                     <Last5Matches
                         homeLast5Games={homeLast5Games}

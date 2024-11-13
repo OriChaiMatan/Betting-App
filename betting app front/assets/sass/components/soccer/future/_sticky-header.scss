@@ -2,9 +2,9 @@
     position: sticky;
     top: 10vh;
     z-index: 10;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
-    justify-content: space-between;
     background-color: $p2;
     padding: 1rem 5rem;
     border-top: 0.1px solid rgba($color-white, .45);
@@ -13,7 +13,7 @@
     .team-data {
         display: flex;
         align-items: center;
-        gap: 2rem;
+        gap: 1rem;
 
         img {
             height: 4rem;
@@ -29,10 +29,21 @@
 
     .date{
         display: flex;
-        gap: 2rem;
+        align-items: center;
+        justify-content: center; // Center content within `.date`
+        gap: 0.5rem;
+        text-align: center;
 
         h3 {
             font-size: 1.5rem;
         }
+    }
+
+    .home{
+        justify-self: start;
+    }
+
+    .away{
+        justify-self: end;
     }
 }
