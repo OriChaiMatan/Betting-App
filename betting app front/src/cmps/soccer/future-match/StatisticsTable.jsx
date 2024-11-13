@@ -15,11 +15,11 @@ export function StatisticsTable({ stats, view, handleViewChange }) {
                 <h3 className="heading-tertiary">Statistics Table</h3>
             </div>
             <div className="buttons">
-                <button onClick={() => handleViewChange("fullMatch")} className={view === 'fullMatch' ? 'active' : ''}>
-                    Full Match
-                </button>
                 <button onClick={() => handleViewChange("firstHalf")} className={view === 'firstHalf' ? 'active' : ''}>
                     First Half
+                </button>
+                <button onClick={() => handleViewChange("fullMatch")} className={view === 'fullMatch' ? 'active' : ''}>
+                    Full Match
                 </button>
             </div>
             {stats.map((stat, idx) => {
