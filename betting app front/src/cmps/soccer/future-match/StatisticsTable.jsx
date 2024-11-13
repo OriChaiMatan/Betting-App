@@ -12,7 +12,7 @@ export function StatisticsTable({ stats, view, handleViewChange }) {
     return (
         <div className="statistic-table">
             <div className="title">
-                <h3 className="heading-tertiary">Statistics</h3>
+                <h3 className="heading-tertiary">Statistics Table</h3>
             </div>
             <div className="buttons">
                 <button onClick={() => handleViewChange("fullMatch")} className={view === 'fullMatch' ? 'active' : ''}>
