@@ -23,7 +23,6 @@
         img {
             width: 7rem;
             height: 7rem;
-            border-radius: 50%;
             box-shadow: $default-box-shadow;
         }
 
@@ -59,7 +58,6 @@
             img {
                 width: 7rem;
                 height: 7rem;
-                border-radius: 50%;
                 box-shadow: $default-box-shadow;
             }
 
@@ -122,66 +120,5 @@
         display: flex;
         flex-direction: column;
         gap: 2rem;
-
-        .statistic-table {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 2rem;
-            padding: 3rem;
-            border-radius: 0.5rem;
-            border: 2px solid rgba($n11, 1);
-            background-color: rgba($p2, .3);
-
-            .title {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding-bottom: 1rem;
-                border-bottom: $default-border-bottom;
-                width: 100%;
-
-                h3 {
-                    font-size: 2.2rem;
-                }
-            }
-
-            .buttons {
-                display: flex;
-                justify-content: center;
-                gap: 3rem;
-
-                button {
-                    width: 12rem;
-                    height: 4rem;
-                    font-size: 1.7rem;
-                    border: none;
-                    border-radius: 0.5rem;
-                    background-color: $p2; 
-                    color: $color-white;
-                    cursor: pointer;
-        
-                    span{
-                        font-size: 1.3rem;
-                    }
-            
-                    &.active {
-                        background-color: $p1; 
-                        font-weight: bold;
-                        border: 3px solid rgba($n11, 1);
-                    }
-            
-                    &:hover {
-                        background-color: rgba($n5, 10%); 
-                    }
-                }
-            }
-
-            .statistics-data{
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-            }
-        }
     }
 }

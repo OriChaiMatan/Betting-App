@@ -6,6 +6,7 @@ import { leaguesService } from "../../services/leagues.service"
 import { utilService } from "../../services/util.service"
 import { Last5Matches } from "../../cmps/soccer/future-match/Last5Matches"
 import { ProbabilitiesBar } from "../../cmps/soccer/future-match/ProbabilitiesBar"
+import { StatisticsTable } from "../../cmps/soccer/future-match/StatisticsTable"
 import { StickyHeader } from "../../cmps/soccer/StickyHeader"
 import { MdOutlinePlace } from "react-icons/md"
 
@@ -17,6 +18,7 @@ export function SoccerFutureMatchDetails() {
     const [homeLast5Games, setHomeLast5Games] = useState([])
     const [awayLast5Games, setAwayLast5Games] = useState([])
     const [isSticky, setIsSticky] = useState(false)
+    const [view, setView] = useState('fullMatch')
     const params = useParams()
 
     const API_KEY = import.meta.env.VITE_API_KEY
@@ -139,6 +141,32 @@ export function SoccerFutureMatchDetails() {
         }
     }
 
+    const homeStats = homeTeam?.home_statistic?.avg_statistics || {}
+    const awayStats = awayTeam?.away_statistic?.avg_statistics || {}
+    const firstHalfHomeStats = homeTeam?.home_statistic?.avg_first_half_statistics || {}
+    const firstHalfAwayStats = awayTeam?.away_statistic?.avg_first_half_statistics || {}
+
+    const commonStats = Object.keys(homeStats).filter(commonStat => awayStats.hasOwnProperty(commonStat))
+
+    const stats = commonStats.map(stat => ({
+        label: stat,
+        homeValue: homeStats[stat],
+        awayValue: awayStats[stat]
+    }))
+
+    const firstHalfStats = commonStats.map(stat => ({
+        label: stat,
+        homeValue: firstHalfHomeStats[stat],
+        awayValue: firstHalfAwayStats[stat]
+    }))
+
+    const currentStats = view === "fullMatch" ? stats : firstHalfStats
+
+    const handleViewChange = (selectedView) => {
+        setView(selectedView)
+    }
+
+
     if (!match || !homeTeam || !awayTeam) return <div>Loading Match Details page...</div>
     return (
         <>
@@ -177,20 +205,6 @@ export function SoccerFutureMatchDetails() {
                     </div>
                 </div>
                 <div className="details">
-                    <div className="statistic-table">
-                        <div className="title">
-                            <h3 className='heading-tertiary'>Statistics</h3>
-                        </div>
-                        <div className="buttons">
-                            <button>First Half</button>
-                            <button>Full Match</button>
-                        </div>
-                        <div className="statistics-data">
-                            <span>{homeTeam.home_statistic.avg_statistics.Attacks}</span>
-                            <span>Attacks</span>
-                            <span>{awayTeam.away_statistic.avg_statistics.Attacks}</span>
-                        </div>
-                    </div>
                     {odds && <ProbabilitiesBar odds={odds} />}
                     <Last5Matches
                         homeLast5Games={homeLast5Games}
@@ -199,6 +213,7 @@ export function SoccerFutureMatchDetails() {
                         awayTeam={awayTeam}
                         getReadableOutcome={getReadableOutcome}
                     />
+                    <StatisticsTable stats={currentStats} view={view} handleViewChange={handleViewChange} />
                 </div>
             </section>
         </>
