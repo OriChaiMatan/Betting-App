@@ -177,65 +177,75 @@ async function _fetchTeamMatches(teamId, leagueId) {
 }
 
 async function _calculateTeamStatistics(matches, teamId, type) {
-    let winCount = 0, drawCount = 0, lossCount = 0;
-    let totalGoalsFirstHalf = 0, totalGoalsFullMatch = 0;
+    let winCount = 0, drawCount = 0, lossCount = 0
+    let totalGoalsFirstHalf = 0, totalGoalsFullMatch = 0
 
-    // Initialize objects to store cumulative sums for statistics
-    const fullMatchStatsSum = {};
-    const firstHalfStatsSum = {};
+    const fullMatchStatsSum = {}
+    const firstHalfStatsSum = {}
+
+    let yellowCardCount = 0, redCardCount = 0
 
     for (const match of matches) {
         try {
             const matchData = await gamesService.getPastMatchById(match.match_id);
 
             if (matchData && Object.keys(matchData).length > 0) {
-                const isHome = type === 'home';
+                const isHome = type === 'home'
                 const teamScoreFirstHalf = isHome
                     ? parseInt(matchData.match_hometeam_halftime_score, 10) || 0
-                    : parseInt(matchData.match_awayteam_halftime_score, 10) || 0;
+                    : parseInt(matchData.match_awayteam_halftime_score, 10) || 0
                 const teamScoreFullMatch = isHome
                     ? parseInt(matchData.match_hometeam_ft_score, 10) || 0
-                    : parseInt(matchData.match_awayteam_ft_score, 10) || 0;
+                    : parseInt(matchData.match_awayteam_ft_score, 10) || 0
                 const opponentScore = isHome
                     ? parseInt(matchData.match_awayteam_ft_score, 10) || 0
-                    : parseInt(matchData.match_hometeam_ft_score, 10) || 0;
+                    : parseInt(matchData.match_hometeam_ft_score, 10) || 0
 
                 // Win/draw/loss calculation
-                if (teamScoreFullMatch > opponentScore) winCount++;
-                else if (teamScoreFullMatch == opponentScore) drawCount++;
-                else lossCount++;
+                if (teamScoreFullMatch > opponentScore) winCount++
+                else if (teamScoreFullMatch == opponentScore) drawCount++
+                else lossCount++
 
-                totalGoalsFirstHalf += teamScoreFirstHalf;
-                totalGoalsFullMatch += teamScoreFullMatch;
+                totalGoalsFirstHalf += teamScoreFirstHalf
+                totalGoalsFullMatch += teamScoreFullMatch
 
                 if (Array.isArray(matchData.statistics)) {
                     matchData.statistics.forEach((stat) => {
                         const statValue = isHome
                             ? parseInt(stat.home, 10) || 0
-                            : parseInt(stat.away, 10) || 0;
+                            : parseInt(stat.away, 10) || 0
 
                         // Accumulate stats only for the current team (home/away)
                         if (!fullMatchStatsSum[stat.type]) {
-                            fullMatchStatsSum[stat.type] = { sum: 0, count: 0 };
+                            fullMatchStatsSum[stat.type] = { sum: 0, count: 0 }
                         }
-                        fullMatchStatsSum[stat.type].sum += statValue;
-                        fullMatchStatsSum[stat.type].count++;
-                    });
+                        fullMatchStatsSum[stat.type].sum += statValue
+                        fullMatchStatsSum[stat.type].count++
+                    })
                 }
 
                 if (Array.isArray(matchData.statistics_1half)) {
                     matchData.statistics_1half.forEach((stat) => {
                         const statValue = isHome
                             ? parseInt(stat.home, 10) || 0
-                            : parseInt(stat.away, 10) || 0;
+                            : parseInt(stat.away, 10) || 0
 
                         // Accumulate first half stats
                         if (!firstHalfStatsSum[stat.type]) {
-                            firstHalfStatsSum[stat.type] = { sum: 0, count: 0 };
+                            firstHalfStatsSum[stat.type] = { sum: 0, count: 0 }
                         }
-                        firstHalfStatsSum[stat.type].sum += statValue;
-                        firstHalfStatsSum[stat.type].count++;
-                    });
+                        firstHalfStatsSum[stat.type].sum += statValue
+                        firstHalfStatsSum[stat.type].count++
+                    })
+                }
+
+                if (Array.isArray(matchData.cards)) {
+                    matchData.cards.forEach((card) => {
+                        if ((isHome && card.home_fault) || (!isHome && card.away_fault)) {
+                            if (card.card === 'yellow card') yellowCardCount++
+                            if (card.card === 'red card') redCardCount++
+                        }
+                    })
                 }
             }
         } catch (error) {
@@ -245,32 +255,33 @@ async function _calculateTeamStatistics(matches, teamId, type) {
 
     const totalMatches = matches.length || 1; // Prevent division by zero
 
-    // Calculate win/draw/loss percentages
     const teamStatistics = {
         win_percentage: parseFloat(((winCount / totalMatches) * 100).toFixed(2)),
         draw_percentage: parseFloat(((drawCount / totalMatches) * 100).toFixed(2)),
         loss_percentage: parseFloat(((lossCount / totalMatches) * 100).toFixed(2)),
         avg_goals_first_half: totalGoalsFirstHalf / totalMatches,
         avg_goals_full_match: totalGoalsFullMatch / totalMatches,
-    };
+        yellow_card_percentage: parseFloat(((yellowCardCount / totalMatches) * 100).toFixed(2)),
+        red_card_percentage: parseFloat(((redCardCount / totalMatches) * 100).toFixed(2)),
+    }
 
     // Calculate averages for each statistic and filter out zero averages
     teamStatistics.avg_statistics = Object.keys(fullMatchStatsSum).reduce((acc, type) => {
-        const { sum, count } = fullMatchStatsSum[type];
-        const avg = sum / count;
-        if (avg > 0) acc[type] = parseFloat(avg.toFixed(2));
-        return acc;
-    }, {});
+        const { sum, count } = fullMatchStatsSum[type]
+        const avg = sum / count
+        if (avg > 0) acc[type] = parseFloat(avg.toFixed(2))
+        return acc
+    }, {})
 
     // Calculate averages for first half statistics
     teamStatistics.avg_first_half_statistics = Object.keys(firstHalfStatsSum).reduce((acc, type) => {
-        const { sum, count } = firstHalfStatsSum[type];
-        const avg = sum / count;
-        if (avg > 0) acc[type] = parseFloat(avg.toFixed(2)); // Only include non-zero averages
-        return acc;
-    }, {});
+        const { sum, count } = firstHalfStatsSum[type]
+        const avg = sum / count
+        if (avg > 0) acc[type] = parseFloat(avg.toFixed(2))
+        return acc
+    }, {})
 
-    return teamStatistics;
+    return teamStatistics
 }
 
 

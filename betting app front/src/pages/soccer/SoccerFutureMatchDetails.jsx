@@ -7,6 +7,7 @@ import { utilService } from "../../services/util.service"
 import { Last5Matches } from "../../cmps/soccer/future-match/Last5Matches"
 import { ProbabilitiesBar } from "../../cmps/soccer/future-match/ProbabilitiesBar"
 import { StatisticsTable } from "../../cmps/soccer/future-match/StatisticsTable"
+import { CardsTable } from "../../cmps/soccer/future-match/CardsTable"
 import { StickyHeader } from "../../cmps/soccer/StickyHeader"
 import { MdOutlinePlace } from "react-icons/md"
 
@@ -214,6 +215,7 @@ export function SoccerFutureMatchDetails() {
                         getReadableOutcome={getReadableOutcome}
                     />
                     <StatisticsTable stats={currentStats} view={view} handleViewChange={handleViewChange} />
+                    <CardsTable homeTeam={homeTeam} awayTeam={awayTeam} />
                 </div>
             </section>
         </>
