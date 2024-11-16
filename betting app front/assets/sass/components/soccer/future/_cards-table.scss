@@ -1,7 +1,8 @@
-.statistic-table {
+.cards-table {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    font-size: 1.6rem;
     gap: 2rem;
     padding: 3rem;
     border-radius: 0.5rem;
@@ -55,53 +56,60 @@
         }
     }
 
-    .statistics-row {
+    .cards-data {
         display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        padding: 0.5rem 0;
+        align-items: center;
+        justify-content: space-around;
+        gap: 2rem;
 
-        .data-container {
+        .team-data {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
 
-            .stat-label {
-                text-align: center;
-                font-size: 1.6rem;
-            }
-
-            span {
-                text-align: center;
-                font-size: 1.6rem;
-                font-weight: bold;
-            }
-        }
-
-        .bars-container {
-            display: flex;
-            gap: 0.5rem;
-            width: 100%;
-
-            .progress-bar-container {
-                flex-grow: 1;
+            .team-title {
                 display: flex;
-                height: 0.5rem;
-                border-radius: 0.5rem;
+                align-items: center;
+                justify-content: center;
+                padding-bottom: 1rem;
 
-                .progress-bar {
-                    height: 20%;
-                    border-radius: 3px;
-                    background-color: white;
+                h3 {
+                    font-size: 1.8rem;
+                    font-weight: bold;
+                }
+            }
+
+            .team-cards {
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                font-weight: bold;
+                gap: 4rem;
+                padding: 3rem;
+                border-top: $default-border-bottom;
+
+                .card {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2rem;
+                    height: 10rem;
+                    width: 8rem;
+                    color: $color-white;
+                    border-radius: 5px;
+                    border: $default-white-border;
+
+                    &:hover {
+                        transform: scale(1.03);
+                        text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
+                    }
                 }
 
-                .small-value {
-                    height: 100%;
-                    background-color: $r2;
+                .yellow {
+                    background-color: rgba($y3, 1);
                 }
 
-                .big-value {
-                    height: 100%;
-                    background-color: $y3;
+                .red{
+                    background-color: rgba($r2, .9);
                 }
             }
         }

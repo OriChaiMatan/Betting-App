@@ -1,6 +1,7 @@
 import React from 'react'
 
 export function StatisticsTable({ stats, view, handleViewChange }) {
+    
     const getBarWidth = (homeValue, awayValue) => {
         const total = homeValue + awayValue
         if (total === 0) return { homeWidth: '50%', awayWidth: '50%' }
