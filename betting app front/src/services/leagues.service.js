@@ -183,7 +183,18 @@ async function _calculateTeamStatistics(matches, teamId, type) {
     const fullMatchStatsSum = {}
     const firstHalfStatsSum = {}
 
-    let yellowCardCount = 0, redCardCount = 0
+    const cardsStatistic = {
+        yellow: {
+            first_half: 0,
+            second_half: 0,
+            full_match: 0
+        },
+        red: {
+            first_half: 0,
+            second_half: 0,
+            full_match: 0
+        }
+    }
 
     for (const match of matches) {
         try {
@@ -241,9 +252,22 @@ async function _calculateTeamStatistics(matches, teamId, type) {
 
                 if (Array.isArray(matchData.cards)) {
                     matchData.cards.forEach((card) => {
-                        if ((isHome && card.home_fault) || (!isHome && card.away_fault)) {
-                            if (card.card === 'yellow card') yellowCardCount++
-                            if (card.card === 'red card') redCardCount++
+                        const isTeamCard = (isHome && card.home_fault) || (!isHome && card.away_fault)
+                        if (!isTeamCard) return
+
+                        // Check the time of the card to determine the half
+                        const cardMinute = parseInt(card.minute, 10) || 0
+                        const isFirstHalf = cardMinute <= 45
+
+                        // Update the card statistics object
+                        if (card.card === 'yellow card') {
+                            cardsStatistic.yellow.full_match++
+                            if (isFirstHalf) cardsStatistic.yellow.first_half++
+                            else cardsStatistic.yellow.second_half++
+                        } else if (card.card === 'red card') {
+                            cardsStatistic.red.full_match++
+                            if (isFirstHalf) cardsStatistic.red.first_half++
+                            else cardsStatistic.red.second_half++
                         }
                     })
                 }
@@ -259,10 +283,22 @@ async function _calculateTeamStatistics(matches, teamId, type) {
         win_percentage: parseFloat(((winCount / totalMatches) * 100).toFixed(2)),
         draw_percentage: parseFloat(((drawCount / totalMatches) * 100).toFixed(2)),
         loss_percentage: parseFloat(((lossCount / totalMatches) * 100).toFixed(2)),
-        avg_goals_first_half: totalGoalsFirstHalf / totalMatches,
-        avg_goals_full_match: totalGoalsFullMatch / totalMatches,
-        yellow_card_percentage: parseFloat(((yellowCardCount / totalMatches) * 100).toFixed(2)),
-        red_card_percentage: parseFloat(((redCardCount / totalMatches) * 100).toFixed(2)),
+        avg_goals_first_half: (totalGoalsFirstHalf / totalMatches).toFixed(2),
+        avg_goals_full_match: (totalGoalsFullMatch / totalMatches).toFixed(2),
+        cards_statistic: {
+            first_half: {
+                yellow_card_first_half: (cardsStatistic.yellow.first_half / totalMatches).toFixed(2),
+                red_card_first_half: (cardsStatistic.red.first_half / totalMatches).toFixed(2),
+            },
+            second_half: {
+                yellow_card_second_half: (cardsStatistic.yellow.second_half / totalMatches).toFixed(2),
+                red_card_second_half: (cardsStatistic.red.second_half / totalMatches).toFixed(2),
+            },
+            full_match: {
+                yellow_card_full_match: (cardsStatistic.yellow.full_match / totalMatches).toFixed(2),
+                red_card_full_match: (cardsStatistic.red.full_match / totalMatches).toFixed(2)
+            }
+        }
     }
 
     // Calculate averages for each statistic and filter out zero averages
