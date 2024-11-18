@@ -1,4 +1,5 @@
 import axios from "axios"
+import { MdOutlinePlace } from "react-icons/md"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router"
 import { gamesService } from "../../services/games.service"
@@ -9,7 +10,7 @@ import { ProbabilitiesBar } from "../../cmps/soccer/future-match/ProbabilitiesBa
 import { StatisticsTable } from "../../cmps/soccer/future-match/StatisticsTable"
 import { CardsTable } from "../../cmps/soccer/future-match/CardsTable"
 import { StickyHeader } from "../../cmps/soccer/StickyHeader"
-import { MdOutlinePlace } from "react-icons/md"
+import { TimeForGoalBar } from "../../cmps/soccer/future-match/TimeForGoalBar"
 
 export function SoccerFutureMatchDetails() {
     const [match, setMatch] = useState(null)
@@ -214,6 +215,7 @@ export function SoccerFutureMatchDetails() {
                         awayTeam={awayTeam}
                         getReadableOutcome={getReadableOutcome}
                     />
+                    <TimeForGoalBar />
                     <StatisticsTable stats={currentStats} view={view} handleViewChange={handleViewChange} />
                     <CardsTable homeTeam={homeTeam} awayTeam={awayTeam} />
                 </div>
