@@ -196,6 +196,15 @@ async function _calculateTeamStatistics(matches, teamId, type) {
         }
     }
 
+    const goalIntervals = {
+        "0-15": 0,
+        "16-30": 0,
+        "31-45": 0,
+        "46-60": 0,
+        "61-75": 0,
+        "76-90": 0
+    }
+
     for (const match of matches) {
         try {
             const matchData = await gamesService.getPastMatchById(match.match_id);
@@ -271,6 +280,37 @@ async function _calculateTeamStatistics(matches, teamId, type) {
                         }
                     })
                 }
+
+                if (Array.isArray(matchData.goalscorer)) {
+                    matchData.goalscorer.forEach((goal) => {
+                        const isTeamScorer = (isHome && goal.home_scorer_id) || (!isHome && goal.away_scorer_id)
+                        if (!isTeamScorer) return
+
+                        const goalTime = parseInt(goal.time, 10)
+
+                        // Track goals by time interval
+                        if (goalTime >= 0 && goalTime <= 15) {
+                            goalIntervals['0-15']++
+                        } else if (goalTime >= 16 && goalTime <= 30) {
+                            goalIntervals['16-30']++
+                        } else if (goalTime >= 31 && goalTime <= 45) {
+                            goalIntervals['31-45']++
+                        } else if (goalTime >= 46 && goalTime <= 60) {
+                            goalIntervals['46-60']++
+                        } else if (goalTime >= 61 && goalTime <= 75) {
+                            goalIntervals['61-75']++
+                        } else if (goalTime >= 76 && goalTime <= 90) {
+                            goalIntervals['76-90']++
+                        }
+
+                        // Update total goals in first and second halves
+                        if (goalTime <= 45) {
+                            totalGoalsFirstHalf += 1
+                        } else {
+                            totalGoalsFullMatch += 1
+                        }
+                    })
+                }
             }
         } catch (error) {
             console.warn(`Error fetching data for match ID ${match.match_id}:`, error);
@@ -285,6 +325,7 @@ async function _calculateTeamStatistics(matches, teamId, type) {
         loss_percentage: parseFloat(((lossCount / totalMatches) * 100).toFixed(2)),
         avg_goals_first_half: (totalGoalsFirstHalf / totalMatches).toFixed(2),
         avg_goals_full_match: (totalGoalsFullMatch / totalMatches).toFixed(2),
+        goal_intervals: goalIntervals,
         cards_statistic: {
             first_half: {
                 yellow_card_first_half: (cardsStatistic.yellow.first_half / totalMatches).toFixed(2),

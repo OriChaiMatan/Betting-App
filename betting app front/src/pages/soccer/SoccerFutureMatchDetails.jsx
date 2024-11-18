@@ -215,7 +215,7 @@ export function SoccerFutureMatchDetails() {
                         awayTeam={awayTeam}
                         getReadableOutcome={getReadableOutcome}
                     />
-                    <TimeForGoalBar />
+                    <TimeForGoalBar homeGoalIntervals={homeTeam.home_statistic.goal_intervals} awayGoalIntervals={awayTeam.away_statistic.goal_intervals}/>
                     <StatisticsTable stats={currentStats} view={view} handleViewChange={handleViewChange} />
                     <CardsTable homeTeam={homeTeam} awayTeam={awayTeam} />
                 </div>
