@@ -3,6 +3,7 @@ import { useParams } from "react-router"
 import { gamesService } from "../../services/games.service"
 import { ScoreTable } from "../../cmps/soccer/past-match/ScoreTable"
 import { StickyHeader } from "../../cmps/soccer/StickyHeader"
+import { CallToActionHeader } from "../../cmps/soccer/future-match/CallToActionHeader"
 
 export function SoccerPastMatchDetails() {
     const [match, setMatch] = useState(null)
@@ -40,6 +41,7 @@ export function SoccerPastMatchDetails() {
         <>
             {isSticky && <StickyHeader match={match} />}
             <section className="past-match-details">
+                <div className="call-to-action-header"><CallToActionHeader /></div>
                 <div className='league-data'>
                     <img src={match.league_logo} alt="League Logo" />
                     <div className="league-info">
@@ -62,7 +64,7 @@ export function SoccerPastMatchDetails() {
                         <h3 className='heading-tertiary'>{match.match_awayteam_name}</h3>
                     </div>
                 </div>
-                <div className="statistic-table">
+                <div className="statistic-data">
                     <ScoreTable match={match} />
                 </div>
             </section>

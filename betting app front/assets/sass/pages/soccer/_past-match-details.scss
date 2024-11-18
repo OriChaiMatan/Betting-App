@@ -1,9 +1,14 @@
-.past-match-details{
+.past-match-details {
     padding: 3rem;
     display: grid;
-    grid-template-areas: "league team"
-                        "table table";
+    grid-template-areas: "cta cta"
+        "league team"
+        "table table";
     gap: 1.5rem;
+
+    .call-to-action-header {
+        grid-area: cta;
+    }
 
     .league-data {
         grid-area: league;
@@ -24,17 +29,17 @@
             box-shadow: $default-box-shadow;
         }
 
-        .league-info{
+        .league-info {
             display: flex;
             flex-direction: column;
-    
+
             span {
                 font-size: 1.3rem;
             }
         }
     }
 
-    .teams-data{
+    .teams-data {
         grid-area: team;
         display: flex;
         justify-content: center;
@@ -72,9 +77,9 @@
             margin-left: 2rem;
             margin-right: 2rem;
         }
-    } 
-    
-    .statistic-table{
+    }
+
+    .statistic-data {
         grid-area: table;
     }
 }

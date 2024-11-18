@@ -1,0 +1,26 @@
+.cta-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 4rem;
+        height: 4rem;
+        font-size: 1.6rem;
+        border: none;
+        border-radius: 50%;
+        background-color: $p2;
+        color: $color-white;
+        border: 1px solid rgba($color-white, .3);
+        cursor: pointer;
+    }
+
+    .more-options{
+        display: flex;
+        gap: 2rem;
+    }
+
+}

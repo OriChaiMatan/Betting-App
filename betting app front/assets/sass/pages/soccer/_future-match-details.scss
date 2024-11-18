@@ -2,11 +2,16 @@
     padding: 3rem;
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: auto 1fr;
-    grid-template-areas: "league teams place"
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas: "cta cta cta"
+    "league teams place"
         "details details details";
     gap: 1.5rem;
     font-size: 1.6rem;
+
+    .call-to-action-header{
+        grid-area: cta;
+    }
 
     .league-data {
         grid-area: league;

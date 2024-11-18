@@ -11,6 +11,7 @@ import { StatisticsTable } from "../../cmps/soccer/future-match/StatisticsTable"
 import { CardsTable } from "../../cmps/soccer/future-match/CardsTable"
 import { StickyHeader } from "../../cmps/soccer/StickyHeader"
 import { TimeForGoalBar } from "../../cmps/soccer/future-match/TimeForGoalBar"
+import { CallToActionHeader } from "../../cmps/soccer/future-match/CallToActionHeader"
 
 export function SoccerFutureMatchDetails() {
     const [match, setMatch] = useState(null)
@@ -174,6 +175,7 @@ export function SoccerFutureMatchDetails() {
         <>
             {isSticky && <StickyHeader match={match} />}
             <section className="future-match-details">
+                <div className="call-to-action-header"><CallToActionHeader /></div>
                 <div className='league-data'>
                     <img src={match.league_logo} alt="League Logo" />
                     <div className="league-info">
@@ -215,7 +217,7 @@ export function SoccerFutureMatchDetails() {
                         awayTeam={awayTeam}
                         getReadableOutcome={getReadableOutcome}
                     />
-                    <TimeForGoalBar homeGoalIntervals={homeTeam.home_statistic.goal_intervals} awayGoalIntervals={awayTeam.away_statistic.goal_intervals}/>
+                    <TimeForGoalBar homeGoalIntervals={homeTeam.home_statistic.goal_intervals} awayGoalIntervals={awayTeam.away_statistic.goal_intervals} />
                     <StatisticsTable stats={currentStats} view={view} handleViewChange={handleViewChange} />
                     <CardsTable homeTeam={homeTeam} awayTeam={awayTeam} />
                 </div>
