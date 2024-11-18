@@ -1,10 +1,25 @@
-import React from 'react'
+import { useState } from "react"
 
 export function TimeForGoalBar() {
+
+    const [view, setView] = useState('home')
+
+    const handleViewChange = (selectedView) => {
+        setView(selectedView)
+    }
+
     return (
         <div className='goals-container'>
             <div className="title">
                 <h3 className="heading-tertiary">Goal Chance Per Minute</h3>
+            </div>
+            <div className="buttons">
+                <button onClick={() => handleViewChange("home")} className={view === 'home' ? 'active' : ''}>
+                    Home
+                </button>
+                <button onClick={() => handleViewChange("away")} className={view === 'away' ? 'active' : ''}>
+                    Away
+                </button>
             </div>
             <div className="goals-table">
                 <div className='body'>
