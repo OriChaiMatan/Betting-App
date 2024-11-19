@@ -1,14 +1,14 @@
 import React from 'react'
 
 export function StatisticsTable({ stats, view, handleViewChange }) {
-    
+
     const getBarWidth = (homeValue, awayValue) => {
         const total = homeValue + awayValue
         if (total === 0) return { homeWidth: '50%', awayWidth: '50%' }
         const homeWidth = `${(homeValue / total) * 100}%`
         const awayWidth = `${(awayValue / total) * 100}%`
         return { homeWidth, awayWidth }
-    };
+    }
 
     return (
         <div className="statistic-table">
@@ -61,7 +61,7 @@ export function StatisticsTable({ stats, view, handleViewChange }) {
                             </div>
                         </div>
                     </div>
-                );
+                )
             })}
         </div>
     );

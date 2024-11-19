@@ -1,29 +1,31 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
-import { ProgressBar } from './ProgressBar'
+import { useState } from 'react';
 
 export function ScoreTable({ match }) {
-    const navigate = useNavigate();
+    const [view, setView] = useState('fullMatch')
 
-    const categorizeCards = (cards) => {
-        const homeCards = { yellow: 0, red: 0 };
-        const awayCards = { yellow: 0, red: 0 };
+    const handleViewChange = (selectedView) => {
+        setView(selectedView)
+    }
 
-        cards.forEach((card) => {
-            if (card.home_fault) {
-                if (card.card === 'yellow card') homeCards.yellow += 1;
-                if (card.card === 'red card') homeCards.red += 1;
-            }
-            if (card.away_fault) {
-                if (card.card === 'yellow card') awayCards.yellow += 1;
-                if (card.card === 'red card') awayCards.red += 1;
-            }
-        });
+    const getBarWidth = (homeValue, awayValue) => {
+        const home = typeof homeValue === 'string' && homeValue.includes('%')
+            ? parseFloat(homeValue)
+            : parseInt(homeValue, 10)
+        const away = typeof awayValue === 'string' && awayValue.includes('%')
+            ? parseFloat(awayValue)
+            : parseInt(awayValue, 10)
+        const total = home + away;
+        if (isNaN(home) || isNaN(away) || total === 0) {
+            return { homeWidth: '50%', awayWidth: '50%' }
+        }
+    
+        const homeWidth = `${(home / total) * 100}%`
+        const awayWidth = `${(away / total) * 100}%`
+        return { homeWidth, awayWidth }
+    }
 
-        return { homeCards, awayCards };
-    };
-
-    const { homeCards, awayCards } = categorizeCards(match.cards || []);
+    const stats = view === "fullMatch" ? match.statistics : match.statistics_1half
 
     return (
         <section>
@@ -34,55 +36,63 @@ export function ScoreTable({ match }) {
                         <h3 className='heading-tertiary'>{match.match_hometeam_name}</h3>
                         <h3 className='heading-tertiary'>{match.match_hometeam_score}</h3>
                     </div>
-                    <span>Full game</span>
+                    <span></span>
                     <div className="team-info">
                         <h3 className='heading-tertiary'>{match.match_awayteam_score}</h3>
                         <h3 className='heading-tertiary'>{match.match_awayteam_name}</h3>
                         <img src={match.team_away_badge} alt={`${match.match_awayteam_name} badge`} />
                     </div>
                 </div>
-                <section className='table-content'>
-                    <div className='table-row'>
-                        <span>Goals</span>
-                        <div className='progress-display'>
-                            <span>{match.match_hometeam_score}</span>
-                            <ProgressBar homeTaemData={match.match_hometeam_score} awayTeamData={match.match_awayteam_score} />
-                            <span>{match.match_awayteam_score}</span>
-                        </div>
-                    </div>
-                    <div className='table-row'>
-                        <span>Half Time Score</span>
-                        <div className='progress-display'>
-                            <span>{match.match_hometeam_halftime_score}</span>
-                            <ProgressBar homeTaemData={match.match_hometeam_halftime_score} awayTeamData={match.match_awayteam_halftime_score} />
-                            <span>{match.match_awayteam_halftime_score}</span>
-                        </div>
-                    </div>
-                    {match.statistics.map((stat, index) => (
-                        <div className='table-row' key={stat.type + index}> 
-                            <span>{stat.type}</span>
-                            <div className='progress-display'>
+                <div className="buttons">
+                    <button onClick={() => handleViewChange("firstHalf")} className={view === 'firstHalf' ? 'active' : ''}>
+                        First Half
+                    </button>
+                    <button onClick={() => handleViewChange("fullMatch")} className={view === 'fullMatch' ? 'active' : ''}>
+                        Full Match
+                    </button>
+                </div>
+                {stats.map((stat, idx) => {
+                    const { homeWidth, awayWidth } = getBarWidth(stat.home, stat.away)
+                    return (
+                        <div className="statistics-row" key={idx}>
+                            <div className="data-container">
                                 <span>{stat.home}</span>
-                                <ProgressBar
-                                    homeTaemData={parseInt(stat.home, 10)}
-                                    awayTeamData={parseInt(stat.away, 10)}
-                                />
+                                <span className="stat-label">{stat.type}</span>
                                 <span>{stat.away}</span>
                             </div>
+                            <div className="bars-container">
+                                <div className="progress-bar-container">
+                                    <div
+                                        className="progress-bar"
+                                        style={{ 
+                                            width: awayWidth,
+                                     }}
+                                    ></div>
+                                    <div
+                                        className={`progress-bar ${stat.home >= stat.away ? 'big-value' : 'small-value'}`}
+                                        style={{
+                                            width: homeWidth
+                                        }}
+                                    ></div>
+                                </div>
+                                <div className="progress-bar-container">
+                                    <div
+                                        className={`progress-bar ${stat.away >= stat.home ? 'big-value' : 'small-value'}`}
+                                        style={{
+                                            width: awayWidth,
+                                        }}
+                                    ></div>
+                                    <div
+                                        className="progress-bar"
+                                        style={{
+                                            width: homeWidth,
+                                        }}
+                                    ></div>
+                                </div>
+                            </div>
                         </div>
-                    ))}
-                    <div className='cards'>
-                        <div className='teams-cards'>
-                            <a className='yellow-card'>{homeCards.yellow}</a>
-                            <a className='red-card'>{homeCards.red}</a>
-                        </div>
-                        <span>Cards</span>
-                        <div className='teams-cards'>
-                            <a className='yellow-card'>{awayCards.yellow}</a>
-                            <a className='red-card'>{awayCards.red}</a>
-                        </div>
-                    </div>
-                </section>
+                    );
+                })}
             </div>
         </section>
     )

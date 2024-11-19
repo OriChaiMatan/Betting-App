@@ -4,6 +4,7 @@
     grid-template-areas: "cta cta"
         "league team"
         "table table";
+    grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
 
     .call-to-action-header {

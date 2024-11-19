@@ -1,5 +1,4 @@
 .score-table {
-    width: 100%;
     border-collapse: collapse;
     margin-top: 2rem;
     font-size: 1.6rem;
@@ -31,45 +30,134 @@
         }
     }
 
-    .table-content {
+    .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        padding: 2rem;
+
+        button {
+            width: 12rem;
+            height: 4rem;
+            font-size: 1.7rem;
+            border: none;
+            border-radius: 0.5rem;
+            background-color: $p2;
+            color: $color-white;
+            cursor: pointer;
+
+            span {
+                font-size: 1.3rem;
+            }
+
+            &.active {
+                background-color: $p1;
+                font-weight: bold;
+                border: 3px solid rgba($n11, 1);
+            }
+
+            &:hover {
+                background-color: rgba($n5, 10%);
+                transform: scale(1.03);
+                text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
+            }
+        }
+    }
+
+    // .table-content {
+    //     display: flex;
+    //     flex-direction: column;
+    //     padding: 1rem;
+
+    //     .table-row {
+    //         padding: 0 6rem 0.5rem;
+    //         border-bottom: $default-border-bottom;
+
+    //         .progress-display{
+    //             display: grid;
+    //             grid-template-columns: auto 1fr auto;
+    //             gap: 2rem;
+    //             font-size: 1.8rem;
+    //         }
+    //     }
+
+    //     .cards {
+    //         display: flex;
+    //         justify-content: space-between;
+    //         padding: 1rem;
+    //         align-items: center;
+
+    //         .teams-cards {
+    //             display: flex;
+    //             gap: 1rem;
+
+    //             .yellow-card {
+    //                 background-color: $y1;
+    //                 border: $default-white-border;
+    //                 color: $color-black;
+    //                 padding: 0.8rem;
+    //             }
+
+    //             .red-card {
+    //                 background-color: $r1;
+    //                 border: $default-white-border;
+    //                 color: $color-white;
+    //                 padding: 0.8rem;
+    //             }
+    //         }
+    //     }
+    // }
+
+    .statistics-row {
         display: flex;
         flex-direction: column;
-        padding: 1rem;
+        gap: 1rem;
+        padding: 2rem;
 
-        .table-row {
-            padding: 0 6rem 0.5rem;
-            border-bottom: $default-border-bottom;
+        .data-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
 
-            .progress-display{
-                display: grid;
-                grid-template-columns: auto 1fr auto;
-                gap: 2rem;
-                font-size: 1.8rem;
+            .stat-label {
+                text-align: center;
+                font-size: 1.6rem;
+            }
+
+            span {
+                text-align: center;
+                font-size: 1.6rem;
+                font-weight: bold;
             }
         }
 
-        .cards {
+        .bars-container {
             display: flex;
-            justify-content: space-between;
-            padding: 1rem;
-            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
 
-            .teams-cards {
+            .progress-bar-container {
+                flex-grow: 1;
                 display: flex;
-                gap: 1rem;
+                height: 0.5rem;
+                border-radius: 0.5rem;
+                overflow: hidden;
 
-                .yellow-card {
-                    background-color: $y1;
-                    border: $default-white-border;
-                    color: $color-black;
-                    padding: 0.8rem;
+                .progress-bar {
+                    height: 20%;
+                    border-radius: 3px;
+                    background-color: white;
                 }
 
-                .red-card {
-                    background-color: $r1;
-                    border: $default-white-border;
-                    color: $color-white;
-                    padding: 0.8rem;
+                .small-value {
+                    height: 100%;
+                    background-color: $pink1;
+                }
+
+                .big-value {
+                    height: 100%;
+                    background-color: $teal1;
                 }
             }
         }
