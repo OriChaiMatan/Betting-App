@@ -28,6 +28,10 @@
                 border-radius: 50%;
             }
         }
+
+        span{
+            width: 10rem;
+        }
     }
 
     .buttons {
@@ -63,50 +67,6 @@
             }
         }
     }
-
-    // .table-content {
-    //     display: flex;
-    //     flex-direction: column;
-    //     padding: 1rem;
-
-    //     .table-row {
-    //         padding: 0 6rem 0.5rem;
-    //         border-bottom: $default-border-bottom;
-
-    //         .progress-display{
-    //             display: grid;
-    //             grid-template-columns: auto 1fr auto;
-    //             gap: 2rem;
-    //             font-size: 1.8rem;
-    //         }
-    //     }
-
-    //     .cards {
-    //         display: flex;
-    //         justify-content: space-between;
-    //         padding: 1rem;
-    //         align-items: center;
-
-    //         .teams-cards {
-    //             display: flex;
-    //             gap: 1rem;
-
-    //             .yellow-card {
-    //                 background-color: $y1;
-    //                 border: $default-white-border;
-    //                 color: $color-black;
-    //                 padding: 0.8rem;
-    //             }
-
-    //             .red-card {
-    //                 background-color: $r1;
-    //                 border: $default-white-border;
-    //                 color: $color-white;
-    //                 padding: 0.8rem;
-    //             }
-    //         }
-    //     }
-    // }
 
     .statistics-row {
         display: flex;

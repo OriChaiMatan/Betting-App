@@ -26,6 +26,9 @@ export function ScoreTable({ match }) {
     }
 
     const stats = view === "fullMatch" ? match.statistics : match.statistics_1half
+    const time = view === "fullMatch" ? "Full Match" : "First Half"
+    const home_goals = view === "fullMatch" ? match.match_hometeam_score : match.match_hometeam_halftime_score
+    const away_goals = view === "fullMatch" ? match.match_awayteam_score : match.match_awayteam_halftime_score
 
     return (
         <section>
@@ -34,11 +37,11 @@ export function ScoreTable({ match }) {
                     <div className="team-info">
                         <img src={match.team_home_badge} alt={`${match.match_hometeam_name} badge`} />
                         <h3 className='heading-tertiary'>{match.match_hometeam_name}</h3>
-                        <h3 className='heading-tertiary'>{match.match_hometeam_score}</h3>
+                        <h3 className='heading-tertiary'>{home_goals}</h3>
                     </div>
-                    <span></span>
+                    <span>{time}</span>
                     <div className="team-info">
-                        <h3 className='heading-tertiary'>{match.match_awayteam_score}</h3>
+                        <h3 className='heading-tertiary'>{away_goals}</h3>
                         <h3 className='heading-tertiary'>{match.match_awayteam_name}</h3>
                         <img src={match.team_away_badge} alt={`${match.match_awayteam_name} badge`} />
                     </div>
