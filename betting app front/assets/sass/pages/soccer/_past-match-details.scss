@@ -3,6 +3,7 @@
     display: grid;
     grid-template-areas: "cta cta"
         "league team"
+        "place place"
         "table table";
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
@@ -77,6 +78,41 @@
             justify-content: center;
             margin-left: 2rem;
             margin-right: 2rem;
+        }
+    }
+
+    .place-data {
+        grid-area: place;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        gap: 1rem;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: 2px solid rgba($n11, 1);
+        background-color: rgba($p2, .3);
+
+        .date {
+            display: flex;
+            width: 100%;
+            justify-content: end;
+            align-items: center;
+            gap: 1.5rem;
+            padding-right: 2rem;
+        }
+
+        .stadium {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            width: 100%;
+            gap: 1rem;
+            font-size: 4rem;
+            padding-right: 2rem;
+
+            h3 {
+                font-size: 1.4rem;
+            }
         }
     }
 
