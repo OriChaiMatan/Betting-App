@@ -5,6 +5,7 @@ import { utilService } from "../../services/util.service"
 import { ScoreTable } from "../../cmps/soccer/past-match/ScoreTable"
 import { StickyHeader } from "../../cmps/soccer/StickyHeader"
 import { CallToActionHeader } from "../../cmps/soccer/future-match/CallToActionHeader"
+import { MatchSummary } from "../../cmps/soccer/past-match/MatchSummary"
 import { MdOutlinePlace } from "react-icons/md"
 
 
@@ -68,7 +69,7 @@ export function SoccerPastMatchDetails() {
                     </div>
                 </div>
                 <div className="place-data">
-                    <div className="stadium">
+                <div className="stadium">
                         <MdOutlinePlace />
                         <h3 className="heading-tertiary">{match.match_stadium}</h3>
                     </div>
@@ -78,6 +79,7 @@ export function SoccerPastMatchDetails() {
                     </div>
                 </div>
                 <div className="statistic-data">
+                    <MatchSummary match={match} />
                     <ScoreTable match={match} />
                 </div>
             </section>
