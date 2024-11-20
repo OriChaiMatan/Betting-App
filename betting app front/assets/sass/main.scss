@@ -24,6 +24,8 @@
 @import "components/soccer/future/time-for-goal-bar";
 @import "components/soccer/cta-header";
 @import "components/soccer/past/match-summary";
+@import "components/soccer/home-page/match-list";
+@import "components/soccer/home-page/match-preview";
 
 // LAYOUT
 @import "layout/_header";
@@ -33,3 +35,4 @@
 @import "pages/soccer/soccer-future-index";
 @import "pages/soccer/past-match-details";
 @import "pages/soccer/future-match-details";
+@import "pages/soccer/home-page";

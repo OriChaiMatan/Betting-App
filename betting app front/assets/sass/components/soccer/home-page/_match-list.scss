@@ -1,0 +1,30 @@
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin: auto;
+    padding-top: 2rem;
+}
+
+.carousel-track {
+    display: flex;
+    will-change: transform;
+    animation: scroll 20s linear infinite;
+}
+
+.carousel-item {
+    flex: 0 0 33.33%; /* Adjust the number of visible slides */
+    list-style: none;
+    box-sizing: border-box;
+    padding: 1rem;
+}
+
+/* CSS Keyframe animation for continuous scrolling */
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}

@@ -1,0 +1,135 @@
+.match-preview {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.3rem;
+    border-radius: 1rem;
+    padding: 1.2rem;
+    border: 2px solid rgba($p2, 1);
+    box-shadow: 0 1rem 2rem rgba($color-black, .5);
+
+
+    .link {
+        width: 55rem;
+    }
+
+    .match-data-preview {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.3rem;
+        padding-bottom: 1rem;
+        border-bottom: $default-border-bottom;
+
+        .league-data-preview {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            img {
+                width: 3.7rem;
+                height: 3.7rem;
+                padding: 0.4rem;
+                border-radius: 50%;
+                box-shadow: $default-box-shadow;
+                background-color: rgba($n11, 1);
+            }
+        }
+
+        .match-date {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+    }
+
+    .teams-data-preview {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 1.5rem;
+
+        .team-preview {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem;
+            border-bottom: $default-border-bottom;
+
+
+            &.left {
+                align-items: flex-start;
+                text-align: left;
+            }
+
+            &.right {
+                align-items: flex-end;
+                text-align: right;
+            }
+
+            img {
+                width: 5rem;
+                height: 5rem;
+                padding: 0.5rem;
+                border-radius: 50%;
+                box-shadow: $default-box-shadow;
+                background-color: rgba($n11, 1);
+            }
+        }
+
+        .vs {
+            position: absolute;
+            left: 50%;
+            font-size: 2.5rem;
+            transform: translateX(-50%);
+            color: rgba($n5, 1);
+
+            span {
+                width: 5rem;
+                height: 5rem;
+                padding: 1.5rem;
+                border-radius: 50%;
+                border: 2px solid rgba($n11, 1);
+            }
+        }
+    }
+
+    .odds-1x2 {
+        display: flex;
+        gap: 1rem;
+        justify-content: space-around;
+        padding-top: 2rem;
+        font-size: 1.3rem;
+
+        span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            width: 10rem;
+            height: 4rem;
+            border-radius: 1rem;
+            box-shadow: $default-box-shadow;
+            background-color: rgba($p2, 1);
+            border: 0.5px solid rgba($color-white, .4);
+
+            span {
+                font-weight: bold;
+            }
+
+            &:hover {
+                transform: scale(1.02);
+                text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
+                background-color: rgba($g1, .9);
+                border: 0.5px solid rgba($color-white, 1);
+            }
+        }
+    }
+
+    &:hover {
+        transform: scale(1.02);
+        text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
+        border: 0.5px solid rgba($g1, 1);
+    }
+}
