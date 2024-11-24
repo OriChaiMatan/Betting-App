@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { gamesService } from '../../services/games.service'
 import { ManualCarousel } from '../../cmps/soccer/home-page/MatchList'
+import { MatchTable } from '../../cmps/soccer/home-page/MatchTable'
 
 export function SoccerHomePage() {
 
@@ -25,11 +26,14 @@ export function SoccerHomePage() {
     return shuffled.slice(0, count);
   }
 
-  const randomMatches = getRandomMatches(matches, 7);
+  const randomMatches = getRandomMatches(matches, 15);
 
   return (
     <div className='home-page'>
       <ManualCarousel matches={randomMatches} />
+      <div className="home-container">
+        <MatchTable matches={matches} />
+      </div>
     </div>
   )
 }

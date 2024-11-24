@@ -6,13 +6,15 @@ import { SoccerFutureIndex } from './pages/soccer/SoccerFutureIndex'
 import { SoccerPastMatchDetails } from './pages/soccer/SoccerPastMatchDetails'
 import { SoccerFutureMatchDetails } from './pages/soccer/SoccerFutureMatchDetails'
 import { AppHeader } from './cmps/AppHeader'
+import { SideBar } from './cmps/SideBar'
 
 export function App() {
 
   return (
     <div>
       <AppHeader />
-      <section>
+      <section className='main-content'>
+        {/* <SideBar /> */}
         <Routes>
           <Route path="/" element={<SoccerHomePage />} />
           <Route path='/past-match' element={<SoccerPastIndex />} />

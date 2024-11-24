@@ -1,0 +1,75 @@
+.match-future-table {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .title {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+
+        .crown-icon {
+            color: $y3; 
+            font-size: 3.5rem; 
+        }
+
+        h3 {
+            font-size: 4rem;
+        }
+    }
+
+    .league-filter {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1.5rem;
+
+        .league-btn {
+            padding: 0.8rem;
+            border: none;
+            border-radius: 1rem;
+            background-color: $p3;
+            color: $color-white;
+            cursor: pointer;
+
+            span {
+                font-size: 1.3rem;
+            }
+
+            &.active {
+                background-color: $p1;
+                border: 3px solid rgba($n5, 1);
+            }
+
+            &:hover {
+                background-color: rgba($n5, 10%);
+                transform: scale(1.03);
+                text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
+            }
+        }
+    }
+
+    .link-to-matches {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 4rem;
+        background-color: rgba($p2, 1);
+        border-radius: 2rem;
+        border: 0.5px solid rgba($n5, 1);
+
+        span {
+            font-size: 1.8rem;
+        }
+
+        text-decoration: none; // Removes the underline
+        color: inherit; // Inherits the color of its parent, or you can set a specific color
+
+        &:hover {
+            text-decoration: none;
+            transform: scale(1.02);
+            text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
+        }
+    }
+}

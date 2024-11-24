@@ -26,9 +26,13 @@
 @import "components/soccer/past/match-summary";
 @import "components/soccer/home-page/match-list";
 @import "components/soccer/home-page/match-preview";
+@import "components/soccer/home-page/match-table";
+@import "components/soccer/home-page/match-table-list";
+@import "components/soccer/home-page/match-table-preview";
 
 // LAYOUT
 @import "layout/_header";
+@import "layout/sidebar";
 
 // PAGES
 @import "pages/soccer/soccer-past-index";

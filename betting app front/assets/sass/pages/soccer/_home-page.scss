@@ -1,5 +1,8 @@
 .home-page{
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+
+    .home-container{
+        padding: 3rem;
+    }
 }
