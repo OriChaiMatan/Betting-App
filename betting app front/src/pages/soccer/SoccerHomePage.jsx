@@ -2,22 +2,33 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { gamesService } from '../../services/games.service'
 import { ManualCarousel } from '../../cmps/soccer/home-page/MatchList'
-import { MatchTable } from '../../cmps/soccer/home-page/MatchTable'
+import { FutureMatchTable } from '../../cmps/soccer/home-page/FutureMatchTable'
 
 export function SoccerHomePage() {
 
-  const [matches, setMatches] = useState([])
+  const [futureMatches, setFutureMatches] = useState([])
+  const [pastMatches, setPastMatches] = useState([])
 
   useEffect(() => {
-    loadMatchess()
+    loadFutureMatchess()
+    loadPastMatchess()
   }, [])
 
-  async function loadMatchess() {
+  async function loadFutureMatchess() {
     try {
       const data = await gamesService.getFutureGames()
-      setMatches(data)
+      setFutureMatches(data)
     } catch (err) {
-      console.log('Error in loading matches', err)
+      console.log('Error in loading future matches', err)
+    }
+  }
+
+  async function loadPastMatchess() {
+    try {
+      const data = await gamesService.getPastGames()
+      setPastMatches(data)
+    } catch (err) {
+      console.log('Error in loading past matches', err)
     }
   }
 
@@ -26,13 +37,13 @@ export function SoccerHomePage() {
     return shuffled.slice(0, count);
   }
 
-  const randomMatches = getRandomMatches(matches, 15);
+  const randomMatches = getRandomMatches(futureMatches, 15);
 
   return (
     <div className='home-page'>
       <ManualCarousel matches={randomMatches} />
       <div className="home-container">
-        <MatchTable matches={matches} />
+        <FutureMatchTable matches={futureMatches} />
       </div>
     </div>
   )

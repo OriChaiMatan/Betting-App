@@ -4,7 +4,7 @@ import { utilService } from '../../../services/util.service'
 import { RxCross1 } from "react-icons/rx"
 import axios from 'axios'
 
-export function MatchTablePreview({ match }) {
+export function FutureMatchTablePreview({ match }) {
     const [odds, setOdds] = useState(null)
 
     const API_KEY = import.meta.env.VITE_API_KEY

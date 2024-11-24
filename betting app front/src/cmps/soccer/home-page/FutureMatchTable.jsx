@@ -1,9 +1,9 @@
 import React from 'react'
-import { MatchTableList } from './MatchTableList'
+import { FutureMatchTableList } from './FutureMatchTableList'
 import { Link } from 'react-router-dom'
 import { FaCrown } from "react-icons/fa";
 
-export function MatchTable({ matches }) {
+export function FutureMatchTable({ matches }) {
     return (
         <div className='match-future-table'>
             <div className="title">
@@ -17,7 +17,7 @@ export function MatchTable({ matches }) {
                 <button className='league-btn'>League 3</button>
                 <button className='league-btn'>League 4</button>
             </div>
-            <MatchTableList matches={matches.slice(0, 3)} />
+            <FutureMatchTableList matches={matches.slice(0, 3)} />
             <Link to={'/future-match'} className='link-to-matches' >
                 <span>All Future Matches Here !</span>
             </Link>

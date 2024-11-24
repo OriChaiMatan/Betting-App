@@ -1,7 +1,7 @@
 import React from 'react'
-import { MatchTablePreview } from './MatchTablePreview'
+import { FutureMatchTablePreview } from './FutureMatchTablePreview'
 
-export function MatchTableList({matches}) {
+export function FutureMatchTableList({matches}) {
 
   if (!matches) return <div>No future games available</div>
 
@@ -9,7 +9,7 @@ export function MatchTableList({matches}) {
     <ul className='match-table-list'>
       {matches.map((match) => (
         <li key={match.match_id}>
-          <MatchTablePreview match={match} />
+          <FutureMatchTablePreview match={match} />
         </li>
       ))}
     </ul>
