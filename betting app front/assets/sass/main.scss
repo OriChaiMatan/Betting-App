@@ -26,9 +26,12 @@
 @import "components/soccer/past/match-summary";
 @import "components/soccer/home-page/match-list";
 @import "components/soccer/home-page/match-preview";
-@import "components/soccer/home-page/match-table";
-@import "components/soccer/home-page/match-table-list";
-@import "components/soccer/home-page/match-table-preview";
+@import "components/soccer/home-page/future-match-table";
+@import "components/soccer/home-page/future-match-table-list";
+@import "components/soccer/home-page/future-match-table-preview";
+@import "components/soccer/home-page/past-match-table";
+@import "components/soccer/home-page/past-match-table-list";
+@import "components/soccer/home-page/past-match-table-preview";
 
 // LAYOUT
 @import "layout/_header";

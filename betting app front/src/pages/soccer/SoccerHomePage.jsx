@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { gamesService } from '../../services/games.service'
 import { ManualCarousel } from '../../cmps/soccer/home-page/MatchList'
 import { FutureMatchTable } from '../../cmps/soccer/home-page/FutureMatchTable'
+import { PastMatchTable } from '../../cmps/soccer/home-page/PastMatchTable'
 
 export function SoccerHomePage() {
 
@@ -44,6 +45,7 @@ export function SoccerHomePage() {
       <ManualCarousel matches={randomMatches} />
       <div className="home-container">
         <FutureMatchTable matches={futureMatches} />
+        <PastMatchTable matches={pastMatches} />
       </div>
     </div>
   )
