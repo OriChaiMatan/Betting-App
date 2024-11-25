@@ -7,6 +7,7 @@ import { SoccerPastMatchDetails } from './pages/soccer/SoccerPastMatchDetails'
 import { SoccerFutureMatchDetails } from './pages/soccer/SoccerFutureMatchDetails'
 import { AppHeader } from './cmps/AppHeader'
 import { SideBar } from './cmps/SideBar'
+import { AppFooter } from './cmps/AppFooter'
 
 export function App() {
 
@@ -23,6 +24,7 @@ export function App() {
           <Route path="/future-match-details/:matchId" element={<SoccerFutureMatchDetails />} />
         </Routes>
       </section>
+      <AppFooter />
     </div>
   )
 }
