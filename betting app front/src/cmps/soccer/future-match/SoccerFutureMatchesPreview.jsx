@@ -38,7 +38,7 @@ export function SoccerFutureMatchesPreview({ match }) {
 
     const calculateAverageOdds = (oddsList) => {
         if (!oddsList || oddsList.length === 0) return { odd_1: 'N/A', odd_x: 'N/A', odd_2: 'N/A' }
-        
+
         let totalHome = 0, totalDraw = 0, totalAway = 0
         let count = oddsList.length
 
@@ -81,9 +81,9 @@ export function SoccerFutureMatchesPreview({ match }) {
                 </div>
             </div>
             <div className='odds-1x2'> {/* Option for future- when click on odds option it will take the user to affiliate site ????? */}
-                <span>1 <a>{odds ? odds.odd_1 : 'Loading...'}</a></span>
-                <span><RxCross1 /> <a>{odds ? odds.odd_x : 'Loading...'}</a></span>
-                <span>2 <a>{odds ? odds.odd_2 : 'Loading...'}</a></span>
+                <span><a>1</a>  {odds ? odds.odd_1 : 'Loading...'}</span>
+                <span><RxCross1 /> {odds ? odds.odd_x : 'Loading...'}</span>
+                <span><a>2</a>   {odds ? odds.odd_2 : 'Loading...'}</span>
             </div>
             <p>By Top 10 Bookmakers odds</p>
             <Link to={`/future-match-details/${match.match_id}`} className='link'><span>More Odds</span></Link>

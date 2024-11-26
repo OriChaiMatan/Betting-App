@@ -83,9 +83,9 @@ export function MatchPreview({ match }) {
                     </div>
                 </div>
                 <div className='odds-1x2'> {/* Option for future- when click on odds option it will take the user to affiliate site ????? */}
-                    <span>1  {odds ? odds.odd_1 : 'Loading...'}</span>
+                    <span><div>1</div>  {odds ? odds.odd_1 : 'Loading...'}</span>
                     <span><RxCross1 /> {odds ? odds.odd_x : 'Loading...'}</span>
-                    <span>2  {odds ? odds.odd_2 : 'Loading...'}</span>
+                    <span><div>2</div>   {odds ? odds.odd_2 : 'Loading...'}</span>
                 </div>
             </Link>
         </section>
