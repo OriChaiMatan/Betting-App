@@ -2,6 +2,6 @@ import React from 'react'
 
 export function BettingIndex() {
   return (
-    <div>Coming soon !</div>
+    <div className='betting-container'>Coming soon !</div>
   )
 }

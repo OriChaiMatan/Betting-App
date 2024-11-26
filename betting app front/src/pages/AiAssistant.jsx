@@ -2,6 +2,6 @@ import React from 'react'
 
 export function AiAssistant() {
   return (
-    <div>Coming soon !</div>
+    <div className='ai-container'>Coming soon !</div>
   )
 }
