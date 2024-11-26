@@ -1,4 +1,5 @@
-import { Route, HashRouter as Router, Routes } from 'react-router-dom'
+import { Route, HashRouter as Router, Routes, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 import '../assets/sass/main.scss'
 import { SoccerHomePage } from './pages/soccer/SoccerHomePage'
 import { SoccerPastIndex } from './pages/soccer/SoccerPastIndex'
@@ -12,6 +13,12 @@ import { SideBar } from './cmps/SideBar'
 import { AppFooter } from './cmps/AppFooter'
 
 export function App() {
+
+  const location = useLocation()
+  
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location])
 
   return (
     <div>
