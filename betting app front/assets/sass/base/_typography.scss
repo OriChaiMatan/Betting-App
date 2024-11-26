@@ -4,7 +4,18 @@ body {
     line-height: 1.7;
     color: $color-white;
     background-color: $p1;
-} 
+}
+
+.main-content {
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - var(--header-height) - var(--footer-height));
+
+    .main-routes {
+        flex: 1;
+        overflow-y: auto;
+    }
+}
 
 .heading-secondary {
     font-size: 3.5rem;
@@ -15,15 +26,16 @@ body {
     transition: all .2s;
 }
 
-.heading-tertiary{
+.heading-tertiary {
     font-size: $default-font-size;
     font-weight: 700;
 }
 
-.btn-text{
+.btn-text {
     all: unset;
+
     &:link,
-    &:visited{
+    &:visited {
         font-size: $default-font-size;
         color: $p1;
         display: inline-block;
@@ -32,7 +44,7 @@ body {
         transition: all .2s;
     }
 
-    &:hover{
+    &:hover {
         box-shadow: 0 1rem 2rem rgba($color-black, .15);
         transform: translateY(-2px);
         transform: scale(1.05);
@@ -47,10 +59,9 @@ body {
 .link {
     text-decoration: none; // Removes the underline
     color: inherit; // Inherits the color of its parent, or you can set a specific color
-  
+
     &:hover {
-      text-decoration: none;
-      color: inherit; // Keeps the same color on hover
+        text-decoration: none;
+        color: inherit; // Keeps the same color on hover
     }
-  }
-  
+}

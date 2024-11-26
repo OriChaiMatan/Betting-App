@@ -1,9 +1,9 @@
-import { useRef } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { useRef } from "react"
+import { FaBars, FaTimes } from "react-icons/fa"
+import { Link } from 'react-router-dom'
 
 export function AppHeader() {
-    const navRef = useRef();
+    const navRef = useRef()
 
 	const showNavbar = () => {
 		navRef.current.classList.toggle(

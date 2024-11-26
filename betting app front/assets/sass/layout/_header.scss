@@ -1,14 +1,13 @@
 .app-header {
 	position: sticky;
 	top: 0;
-	z-index: 100;
+	z-index: 1000;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	height: 10vh;
 	padding: 0 2rem;
 	background-color: $p2;
-	box-shadow: $default-box-shadow;
 }
 
 .header-nav a {

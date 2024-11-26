@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export function AppFooter() {
   return (
@@ -10,16 +11,17 @@ export function AppFooter() {
       <div className="links">
         <div className="info">
           <h3>Sports</h3>
-          <span>Football</span>
-          <span>Betting</span>
-          <span>AI</span>
+          <Link to={'/'}><span>Soccer</span></Link>
+          <Link to={'/leagues'}><span>Leagues</span></Link>
+          <Link to={'/bet'}><span>Betting</span></Link>
+          <Link to={'/ai-assistant'}><span>AI</span></Link>
         </div>
         <div className="info">
           <h3>Security and Privacy</h3>
           <span>Privacy Policy</span>
           <span>Terms and Conditions</span>
           <span>Cookie Policy</span>
-          <span>BeGambleAware.org</span>
+          <a href="https://www.gambleaware.org/" target="_blank" rel="noopener noreferrer"><span>BeGambleAware.org</span></a>
         </div>
         <div className="be-gamble-aware">
           <a
