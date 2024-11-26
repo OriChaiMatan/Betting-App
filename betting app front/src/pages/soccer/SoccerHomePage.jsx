@@ -33,12 +33,23 @@ export function SoccerHomePage() {
     }
   }
 
-  function getRandomMatches(matches, count) {
-    const shuffled = [...matches].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, count);
+  function getRandomMatchesForToday(matches, count) {
+    const today = new Date();
+    // Filter matches for today's date
+    const todayMatches = matches.filter((match) => {
+      const matchDate = new Date(match.match_date)
+      return (
+        matchDate.getDate() === today.getDate() &&
+        matchDate.getMonth() === today.getMonth() &&
+        matchDate.getFullYear() === today.getFullYear()
+      )
+    })
+    // Shuffle and get the desired number of matches
+    const shuffled = [...todayMatches].sort(() => 0.5 - Math.random())
+    return shuffled.slice(0, count)
   }
 
-  const randomMatches = getRandomMatches(futureMatches, 15);
+  const randomMatches = getRandomMatchesForToday(futureMatches, 15)
 
   return (
     <div className='home-page'>

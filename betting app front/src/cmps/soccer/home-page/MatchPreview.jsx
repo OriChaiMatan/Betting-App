@@ -26,6 +26,7 @@ export function MatchPreview({ match }) {
                     const averageOdds = calculateAverageOdds(oddsData)
                     setOdds(averageOdds)
                 } else {
+                    console.warn('No odds data available for match:', match.match_id);
                     setOdds({ odd_1: 'N/A', odd_x: 'N/A', odd_2: 'N/A' })
                 }
             } catch (error) {

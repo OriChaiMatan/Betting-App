@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { SoccerFutureMatchesPreview } from '../future-match/SoccerFutureMatchesPreview';
 import { MatchPreview } from './MatchPreview';
 
 export function ManualCarousel({ matches }) {
