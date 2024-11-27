@@ -19,7 +19,7 @@ export function PastMatchTable({ matches }) {
             </div>
             <PastMatchTableList matches={matches.slice(-5)} />
             <Link to={'/past-match'} className='link-to-matches' >
-                <span>All Past Matches Here !</span>
+                <span>All Previous Matches Here !</span>
             </Link>
         </div>
     )
