@@ -62,7 +62,7 @@ async function _fetchLeagues() {
         });
 
         // Fetch all leagues and filter for league_id = 1
-        const leagues = Array.isArray(response.data) ? response.data.filter(league => league.league_id == 3) : []
+        const leagues = Array.isArray(response.data) ? response.data.filter(league => league.league_id == 3 || league.league_id == 202 ) : []
 
         // Fetch teams and matches for the filtered league
         await Promise.all(leagues.map(async (league) => {

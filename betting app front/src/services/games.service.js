@@ -49,7 +49,9 @@ async function _createGames() {
     if (!pastGames || !pastGames.length) {
         console.log('No past games found, fetching from API...')
         const today = utilService.getTodayDate()
-        pastGames = await _fetchGames({ from: '2024-08-01', to: today }) // Adjust date as needed
+        const pastGames3 = await _fetchGames({ from: '2024-08-01', to: today }) // Adjust date as needed
+        const pastGames202 = await _fetchGames({ from: '2024-08-01', to: today, leagueId: '202' }) // Adjust date as needed
+        pastGames = [...pastGames3, ...pastGames202]
         utilService.saveToStorage(PAST_STORAGE_KEY, pastGames)
     }
 
@@ -58,19 +60,21 @@ async function _createGames() {
         const today = utilService.getTodayDate()
         const nextTwoDays = utilService.getNextDate(3)
         //futureGames = await _fetchGames({ from: today, to: nextTwoDays })
-        futureGames = await _fetchGames({ from: today, to: '2025-01-01' })
+        const futureGames1 = await _fetchGames({ from: today, to: '2025-01-01' })
+        const futureGames2 = await _fetchGames({ from: today, to: '2025-01-01', leagueId: '202' })
+        futureGames = [...futureGames1, ...futureGames2]
         utilService.saveToStorage(FUTURE_STORAGE_KEY, futureGames)
     }
 }
 
-async function _fetchGames({ from, to }) {
+async function _fetchGames({ from, to, leagueId = '3' }) {
     try {
         const params = {
             action: 'get_events',
             APIkey: API_KEY,
             from,
             to,
-            league_id: '3'  // delete when production
+            league_id: leagueId  // delete when production
         }
         const { data } = await axios.get(BASE_URL, { params })
         return data
