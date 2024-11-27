@@ -6,6 +6,12 @@ export function LeaguesList({ leagues, matches }) {
     const [selectedLeague, setSelectedLeague] = useState(null)
     const [filteredMatches, setFilteredMatches] = useState([])
 
+    useEffect(() => {
+        if (leagues && leagues.length > 0 && !selectedLeague) {
+          setSelectedLeague(leagues[0]) // Set the first league as selected
+        }
+      }, [leagues, selectedLeague])
+
     const handleLeagueClick = (league) => {
         setSelectedLeague(league)
     }
