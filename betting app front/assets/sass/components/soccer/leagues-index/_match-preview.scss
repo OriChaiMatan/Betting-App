@@ -1,0 +1,85 @@
+.leagues-match-preview{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.6rem;
+    border-radius: 2rem;
+    padding: 1.5rem;
+    border: 2px solid rgba($p3, 1);
+    box-shadow: 0 1rem 2rem rgba($color-black, .5);
+    background-color: $p2;
+
+    .match-data-preview {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.4rem;
+        padding-bottom: 1rem;
+        border-bottom: $default-border-bottom;
+
+        .league-data-preview {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            span{
+                font-weight: bold;
+            }
+        }
+
+        .match-date {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            span{
+                font-weight: bold;
+            }
+        }
+    }
+
+    .match-data{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem;
+        padding-top: 1rem;
+
+        .teams{
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+
+            .team-preview {
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+
+                img{
+                    width: 4rem;
+                    height: 4rem;
+                }
+            }
+        }
+
+        .score{
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            padding-right: 1.5rem;
+            gap: 3rem;
+            width: 50%;
+
+            span {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 3rem;
+                font-weight: bold;
+            }
+        }
+    }
+
+    &:hover {
+        text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
+        border: 0.5px solid rgba($color-white, .7);
+    }
+}

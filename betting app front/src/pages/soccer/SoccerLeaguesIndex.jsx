@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react'
 import { leaguesService } from '../../services/leagues.service'
+import { gamesService } from '../../services/games.service'
 import { SearchBar } from '../../cmps/soccer/leagues-index/SearchBar'
 import { LeaguesList } from '../../cmps/soccer/leagues-index/LeaguesList'
 
 export function SoccerLeaguesIndex() {
     const [leagues, setLeagues] = useState([])
 
+    const [pastMatch, setPastMatch] = useState([])
+
     useEffect(() => {
         loadLeagues()
+        loadMatches()
     }, [])
 
     async function loadLeagues() {
@@ -18,52 +22,20 @@ export function SoccerLeaguesIndex() {
             console.log('Error in loading leagues', err)
         }
     }
+
+    async function loadMatches() {
+        try {
+            const data = await gamesService.getPastGames()
+            setPastMatch(data)
+        } catch (err) {
+            console.log('Error in loading leagues', err)
+        }
+    }
+
     return (
         <section className="leagues-index">
             <SearchBar />
-            <LeaguesList leagues={leagues} />
-            {/* <h1 className="leagues-title">Top Soccer Leagues</h1>
-            <div className="leagues-grid">
-                {leagues.map((league) => (
-                    <div className="league-card" key={league.league_id}>
-                        <div className="league-logo">
-                            <img
-                                src={league.league_logo || 'https://via.placeholder.com/100x100?text=No+Logo'}
-                                alt={`${league.league_name} logo`}
-                            />
-                        </div>
-                        <div className="league-info">
-                            <h3>{league.league_name}</h3>
-                        </div>
-                    </div>
-                ))}
-                {leagues.map((league) => (
-                    <div className="league-card" key={league.league_id}>
-                        <div className="league-logo">
-                            <img
-                                src={league.league_logo || 'https://via.placeholder.com/100x100?text=No+Logo'}
-                                alt={`${league.league_name} logo`}
-                            />
-                        </div>
-                        <div className="league-info">
-                            <h3>{league.league_name}</h3>
-                        </div>
-                    </div>
-                ))}
-                {leagues.map((league) => (
-                    <div className="league-card" key={league.league_id}>
-                        <div className="league-logo">
-                            <img
-                                src={league.league_logo || 'https://via.placeholder.com/100x100?text=No+Logo'}
-                                alt={`${league.league_name} logo`}
-                            />
-                        </div>
-                        <div className="league-info">
-                            <h3>{league.league_name}</h3>
-                        </div>
-                    </div>
-                ))} */}
-            {/* </div> */}
+            <LeaguesList leagues={leagues} matches={pastMatch} />
         </section>
     )
 }
