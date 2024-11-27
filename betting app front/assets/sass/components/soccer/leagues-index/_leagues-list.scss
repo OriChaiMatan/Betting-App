@@ -1,0 +1,17 @@
+.leagues-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+
+    .leagues-title {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .leagues-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+        gap: 1rem;
+    }
+}

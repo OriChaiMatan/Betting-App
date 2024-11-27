@@ -32,6 +32,9 @@
 @import "components/soccer/home-page/past-match-table";
 @import "components/soccer/home-page/past-match-table-list";
 @import "components/soccer/home-page/past-match-table-preview";
+@import "components/soccer/leagues-index/search-bar";
+@import "components/soccer/leagues-index/leagues-list";
+@import "components/soccer/leagues-index/league-preview";
 
 // LAYOUT
 @import "layout/_header";
@@ -46,3 +49,4 @@
 @import "pages/soccer/home-page";
 @import "pages/ai-assistant";
 @import "pages/betting-index";
+@import "pages/soccer/leagues-index";

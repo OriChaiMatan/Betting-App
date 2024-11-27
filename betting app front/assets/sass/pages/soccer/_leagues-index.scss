@@ -1,0 +1,47 @@
+.leagues-index {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+
+    .leagues-title {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .leagues-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+        gap: 1rem;
+    }
+
+    .league-card {
+        border-radius: 8px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .league-logo img {
+            width: 8rem;
+            height: 8rem;
+            object-fit: cover; 
+            margin-bottom: 1.5rem;
+            border-radius: 5px; 
+            border: 2px solid #e0e0e0; 
+        }
+        
+
+        .league-info {
+            h3 {
+                font-size: 1.25rem;
+                margin-bottom: 1rem;
+            }
+        }
+    }
+}
