@@ -35,14 +35,14 @@ export function TeamStatistics({ team }) {
             return match.match_hometeam_score > match.match_awayteam_score
                 ? "W"
                 : match.match_hometeam_score < match.match_awayteam_score
-                ? "L"
-                : "D";
+                    ? "L"
+                    : "D";
         } else {
             return match.match_awayteam_score > match.match_hometeam_score
                 ? "W"
                 : match.match_awayteam_score < match.match_hometeam_score
-                ? "L"
-                : "D";
+                    ? "L"
+                    : "D";
         }
     }
 
@@ -62,7 +62,7 @@ export function TeamStatistics({ team }) {
             <div className="five-match">
                 <h3>
                     Last Matches Results{" "}
-                    {view === "home" ? "(Home)" : "(Away)"}
+                    {view === "home" ? "- Home" : "- Away"}
                 </h3>
                 <div className="outcomes">
                     {matches.length > 0 ? (
@@ -103,6 +103,19 @@ export function TeamStatistics({ team }) {
                     </div>
                     <div>
                         <span>Loss <a>{currentStatistics.loss_percentage}%</a></span>
+                    </div>
+                </div>
+            </div>
+            <div className="avg-goal">
+                <h3>
+                    Average Goals per Match {view === "home" ? "- Home" : "- Away"}
+                </h3>
+                <div className="goals">
+                    <div className="info">
+                        <span>{currentStatistics.avg_goals_full_match} - Goals per Full Match </span>
+                    </div>
+                    <div className="info">
+                        <span>{currentStatistics.avg_goals_first_half} - Goals per First Half</span>
                     </div>
                 </div>
             </div>
