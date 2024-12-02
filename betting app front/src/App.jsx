@@ -7,6 +7,7 @@ import { SoccerFutureIndex } from './pages/soccer/SoccerFutureIndex'
 import { SoccerPastMatchDetails } from './pages/soccer/SoccerPastMatchDetails'
 import { SoccerFutureMatchDetails } from './pages/soccer/SoccerFutureMatchDetails'
 import { SoccerLeaguesIndex } from './pages/soccer/SoccerLeaguesIndex'
+import { SoccerLeagueDetails } from './pages/soccer/SoccerLeagueDetails'
 import { BettingIndex } from './pages/BettingIndex'
 import { AiAssistant } from './pages/AiAssistant'
 import { AppHeader } from './cmps/AppHeader'
@@ -34,6 +35,7 @@ export function App() {
             <Route path='/future-match' element={<SoccerFutureIndex />} />
             <Route path="/future-match-details/:matchId" element={<SoccerFutureMatchDetails />} />
             <Route path="/leagues" element={<SoccerLeaguesIndex />} />
+            <Route path="/league-details/:leagueId" element={<SoccerLeagueDetails />} />
             <Route path="/bet" element={<BettingIndex />} />
             <Route path="/ai-assistant" element={<AiAssistant />} />
           </Routes>
