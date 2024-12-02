@@ -22,16 +22,13 @@
         align-items: center;
         gap: 1rem;
         border-bottom: 1.5px solid rgba($n11, 1);
+        padding-bottom: 0.5rem;
     }
     
     .team-badge {
         width: 15rem;
         height: 15rem;
         object-fit: contain;
-    }
-    
-    .team-card-body {
-        padding: 2rem;
     }
     
     .team-name {

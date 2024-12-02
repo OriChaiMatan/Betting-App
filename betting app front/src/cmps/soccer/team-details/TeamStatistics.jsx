@@ -46,7 +46,7 @@ export function TeamStatistics({ team }) {
         }
     }
 
-    const currentMatches = view === "home" ? team.last_5_home_matches : team.last_5_away_matches
+    const currentStatistics = view === "home" ? team.home_statistic : team.away_statistic
 
     if (!team && !matches) return <div>Loading...</div>
     return (
@@ -88,6 +88,22 @@ export function TeamStatistics({ team }) {
                     ) : (
                         <p>Loading match data...</p>
                     )}
+                </div>
+            </div>
+            <div className="win-draw-lose">
+                <h3>
+                    {view === "home" ? "Home" : "Away"} Probability of Match Outcome
+                </h3>
+                <div className="statistics">
+                    <div>
+                        <span>Win <a>{currentStatistics.win_percentage}%</a></span>
+                    </div>
+                    <div>
+                        <span>Draw <a>{currentStatistics.draw_percentage}%</a></span>
+                    </div>
+                    <div>
+                        <span>Loss <a>{currentStatistics.loss_percentage}%</a></span>
+                    </div>
                 </div>
             </div>
         </div>
