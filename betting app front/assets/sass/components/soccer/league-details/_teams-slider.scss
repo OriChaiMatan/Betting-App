@@ -33,7 +33,7 @@
     align-items: center;
     justify-content: center;
     font-size: 2.5rem;
-    color: $color-white;
+    color: $n2;
     background: none;
     height: 3rem;
     width: 3rem;
@@ -48,7 +48,7 @@
 }
 
 .slider-button:hover {
-    transform: scale(1.04);
+    transform: scale(1.06);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 

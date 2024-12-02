@@ -4,7 +4,6 @@ import { FutureMatchTablePreview } from './FutureMatchTablePreview'
 export function FutureMatchTableList({matches}) {
 
   if (!matches) return <div>No future games available</div>
-
   return (
     <ul className='match-table-list'>
       {matches.map((match) => (

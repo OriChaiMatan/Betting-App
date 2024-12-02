@@ -1,5 +1,7 @@
 .league-details {
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
 
     .league-header {
         display: flex;
@@ -41,6 +43,35 @@
                 .country-name {
                     font-size: 1.1rem;
                 }
+            }
+        }
+    }
+
+    .navigate-to-match{
+        padding-top: 2rem;
+        display: flex;
+        gap: 2rem;
+
+        .link-to-matches {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 4rem;
+            background-color: rgba($p2, 1);
+            border-radius: 1rem;
+            border: 0.5px solid rgba($n5, 1);
+    
+            span {
+                font-size: 1.8rem;
+            }
+    
+            text-decoration: none; // Removes the underline
+            color: inherit; // Inherits the color of its parent, or you can set a specific color
+    
+            &:hover {
+                text-decoration: none;
+                transform: scale(1.02);
             }
         }
     }

@@ -1,15 +1,21 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { useParams } from "react-router"
 import { leaguesService } from "../../services/leagues.service"
+import { gamesService } from "../../services/games.service"
 import { CallToActionHeader } from "../../cmps/soccer/future-match/CallToActionHeader"
 import { TeamSlider } from "../../cmps/soccer/league-details/TeamsSlider"
+import { MatchSection } from "../../cmps/soccer/league-details/MatchSection"
 
 export function SoccerLeagueDetails() {
     const [league, setLeague] = useState(null)
+    const [pastMatches, setPastMatches] = useState([])
+    const [futureMatches, setFutureMatches] = useState([])
     const params = useParams()
 
     useEffect(() => {
         loadLeague()
+        loadMatches()
     }, [params.leagueId])
 
     async function loadLeague() {
@@ -18,6 +24,20 @@ export function SoccerLeagueDetails() {
             setLeague(data)
         } catch (err) {
             console.log('Error in load league', err)
+        }
+    }
+
+    async function loadMatches() {
+        try {
+            const pastData = await gamesService.getPastGames()
+            const futureData = await gamesService.getFutureGames()
+            const filteredPastMatches = pastData.filter(match => match.league_id === params.leagueId)
+            const filteredFutureMatches = futureData.filter(match => match.league_id === params.leagueId)
+
+            setPastMatches(filteredPastMatches)
+            setFutureMatches(filteredFutureMatches)
+        } catch (err) {
+            console.log('Error in loading matches', err)
         }
     }
 
@@ -47,17 +67,15 @@ export function SoccerLeagueDetails() {
                 </div>
             </div>
             <TeamSlider league={league} />
+            <MatchSection pastMatches={pastMatches.slice(0, 3)} futureMatches={futureMatches.slice(0, 3)} />
+            <div className="navigate-to-match">
+                <Link to={'/past-match'} className='link-to-matches' >
+                    <span>All Previous Matches</span>
+                </Link>
+                <Link to={'/future-match'} className='link-to-matches' >
+                    <span>All Future Matches</span>
+                </Link>
+            </div>
         </div>
     )
 }
-
-// LEAGUE DATA 
-
-// country_id: "1"
-// country_logo :  ""
-// country_name :  "eurocups"
-// league_id:  "3"
-// league_logo: "https://apiv3.apifootball.com/badges/logo_leagues/3_uefa-champions-league.png"
-// league_name: "UEFA Champions League"
-// league_season: "2024/2025"
-// league_teams: {}
