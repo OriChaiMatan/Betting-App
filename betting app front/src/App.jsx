@@ -37,7 +37,7 @@ export function App() {
             <Route path="/future-match-details/:matchId" element={<SoccerFutureMatchDetails />} />
             <Route path="/leagues" element={<SoccerLeaguesIndex />} />
             <Route path="/league-details/:leagueId" element={<SoccerLeagueDetails />} />
-            <Route path="/team-details/:teamId" element={<SoccerTeamDetails />} />
+            <Route path="/team-details/:leagueId/:teamId" element={<SoccerTeamDetails />} />
             <Route path="/bet" element={<BettingIndex />} />
             <Route path="/ai-assistant" element={<AiAssistant />} />
           </Routes>

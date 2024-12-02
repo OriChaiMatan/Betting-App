@@ -6,7 +6,8 @@ import { gamesService } from './games.service.js'
 export const leaguesService = {
     query,
     getLeagueById,
-    getTeamByLeagueAndTeamId
+    getTeamByLeagueAndTeamId,
+    getTeamById
 }
 
 const STORAGE_KEY = 'league-data'
@@ -26,21 +27,36 @@ function getLeagueById(leagueId) {
 }
 
 async function getTeamByLeagueAndTeamId(leagueId, teamId) {
-    const league = await storageService.get(STORAGE_KEY, leagueId)
-
+    const leagues = await storageService.query(STORAGE_KEY)
+    const league = leagues.find((league) => league.league_id === leagueId)
     if (!league) {
         console.warn(`League with ID ${leagueId} not found`)
         return null
     }
-
+    if (!Array.isArray(league.league_teams)) {
+        console.error(`league_teams for league ${leagueId} is not an array`)
+        return null
+    }
     const team = league.league_teams.find((team) => team.team_key === teamId)
-
-    if (!team) {
+    if (team) {
+        return team
+    } else {
         console.warn(`Team with ID ${teamId} not found in league ${leagueId}`)
         return null
     }
+}
 
-    return team
+
+async function getTeamById(teamId) {
+    const leagues = await storageService.query(STORAGE_KEY)
+    for (const league of leagues) {
+        const team = league.league_teams.find((team) => team.team_key === teamId)
+        if (team) {
+            return team
+        }
+    }
+    console.warn(`Team with ID ${teamId} not found`)
+    return null
 }
 
 

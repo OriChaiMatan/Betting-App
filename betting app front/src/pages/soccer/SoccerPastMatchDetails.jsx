@@ -57,7 +57,7 @@ export function SoccerPastMatchDetails() {
                     </div>
                 </Link>
                 <div className="teams-data">
-                    <Link to={`/team-details/${match.match_hometeam_id}`} className="link">
+                    <Link to={`/team-details/${match.league_id}/${match.match_hometeam_id}`} className="link">
                         <div className='team-preview'>
                             <img src={match.team_home_badge} alt="Home team badge" />
                             <span>Home Team</span>
@@ -67,7 +67,7 @@ export function SoccerPastMatchDetails() {
                     <div className='score-preview'>
                         <h2 className='heading-secondary'>{match.match_hometeam_score} : {match.match_awayteam_score}</h2>
                     </div>
-                    <Link to={`/team-details/${match.match_awayteam_id}`} className="link">
+                    <Link to={`/team-details/${match.league_id}/${match.match_awayteam_id}`} className="link">
                         <div className='team-preview'>
                             <img src={match.team_away_badge} alt="Home team badge" />
                             <span>Away Team</span>
