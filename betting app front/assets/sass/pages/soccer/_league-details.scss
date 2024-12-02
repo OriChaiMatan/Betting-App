@@ -1,0 +1,47 @@
+.league-details {
+    padding: 2rem;
+
+    .league-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        border-bottom: 1px solid #e0e0e0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+        .league-logo {
+            width: 8rem;
+            height: 8rem;
+            border-radius: 5px;
+            object-fit: contain;
+            margin-right: 2rem;
+        }
+
+        .league-details {
+            .league-name {
+                font-size: 1.8rem;
+                font-weight: bold;
+            }
+
+            .league-season {
+                font-size: 1.2rem;
+                margin: 5px 0;
+            }
+
+            .country-info {
+                display: flex;
+                align-items: center;
+
+                .country-logo {
+                    width: 3rem;
+                    height: 2rem;
+                    object-fit: contain;
+                    margin-right: 8px;
+                }
+
+                .country-name {
+                    font-size: 1.1rem;
+                }
+            }
+        }
+    }
+}

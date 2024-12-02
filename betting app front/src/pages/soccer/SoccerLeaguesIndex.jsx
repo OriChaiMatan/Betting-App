@@ -39,15 +39,3 @@ export function SoccerLeaguesIndex() {
         </section>
     )
 }
-
-
-// LEAGUE DATA 
-
-// country_id: "1"
-// country_logo :  ""
-// country_name :  "eurocups"
-// league_id:  "3"
-// league_logo: "https://apiv3.apifootball.com/badges/logo_leagues/3_uefa-champions-league.png"
-// league_name: "UEFA Champions League"
-// league_season: "2024/2025"
-// league_teams: {}

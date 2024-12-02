@@ -12,6 +12,7 @@ import { CardsTable } from "../../cmps/soccer/future-match/CardsTable"
 import { StickyHeader } from "../../cmps/soccer/StickyHeader"
 import { TimeForGoalBar } from "../../cmps/soccer/future-match/TimeForGoalBar"
 import { CallToActionHeader } from "../../cmps/soccer/future-match/CallToActionHeader"
+import { Link } from "react-router-dom"
 
 export function SoccerFutureMatchDetails() {
     const [match, setMatch] = useState(null)
@@ -176,13 +177,15 @@ export function SoccerFutureMatchDetails() {
             {isSticky && <StickyHeader match={match} />}
             <section className="future-match-details">
                 <div className="call-to-action-header"><CallToActionHeader /></div>
-                <div className='league-data'>
-                    <img src={match.league_logo} alt="League Logo" />
-                    <div className="league-info">
-                        <h3 className='heading-tertiary'>{match.league_name}</h3>
-                        <span>Season: {match.league_year}</span>
+                <Link to={`/league-details/${match.league_id}`} className="link">
+                    <div className='league-data'>
+                        <img src={match.league_logo} alt="League Logo" />
+                        <div className="league-info">
+                            <h3 className='heading-tertiary'>{match.league_name}</h3>
+                            <span>Season: {match.league_year}</span>
+                        </div>
                     </div>
-                </div>
+                </Link>
                 <div className="teams-data">
                     <div className='team-preview'>
                         <img src={match.team_home_badge} alt="Home team badge" />
