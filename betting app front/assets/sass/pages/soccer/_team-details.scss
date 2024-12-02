@@ -2,5 +2,46 @@
     padding: 3rem;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 2rem;
+
+    .team-card {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+    }
+    
+    .team-card-header {
+        width: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        border-bottom: 1.5px solid rgba($n11, 1);
+    }
+    
+    .team-badge {
+        width: 15rem;
+        height: 15rem;
+        object-fit: contain;
+    }
+    
+    .team-card-body {
+        padding: 2rem;
+    }
+    
+    .team-name {
+        font-size: 2.4rem;
+        font-weight: bold;
+    }
+    
+    .team-country {
+        color: #888;
+        font-size: 1.4rem;
+    }
+
 }
