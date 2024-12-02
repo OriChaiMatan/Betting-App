@@ -187,19 +187,23 @@ export function SoccerFutureMatchDetails() {
                     </div>
                 </Link>
                 <div className="teams-data">
-                    <div className='team-preview'>
-                        <img src={match.team_home_badge} alt="Home team badge" />
-                        <span>Home Team</span>
-                        <h3 className='heading-tertiary'>{match.match_hometeam_name}</h3>
-                    </div>
+                    <Link to={`/team-details/${match.match_hometeam_id}`} className="link">
+                        <div className='team-preview'>
+                            <img src={match.team_home_badge} alt="Home team badge" />
+                            <span>Home Team</span>
+                            <h3 className='heading-tertiary'>{match.match_hometeam_name}</h3>
+                        </div>
+                    </Link>
                     <div className='vs'>
                         <span>VS</span>
                     </div>
-                    <div className='team-preview'>
-                        <img src={match.team_away_badge} alt="Away team badge" />
-                        <span>Away Team</span>
-                        <h3 className='heading-tertiary'>{match.match_awayteam_name}</h3>
-                    </div>
+                    <Link to={`/team-details/${match.match_awayteam_id}`} className="link">
+                        <div className='team-preview'>
+                            <img src={match.team_away_badge} alt="Away team badge" />
+                            <span>Away Team</span>
+                            <h3 className='heading-tertiary'>{match.match_awayteam_name}</h3>
+                        </div>
+                    </Link>
                 </div>
                 <div className="place-data">
                     <div className="date">
