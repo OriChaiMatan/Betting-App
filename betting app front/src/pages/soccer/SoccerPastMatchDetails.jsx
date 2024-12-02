@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router"
+import { Link } from "react-router-dom"
 import { gamesService } from "../../services/games.service"
 import { utilService } from "../../services/util.service"
 import { ScoreTable } from "../../cmps/soccer/past-match/ScoreTable"
@@ -46,13 +47,15 @@ export function SoccerPastMatchDetails() {
             {isSticky && <StickyHeader match={match} />}
             <section className="past-match-details">
                 <div className="call-to-action-header"><CallToActionHeader /></div>
-                <div className='league-data'>
-                    <img src={match.league_logo} alt="League Logo" />
-                    <div className="league-info">
-                        <h3 className='heading-tertiary'>{match.league_name}</h3>
-                        <span>Season: {match.league_year}</span>
+                <Link to={`/league-details/${match.league_id}`} className="link">
+                    <div className='league-data'>
+                        <img src={match.league_logo} alt="League Logo" />
+                        <div className="league-info">
+                            <h3 className='heading-tertiary'>{match.league_name}</h3>
+                            <span>Season: {match.league_year}</span>
+                        </div>
                     </div>
-                </div>
+                </Link>
                 <div className="teams-data">
                     <div className='team-preview'>
                         <img src={match.team_home_badge} alt="Home team badge" />
@@ -69,7 +72,7 @@ export function SoccerPastMatchDetails() {
                     </div>
                 </div>
                 <div className="place-data">
-                <div className="stadium">
+                    <div className="stadium">
                         <MdOutlinePlace />
                         <h3 className="heading-tertiary">{match.match_stadium}</h3>
                     </div>
