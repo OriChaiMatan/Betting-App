@@ -3,8 +3,9 @@ import { useParams } from "react-router"
 import { leaguesService } from "../../services/leagues.service"
 import { CallToActionHeader } from "../../cmps/soccer/future-match/CallToActionHeader"
 import { NextMatch } from "../../cmps/soccer/team-details/NextMatch"
+import { TeamStatistics } from "../../cmps/soccer/team-details/TeamStatistics"
 import { PiSoccerBallFill } from "react-icons/pi"
-
+import { FcStatistics } from "react-icons/fc";
 
 export function SoccerTeamDetails() {
     const [team, setTeam] = useState(null)
@@ -77,9 +78,13 @@ export function SoccerTeamDetails() {
                         <h3>Venue: {team.venue.venue_name}, {team.venue.venue_city} | Capacity: {team.venue.venue_capacity} | Surface: {team.venue.venue_surface}</h3>
                     </div>
                 </div>
-                <div className="next-match">
+                <div className="team-section">
                     <h2><PiSoccerBallFill className='icon' /> Team Next Match:</h2>
                     <NextMatch match={nextMatch} />
+                </div>
+                <div className="team-section">
+                    <h2><FcStatistics className='icon' /> Team Statistics:</h2>
+                    <TeamStatistics team={team}/>
                 </div>
             </div>
         </>

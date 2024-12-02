@@ -1,0 +1,96 @@
+.team-statistics {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    background-color: $p2;
+    border-radius: 2rem;
+    padding: 1.5rem;
+    border: 2px solid rgba($p3, 1);
+    box-shadow: 0 1rem 2rem rgba($color-black, .5);
+
+    .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        padding-bottom: 1rem;
+
+        button {
+            width: 16rem;
+            height: 6rem;
+            font-size: 1.7rem;
+            border: none;
+            border-radius: 0.5rem;
+            background-color: $n11;
+            color: $color-white;
+            cursor: pointer;
+
+            span {
+                font-size: 1.3rem;
+            }
+
+            &.active {
+                background-color: $n6;
+                font-weight: bold;
+                border: 1px solid rgba($teal1, 1);
+            }
+
+            &:hover {
+                background-color: rgba($n5, 10%);
+                transform: scale(1.03);
+                text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
+            }
+        }
+    }
+
+    .five-match {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+
+        h3{
+            font-size: 1.8rem;
+        }
+
+        .outcomes {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            width: 100%;
+            padding: 1rem;
+            border-radius: 5px;
+
+            .outcome {
+                width: 4rem;
+                height: 4rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                margin: 0 0.5rem;
+                font-size: 1.8rem;
+                font-weight: 600;
+                color: $color-white;
+                background-color: #ccc;
+                transition: all 0.3s ease;
+
+                &.W {
+                    background-color: rgba($g1, 1);
+                }
+
+                &.D {
+                    background-color: rgba($n4, 1);
+                }
+
+                &.L {
+                    background-color: rgba($r1, 1);
+                }
+
+                &:hover {
+                    transform: scale(1.1);
+                    text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
+                }
+            }
+        }
+    }
+}
