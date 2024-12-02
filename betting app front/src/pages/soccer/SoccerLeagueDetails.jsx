@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router"
 import { leaguesService } from "../../services/leagues.service"
 import { CallToActionHeader } from "../../cmps/soccer/future-match/CallToActionHeader"
+import { TeamSlider } from "../../cmps/soccer/league-details/TeamsSlider"
 
 export function SoccerLeagueDetails() {
     const [league, setLeague] = useState(null)
@@ -45,6 +46,7 @@ export function SoccerLeagueDetails() {
                     </div>
                 </div>
             </div>
+            <TeamSlider league={league} />
         </div>
     )
 }
