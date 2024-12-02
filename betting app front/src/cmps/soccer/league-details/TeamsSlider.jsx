@@ -47,6 +47,7 @@ export function TeamSlider({ league }) {
                         imgSrc={team.team_badge}
                         altText={team.team_name}
                         nameLabel={team.team_name}
+                        leagueId={league.league_id}
                         teamId={team.team_key}
                     />
                 ))}

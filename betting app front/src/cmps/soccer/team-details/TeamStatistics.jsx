@@ -119,6 +119,15 @@ export function TeamStatistics({ team }) {
                     </div>
                 </div>
             </div>
+            <div className="cards">
+                <h3>
+                    Average Cards per Match {view === "home" ? "- Home" : "- Away"}
+                </h3>
+                <div className="team-cards">
+                    <span className='card yellow'>{currentStatistics.cards_statistic.full_match.yellow_card_full_match}</span>
+                    <span className='card red'>{currentStatistics.cards_statistic.full_match.red_card_full_match}</span>
+                </div>
+            </div>
         </div>
     )
 }

@@ -167,4 +167,54 @@
             }
         }
     }
+
+    .cards{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+
+        h3{
+            display: flex;
+            justify-content: center;
+            font-size: 1.8rem;
+            border-bottom: 1px solid rgba($teal1, 1);
+            width: 80%;
+        }
+
+        .team-cards {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            font-weight: bold;
+            gap: 4rem;
+            padding: 3rem;
+
+            .card {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2rem;
+                height: 10rem;
+                width: 8rem;
+                color: $color-white;
+                border-radius: 5px;
+                border: $default-white-border;
+
+                &:hover {
+                    transform: scale(1.03);
+                    text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
+                }
+            }
+
+            .yellow {
+                background-color: rgba($y3, 1);
+            }
+
+            .red{
+                background-color: rgba($r2, .9);
+            }
+        }
+    }
 }
