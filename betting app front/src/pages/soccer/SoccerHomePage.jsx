@@ -4,6 +4,7 @@ import { gamesService } from '../../services/games.service'
 import { ManualCarousel } from '../../cmps/soccer/home-page/MatchList'
 import { FutureMatchTable } from '../../cmps/soccer/home-page/FutureMatchTable'
 import { PastMatchTable } from '../../cmps/soccer/home-page/PastMatchTable'
+import { SkeletonTabelHomePage } from '../../cmps/loaders/SkeletonTabelHomePage'
 
 export function SoccerHomePage() {
 
@@ -11,9 +12,19 @@ export function SoccerHomePage() {
   const [pastMatches, setPastMatches] = useState([])
 
   useEffect(() => {
-    loadFutureMatchess()
-    loadPastMatchess()
-  }, [])
+    // Simulate a delay with setTimeout
+    const timeout = setTimeout(() => {
+      loadFutureMatchess();
+      loadPastMatchess();
+    }, 1000); // Adjust the delay as needed (e.g., 1 second)
+
+    return () => clearTimeout(timeout); // Clean up the timeout if the component unmounts
+  }, []);
+
+  // useEffect(() => {
+  //   loadFutureMatchess()
+  //   loadPastMatchess()
+  // }, [])
 
   async function loadFutureMatchess() {
     try {
@@ -58,6 +69,7 @@ export function SoccerHomePage() {
         <FutureMatchTable matches={futureMatches} />
         <PastMatchTable matches={pastMatches} />
       </div>
+      {/* <SkeletonTabelHomePage /> */}
     </div>
   )
 }

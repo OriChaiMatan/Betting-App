@@ -1,9 +1,14 @@
 import React from 'react'
 import { FutureMatchTableList } from './FutureMatchTableList'
 import { Link } from 'react-router-dom'
-import { FaCrown } from "react-icons/fa";
+import { FaCrown } from "react-icons/fa"
+import { SkeletonTabelHomePage } from '../../loaders/SkeletonTabelHomePage'
 
 export function FutureMatchTable({ matches }) {
+
+    if (!matches || matches.length === 0) {
+        return <SkeletonTabelHomePage />
+    }
     return (
         <div className='match-future-table'>
             <div className="title">

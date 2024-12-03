@@ -14,6 +14,7 @@ import { AiAssistant } from './pages/AiAssistant'
 import { AppHeader } from './cmps/AppHeader'
 import { SideBar } from './cmps/SideBar'
 import { AppFooter } from './cmps/AppFooter'
+import { SkeletonTheme } from 'react-loading-skeleton'
 
 export function App() {
 
@@ -25,6 +26,7 @@ export function App() {
 
   return (
     <div>
+      <SkeletonTheme baseColor="#080f25" highlightColor="#212c4d">
       <AppHeader />
       <section className='main-content'>
         <SideBar />
@@ -44,6 +46,7 @@ export function App() {
         </div>
       </section>
       <AppFooter />
+      </SkeletonTheme>
     </div>
   )
 }

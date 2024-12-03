@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { MatchPreview } from './MatchPreview';
+import React, { useEffect, useRef, useState } from 'react'
+import { MatchPreview } from './MatchPreview'
+import { SkeletonCard } from '../../loaders/SkeletonCardsHomePage';
 
 export function ManualCarousel({ matches }) {
     const [extendedMatches, setExtendedMatches] = useState(matches);
@@ -14,7 +15,7 @@ export function ManualCarousel({ matches }) {
             ...match,
             uniqueKey: `${match.match_id}-${index}`, // Create a unique key by combining match_id and index
         }));
-        
+
         setExtendedMatches(extendedMatchesList);
 
         const track = trackRef.current;
@@ -41,15 +42,23 @@ export function ManualCarousel({ matches }) {
             slide();
         }, slideDuration);
 
-        track.addEventListener('transitionend', () => {
-            track.style.transition = 'none'; // Disable transition to reset position instantly
-            track.style.transform = 'translate3d(0, 0, 0)'; // Reset to the original position
-            track.appendChild(track.firstElementChild); // Move the first slide to the end
-        });
+        if (track) {
+            track.addEventListener('transitionend', () => {
+                track.style.transition = 'none'; // Disable transition to reset position instantly
+                track.style.transform = 'translate3d(0, 0, 0)'; // Reset to the original position
+                track.appendChild(track.firstElementChild); // Move the first slide to the end
+            });
+        }
 
-        return () => clearInterval(loop); // Clean up the interval
+        return () => {
+            clearInterval(loop); // Clean up the interval
+            if (track) {
+                track.removeEventListener('transitionend', () => {}); // Clean up event listener
+            }
+        }
     }, [matches]);
 
+    if (!extendedMatches || extendedMatches.length === 0) { return <SkeletonCard /> }
     return (
         <div className="carousel-container">
             <ul className="carousel-track" ref={trackRef}>

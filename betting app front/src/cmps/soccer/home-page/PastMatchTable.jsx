@@ -1,9 +1,14 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import { PastMatchTableList } from './PastMatchTableList' 
 import { Link } from 'react-router-dom'
 import { FaHistory } from "react-icons/fa"
+import { SkeletonTabelHomePage } from '../../loaders/SkeletonTabelHomePage'
 
 export function PastMatchTable({ matches }) {
+
+    if (!matches || matches.length === 0) {
+        return <SkeletonTabelHomePage />
+    }
     return (
         <div className='match-past-table'>
             <div className="title">
