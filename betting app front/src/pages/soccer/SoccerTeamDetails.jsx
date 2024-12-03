@@ -7,6 +7,10 @@ import { CallToActionHeader } from "../../cmps/soccer/future-match/CallToActionH
 import { NextMatch } from "../../cmps/soccer/team-details/NextMatch"
 import { TeamStatistics } from "../../cmps/soccer/team-details/TeamStatistics"
 import { MatchList } from "../../cmps/soccer/team-details/MatchList"
+import { SkeletonTeamInfoDetails } from "../../cmps/loaders/SkeletonTeamInfoDetails"
+import { SkeletonNextMatchTeamDetails } from "../../cmps/loaders/SkeletonNextMatchTeamDetails"
+import { SkeletonTeamStatistics } from "../../cmps/loaders/SkeletonTeamStatistics"
+import { SkeletonTabelHomePage } from "../../cmps/loaders/SkeletonTabelHomePage"
 import { PiSoccerBallFill } from "react-icons/pi"
 import { FcStatistics } from "react-icons/fc"
 import { FaHistory } from "react-icons/fa"
@@ -83,41 +87,53 @@ export function SoccerTeamDetails() {
         }
     }
 
-    if (!team) return <div>loading team...</div>
     return (
-        <>
-            <div className="team-details-page">
-                <CallToActionHeader />
-                <div className="team-card">
+        <div className="team-details-page">
+            <CallToActionHeader />
+            <div className="team-card">
+                {!team ? (
+                    <SkeletonTeamInfoDetails />
+                ) : (
                     <div className="team-card-header">
                         <img src={team.team_badge} alt={`${team.team_name} Badge`} className="team-badge" />
                         <h2 className="team-name">{team.team_name}</h2>
                         <p className="team-country">{team.team_country}, {team.team_founded ? `Founded: ${team.team_founded}` : "Founded: N/A"}</p>
                         <h3>Venue: {team.venue.venue_name}, {team.venue.venue_city} | Capacity: {team.venue.venue_capacity} | Surface: {team.venue.venue_surface}</h3>
                     </div>
-                </div>
-                <div className="team-section">
-                    <h2><PiSoccerBallFill className='icon' /> Team Next Match:</h2>
-                    <NextMatch match={nextMatch} />
-
-                </div>
-                <div className="team-section">
-                    <h2><FcStatistics className='icon' /> Team Statistics:</h2>
-                    <TeamStatistics team={team} />
-                </div>
-                <div className="team-section">
-                    <h2><FaHistory className='icon blue' /> Team Previous Matches:</h2>
-                    <MatchList matches={pastMatches} />
-                </div>
-                <div className="navigate-to-match">
-                    <Link to={'/past-match'} className='link-to-matches' >
-                        <span>All Previous Matches</span>
-                    </Link>
-                    <Link to={'/future-match'} className='link-to-matches' >
-                        <span>All Future Matches</span>
-                    </Link>
-                </div>
+                )}
             </div>
-        </>
+            <div className="team-section">
+                <h2><PiSoccerBallFill className='icon' /> Team Next Match:</h2>
+                {!nextMatch ? (
+                    <SkeletonNextMatchTeamDetails />
+                ) : (
+                    <NextMatch match={nextMatch} />
+                )}
+            </div>
+            <div className="team-section">
+                <h2><FcStatistics className='icon' /> Team Statistics:</h2>
+                {!team ? (
+                    <SkeletonTeamStatistics />
+                ) : (
+                    <TeamStatistics team={team} />
+                )}
+            </div>
+            <div className="team-section">
+                <h2><FaHistory className='icon blue' /> Team Previous Matches:</h2>
+                {pastMatches.length === 0 ? (
+                    <SkeletonTabelHomePage />
+                ) : (
+                    <MatchList matches={pastMatches} />
+                )}
+            </div>
+            <div className="navigate-to-match">
+                <Link to={'/past-match'} className='link-to-matches' >
+                    <span>All Previous Matches</span>
+                </Link>
+                <Link to={'/future-match'} className='link-to-matches' >
+                    <span>All Future Matches</span>
+                </Link>
+            </div>
+        </div>
     )
 }

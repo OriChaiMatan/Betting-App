@@ -69,7 +69,6 @@ export function SoccerHomePage() {
         <FutureMatchTable matches={futureMatches} />
         <PastMatchTable matches={pastMatches} />
       </div>
-      {/* <SkeletonTabelHomePage /> */}
     </div>
   )
 }
