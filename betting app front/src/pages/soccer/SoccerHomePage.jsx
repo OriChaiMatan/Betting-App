@@ -4,7 +4,7 @@ import { gamesService } from '../../services/games.service'
 import { ManualCarousel } from '../../cmps/soccer/home-page/MatchList'
 import { FutureMatchTable } from '../../cmps/soccer/home-page/FutureMatchTable'
 import { PastMatchTable } from '../../cmps/soccer/home-page/PastMatchTable'
-import { SkeletonTabelHomePage } from '../../cmps/loaders/SkeletonTabelHomePage'
+import { showErrorMsg } from "../../services/event-bus.service"
 
 export function SoccerHomePage() {
 
@@ -12,19 +12,9 @@ export function SoccerHomePage() {
   const [pastMatches, setPastMatches] = useState([])
 
   useEffect(() => {
-    // Simulate a delay with setTimeout
-    const timeout = setTimeout(() => {
-      loadFutureMatchess();
-      loadPastMatchess();
-    }, 1000); // Adjust the delay as needed (e.g., 1 second)
-
-    return () => clearTimeout(timeout); // Clean up the timeout if the component unmounts
-  }, []);
-
-  // useEffect(() => {
-  //   loadFutureMatchess()
-  //   loadPastMatchess()
-  // }, [])
+    loadFutureMatchess()
+    loadPastMatchess()
+  }, [])
 
   async function loadFutureMatchess() {
     try {
@@ -32,6 +22,7 @@ export function SoccerHomePage() {
       setFutureMatches(data)
     } catch (err) {
       console.log('Error in loading future matches', err)
+      showErrorMsg('Error in fetching Future Matches, Please try again')
     }
   }
 
@@ -41,6 +32,7 @@ export function SoccerHomePage() {
       setPastMatches(data)
     } catch (err) {
       console.log('Error in loading past matches', err)
+      showErrorMsg('Error in fetching Previous Matches, Please try again')
     }
   }
 

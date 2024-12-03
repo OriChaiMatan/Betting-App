@@ -1,0 +1,77 @@
+.user-msg {
+    position: fixed;
+    top: 5vh;
+    right: 0.5rem;
+    margin-inline-end: 2.4rem;
+    z-index: 20000;
+    padding: 1.6rem;
+    color: #222222;
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 2rem rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;
+    animation: fadeIn 1s forwards, fadeOut 1s 4s forwards;
+    border: none;
+    font-family: "AirbnbCereal_W_Bk", sans-serif;
+    width: auto;
+    min-width: 24rem;
+    max-width: 100%;
+    font-weight: 400;
+    background-color: #ffffff;
+    opacity: 0;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+  
+    to {
+      opacity: 0;
+    }
+  }
+  
+  .user-msg-close-button {
+    all: unset;
+    cursor: pointer;
+    color: #717171;
+    font-size: 1.6rem;
+    margin-left: 1.6rem;
+  }
+  
+  .user-msg-close-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .msg-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+  }
+  
+  .user-msg span {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    font-weight: 600;
+    color: #222222;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .user-msg {
+      max-width: 40%;
+      left: 2rem;
+      bottom: 8rem;
+    }
+  }

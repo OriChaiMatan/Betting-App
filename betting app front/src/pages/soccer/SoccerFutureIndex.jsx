@@ -1,14 +1,16 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom"
 import { utilService } from '../../services/util.service'
 import { gamesService } from '../../services/games.service'
 import { SoccerFutureMatchesList } from '../../cmps/soccer/future-match/SoccerFutureMatchesList'
 import { SkeletonMatchPreview } from '../../cmps/loaders/SkeletonMatchPreview'
+import { showErrorMsg } from '../../services/event-bus.service'
 
 export function SoccerFutureIndex() {
 
     const [matches, setMatches] = useState([])
-
+    const navigate = useNavigate()
     const [todayGames, setTodayGames] = useState([])
     const [tomorrowGames, setTomorrowGames] = useState([])
     const [nextTwoDayGames, setNextTwoDayGames] = useState([])
@@ -58,6 +60,8 @@ export function SoccerFutureIndex() {
             setTodayGames(games)
         } catch (err) {
             console.log('Error in loading today games', err)
+            showErrorMsg('Error in fetch Matches, Please try again')
+            navigate("/")
         }
     }
 
@@ -68,6 +72,7 @@ export function SoccerFutureIndex() {
             setTodayGames(games)
         } catch (err) {
             console.log('Error in loading today games', err)
+            showErrorMsg('Error in fetch Today Matches, Please try again')
         }
     }
 
@@ -78,6 +83,7 @@ export function SoccerFutureIndex() {
             setTomorrowGames(games)
         } catch (err) {
             console.log('Error in loading tomorrow games', err)
+            showErrorMsg('Error in fetch Tomorrow Matches, Please try again')
         }
     }
 
@@ -88,6 +94,7 @@ export function SoccerFutureIndex() {
             setNextTwoDayGames(games)
         } catch (err) {
             console.log('Error in loading next two day games', err)
+            showErrorMsg('Error in fetch Next 2 days Matches, Please try again')
         }
     }
 

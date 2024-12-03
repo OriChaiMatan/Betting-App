@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom"
 import {gamesService} from '../../services/games.service'
 import { SoccerPastMatchesList } from '../../cmps/soccer/past-match/SoccerPastMatchesList'
 import { SkeletonMatchPreview } from '../../cmps/loaders/SkeletonMatchPreview'
+import { showErrorMsg } from '../../services/event-bus.service'
 
 export function SoccerPastIndex() {
     const [pastGames, setPastGames] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         loadPastGames()
@@ -16,6 +19,8 @@ export function SoccerPastIndex() {
             setPastGames(pastGamesData)
         } catch (err) {
             console.log('Error in loading past games', err)
+            showErrorMsg('Error in fetch Previous Matches, Please try again')
+            navigate("/")
         }
     }
 

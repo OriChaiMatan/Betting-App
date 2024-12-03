@@ -1,6 +1,7 @@
 import { Route, HashRouter as Router, Routes, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import '../assets/sass/main.scss'
+import { SkeletonTheme } from 'react-loading-skeleton'
 import { SoccerHomePage } from './pages/soccer/SoccerHomePage'
 import { SoccerPastIndex } from './pages/soccer/SoccerPastIndex'
 import { SoccerFutureIndex } from './pages/soccer/SoccerFutureIndex'
@@ -14,7 +15,7 @@ import { AiAssistant } from './pages/AiAssistant'
 import { AppHeader } from './cmps/AppHeader'
 import { SideBar } from './cmps/SideBar'
 import { AppFooter } from './cmps/AppFooter'
-import { SkeletonTheme } from 'react-loading-skeleton'
+import { UserMsg } from './cmps/UserMsg'
 
 export function App() {
 
@@ -46,6 +47,7 @@ export function App() {
         </div>
       </section>
       <AppFooter />
+      <UserMsg/>
       </SkeletonTheme>
     </div>
   )

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useParams } from "react-router"
 import { leaguesService } from "../../services/leagues.service"
 import { gamesService } from "../../services/games.service"
@@ -9,12 +9,14 @@ import { MatchSection } from "../../cmps/soccer/league-details/MatchSection"
 import { SkeletonLeagueDetails } from "../../cmps/loaders/SkeletonLeagueDetails"
 import { SkeletonTabelHomePage } from "../../cmps/loaders/SkeletonTabelHomePage"
 import { SkeletonLeaguePreview } from "../../cmps/loaders/SkeletonLeaguePreview"
+import { showErrorMsg } from "../../services/event-bus.service"
 
 export function SoccerLeagueDetails() {
     const [league, setLeague] = useState(null)
     const [pastMatches, setPastMatches] = useState([])
     const [futureMatches, setFutureMatches] = useState([])
     const params = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         loadLeague()
@@ -27,6 +29,8 @@ export function SoccerLeagueDetails() {
             setLeague(data)
         } catch (err) {
             console.log('Error in load league', err)
+            showErrorMsg('Error in fetch League, Please try again')
+            navigate(-1)
         }
     }
 
@@ -41,6 +45,7 @@ export function SoccerLeagueDetails() {
             setFutureMatches(filteredFutureMatches)
         } catch (err) {
             console.log('Error in loading matches', err)
+            showErrorMsg('Error in fetch matches, Please try again')
         }
     }
 

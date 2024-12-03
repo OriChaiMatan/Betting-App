@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { leaguesService } from "../../services/leagues.service"
 import { gamesService } from "../../services/games.service"
 import { CallToActionHeader } from "../../cmps/soccer/future-match/CallToActionHeader"
@@ -14,12 +14,14 @@ import { SkeletonTabelHomePage } from "../../cmps/loaders/SkeletonTabelHomePage"
 import { PiSoccerBallFill } from "react-icons/pi"
 import { FcStatistics } from "react-icons/fc"
 import { FaHistory } from "react-icons/fa"
+import { showErrorMsg } from "../../services/event-bus.service"
 
 export function SoccerTeamDetails() {
     const [team, setTeam] = useState(null)
     const [nextMatch, setNextMatch] = useState(null)
     const [pastMatches, setPastMatches] = useState([])
     const { leagueId, teamId } = useParams()
+    const navigate = useNavigate()
 
     const API_KEY = import.meta.env.VITE_API_KEY
     const BASE_URL = import.meta.env.VITE_BASE_URL
@@ -36,6 +38,8 @@ export function SoccerTeamDetails() {
             setTeam(data)
         } catch (err) {
             console.log('Error in load team', err)
+            showErrorMsg('Error in fetch Team data, Please try again')
+            navigate(-1)
         }
     }
 
@@ -45,6 +49,7 @@ export function SoccerTeamDetails() {
             setNextMatch(match)
         } catch (err) {
             console.error("Error loading next match:", err)
+            showErrorMsg('Error in fetch Future Matches, Please try again')
         }
     }
 
@@ -57,6 +62,7 @@ export function SoccerTeamDetails() {
             setPastMatches(slicedMatches)
         } catch (err) {
             console.log('Error in load team', err)
+            showErrorMsg('Error in fetch Previous Matches, Please try again')
         }
     }
 

@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { gamesService } from "../../services/games.service"
 import { leaguesService } from "../../services/leagues.service"
 import { utilService } from "../../services/util.service"
@@ -14,6 +14,7 @@ import { TimeForGoalBar } from "../../cmps/soccer/future-match/TimeForGoalBar"
 import { CallToActionHeader } from "../../cmps/soccer/future-match/CallToActionHeader"
 import { SkeletonFutureMatchDetails } from "../../cmps/loaders/SkeletonFutureMatchDetails"
 import { MdOutlinePlace } from "react-icons/md"
+import { showErrorMsg } from "../../services/event-bus.service"
 
 
 export function SoccerFutureMatchDetails() {
@@ -26,6 +27,7 @@ export function SoccerFutureMatchDetails() {
     const [isSticky, setIsSticky] = useState(false)
     const [view, setView] = useState('fullMatch')
     const params = useParams()
+    const navigate = useNavigate()
 
     const API_KEY = import.meta.env.VITE_API_KEY
     const BASE_URL = import.meta.env.VITE_BASE_URL
@@ -42,6 +44,7 @@ export function SoccerFutureMatchDetails() {
                 const league = await leaguesService.getLeagueById(match.league_id)
                 if (!league || !league.league_teams) {
                     console.error('League data or league teams missing')
+                    showErrorMsg('Error in get League Teams, Please try again')
                     return
                 }
                 const homeTeam = league.league_teams.find(team => team.team_key === match.match_hometeam_id)
@@ -52,6 +55,8 @@ export function SoccerFutureMatchDetails() {
                 if (awayTeam) loadLast5Matches(awayTeam.team_key, setAwayLast5Games)
             } catch (err) {
                 console.error('Error fetching teams:', err)
+                showErrorMsg('Error in fetch Teams, Please try again')
+                navigate("/future-match")
             }
         }
 

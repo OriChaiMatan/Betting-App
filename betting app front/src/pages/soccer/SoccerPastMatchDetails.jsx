@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { gamesService } from "../../services/games.service"
 import { utilService } from "../../services/util.service"
 import { ScoreTable } from "../../cmps/soccer/past-match/ScoreTable"
@@ -15,6 +15,7 @@ export function SoccerPastMatchDetails() {
     const [match, setMatch] = useState(null)
     const [isSticky, setIsSticky] = useState(false)
     const params = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         loadMatch()
@@ -39,6 +40,8 @@ export function SoccerPastMatchDetails() {
             setMatch(match)
         } catch (err) {
             console.log('Error in load past match', err)
+            showErrorMsg('Error in fetch Previous Match, Please try again')
+            navigate("/past-match")
         }
     }
 
