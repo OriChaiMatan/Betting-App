@@ -1,0 +1,11 @@
+.skeleton-future-match-details{
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    .header{
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        gap: 1.5rem;
+    }
+}
