@@ -7,6 +7,7 @@ import { ScoreTable } from "../../cmps/soccer/past-match/ScoreTable"
 import { StickyHeader } from "../../cmps/soccer/StickyHeader"
 import { CallToActionHeader } from "../../cmps/soccer/future-match/CallToActionHeader"
 import { MatchSummary } from "../../cmps/soccer/past-match/MatchSummary"
+import { SkeletonPastMatchDetails } from "../../cmps/loaders/SkeletonPastMatchDetails"
 import { MdOutlinePlace } from "react-icons/md"
 
 
@@ -41,7 +42,7 @@ export function SoccerPastMatchDetails() {
         }
     }
 
-    if (!match) return <div>Loading Match Details page...</div>
+    if (!match) return <SkeletonPastMatchDetails />
     return (
         <>
             {isSticky && <StickyHeader match={match} />}
