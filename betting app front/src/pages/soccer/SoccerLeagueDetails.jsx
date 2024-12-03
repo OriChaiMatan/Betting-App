@@ -6,6 +6,9 @@ import { gamesService } from "../../services/games.service"
 import { CallToActionHeader } from "../../cmps/soccer/future-match/CallToActionHeader"
 import { TeamSlider } from "../../cmps/soccer/league-details/TeamsSlider"
 import { MatchSection } from "../../cmps/soccer/league-details/MatchSection"
+import { SkeletonLeagueDetails } from "../../cmps/loaders/SkeletonLeagueDetails"
+import { SkeletonTabelHomePage } from "../../cmps/loaders/SkeletonTabelHomePage"
+import { SkeletonLeaguePreview } from "../../cmps/loaders/SkeletonLeaguePreview"
 
 export function SoccerLeagueDetails() {
     const [league, setLeague] = useState(null)
@@ -41,33 +44,44 @@ export function SoccerLeagueDetails() {
         }
     }
 
-    if (!league) return <div>Loading Match Details page...</div>
     return (
         <div className="league-details">
             <CallToActionHeader />
-            <div className="league-header">
-                <img
-                    src={league.league_logo}
-                    alt={`${league.league_name} logo`}
-                    className="league-logo"
-                />
-                <div className="league-details">
-                    <h1 className="league-name">{league.league_name}</h1>
-                    <p className="league-season">Season: {league.league_season}</p>
-                    <div className="country-info">
-                        {league.country_logo && (
-                            <img
-                                src={league.country_logo}
-                                alt={`${league.country_name} flag`}
-                                className="country-logo"
-                            />
-                        )}
-                        <span className="country-name">{league.country_name}</span>
+            {!league ? (
+                <SkeletonLeagueDetails />
+            ) : (
+                <div className="league-header">
+                    <img
+                        src={league.league_logo}
+                        alt={`${league.league_name} logo`}
+                        className="league-logo"
+                    />
+                    <div className="league-details">
+                        <h1 className="league-name">{league.league_name}</h1>
+                        <p className="league-season">Season: {league.league_season}</p>
+                        <div className="country-info">
+                            {league.country_logo && (
+                                <img
+                                    src={league.country_logo}
+                                    alt={`${league.country_name} flag`}
+                                    className="country-logo"
+                                />
+                            )}
+                            <span className="country-name">{league.country_name}</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <TeamSlider league={league} />
-            <MatchSection pastMatches={pastMatches.slice(0, 3)} futureMatches={futureMatches.slice(0, 3)} />
+            )}
+            {!league ? (
+                <SkeletonLeaguePreview cards={7} />
+            ) : (
+                <TeamSlider league={league} />
+            )}
+            {pastMatches.length === 0 && futureMatches.length === 0 ? (
+                <SkeletonTabelHomePage />
+            ) : (
+                <MatchSection pastMatches={pastMatches.slice(0, 3)} futureMatches={futureMatches.slice(0, 3)} />
+            )}
             <div className="navigate-to-match">
                 <Link to={'/past-match'} className='link-to-matches' >
                     <span>All Previous Matches</span>
