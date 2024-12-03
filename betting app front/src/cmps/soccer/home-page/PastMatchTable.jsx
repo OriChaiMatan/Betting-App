@@ -6,9 +6,6 @@ import { SkeletonTabelHomePage } from '../../loaders/SkeletonTabelHomePage'
 
 export function PastMatchTable({ matches }) {
 
-    if (!matches || matches.length === 0) {
-        return <SkeletonTabelHomePage />
-    }
     return (
         <div className='match-past-table'>
             <div className="title">
@@ -22,7 +19,11 @@ export function PastMatchTable({ matches }) {
                 <button className='league-btn'>League 3</button>
                 <button className='league-btn'>League 4</button>
             </div>
-            <PastMatchTableList matches={matches.slice(-5)} />
+            {matches.length === 0 ? (
+                <SkeletonTabelHomePage />
+            ) : (
+                <PastMatchTableList matches={matches.slice(-5)} />
+            )}
             <Link to={'/past-match'} className='link-to-matches' >
                 <span>All Previous Matches Here !</span>
             </Link>

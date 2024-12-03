@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { utilService } from '../../services/util.service'
 import { gamesService } from '../../services/games.service'
 import { SoccerFutureMatchesList } from '../../cmps/soccer/future-match/SoccerFutureMatchesList'
+import { SkeletonMatchPreview } from '../../cmps/loaders/SkeletonMatchPreview'
 
 export function SoccerFutureIndex() {
 
@@ -99,7 +100,7 @@ export function SoccerFutureIndex() {
                 <button onClick={() => setSelectedView('nextTwoDays')} className={selectedView === 'nextTwoDays' ? 'active' : ''}>Next 2 Days <span>{formatDate(next2days)}</span></button>
             </nav>
             {matches.length === 0 ? (
-                <div>No future games available</div>
+                <SkeletonMatchPreview />
             ) : (
                 <SoccerFutureMatchesList matches={matches} />
             )}

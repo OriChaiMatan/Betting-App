@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import {gamesService} from '../../services/games.service'
 import { SoccerPastMatchesList } from '../../cmps/soccer/past-match/SoccerPastMatchesList'
+import { SkeletonMatchPreview } from '../../cmps/loaders/SkeletonMatchPreview'
 
 export function SoccerPastIndex() {
     const [pastGames, setPastGames] = useState([])
@@ -20,7 +21,11 @@ export function SoccerPastIndex() {
 
     return (
         <section className='past-match-index'>
-            <SoccerPastMatchesList matches={pastGames.slice(-15)} />
+            {pastGames.length === 0 ? (
+                <SkeletonMatchPreview />
+            ) : (
+                <SoccerPastMatchesList matches={pastGames.slice(-15)} />
+            )}
         </section>
     )
 }

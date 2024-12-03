@@ -6,9 +6,6 @@ import { SkeletonTabelHomePage } from '../../loaders/SkeletonTabelHomePage'
 
 export function FutureMatchTable({ matches }) {
 
-    if (!matches || matches.length === 0) {
-        return <SkeletonTabelHomePage />
-    }
     return (
         <div className='match-future-table'>
             <div className="title">
@@ -22,7 +19,11 @@ export function FutureMatchTable({ matches }) {
                 <button className='league-btn'>League 3</button>
                 <button className='league-btn'>League 4</button>
             </div>
-            <FutureMatchTableList matches={matches.slice(0, 3)} />
+            {matches.length === 0 ? (
+                <SkeletonTabelHomePage />
+            ) : (
+                <FutureMatchTableList matches={matches.slice(0, 3)} />
+            )}
             <Link to={'/future-match'} className='link-to-matches' >
                 <span>All Future Matches Here !</span>
             </Link>
