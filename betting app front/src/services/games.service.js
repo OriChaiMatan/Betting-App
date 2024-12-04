@@ -39,9 +39,16 @@ async function getGamesByDate(date) {
     return futureGames.filter(game => game.match_date === date);
 }
 
+// function getPastMatchById(matchId) {
+//     return storageService.get(PAST_STORAGE_KEY, (match) => match.match_id == matchId)
+// }
 function getPastMatchById(matchId) {
-    return storageService.get(PAST_STORAGE_KEY, (match) => match.match_id === matchId)
+    return storageService.get(PAST_STORAGE_KEY, (match) => {
+        // Convert both to strings to ensure type safety
+        return String(match.match_id) === String(matchId);
+    });
 }
+
 
 function getFutureMatchById(matchId) {
     return storageService.get(FUTURE_STORAGE_KEY, (match) => match.match_id === matchId)

@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router"
 import { Link, useNavigate } from "react-router-dom"
+import { useSelector } from 'react-redux'
+
 import { leaguesService } from "../../services/leagues.service"
 import { gamesService } from "../../services/games.service"
+import { showErrorMsg } from "../../services/event-bus.service"
+
+import { loadPreviousMatches } from '../../store/actions/previous-match.action'
+
 import { CallToActionHeader } from "../../cmps/soccer/future-match/CallToActionHeader"
 import { NextMatch } from "../../cmps/soccer/team-details/NextMatch"
 import { TeamStatistics } from "../../cmps/soccer/team-details/TeamStatistics"
@@ -11,12 +17,14 @@ import { SkeletonTeamInfoDetails } from "../../cmps/loaders/SkeletonTeamInfoDeta
 import { SkeletonNextMatchTeamDetails } from "../../cmps/loaders/SkeletonNextMatchTeamDetails"
 import { SkeletonTeamStatistics } from "../../cmps/loaders/SkeletonTeamStatistics"
 import { SkeletonTabelHomePage } from "../../cmps/loaders/SkeletonTabelHomePage"
+
 import { PiSoccerBallFill } from "react-icons/pi"
 import { FcStatistics } from "react-icons/fc"
 import { FaHistory } from "react-icons/fa"
-import { showErrorMsg } from "../../services/event-bus.service"
 
 export function SoccerTeamDetails() {
+    const previousMatches = useSelector((storeState) => storeState.previousMatchModule.previousMatches)
+
     const [team, setTeam] = useState(null)
     const [nextMatch, setNextMatch] = useState(null)
     const [pastMatches, setPastMatches] = useState([])
@@ -55,8 +63,8 @@ export function SoccerTeamDetails() {
 
     async function loadPastMatches() {
         try {
-            const data = await gamesService.getPastGames()
-            const filteredPastMatches = data.filter(match => match.match_hometeam_id === teamId || match.match_awayteam_id === teamId)
+            await loadPreviousMatches()
+            const filteredPastMatches = previousMatches.filter(match => match.match_hometeam_id === teamId || match.match_awayteam_id === teamId)
             const sortedMatches = filteredPastMatches.sort((a, b) => new Date(b.match_date) - new Date(a.match_date))
             const slicedMatches = sortedMatches.slice(0, 3)
             setPastMatches(slicedMatches)

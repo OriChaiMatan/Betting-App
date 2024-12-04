@@ -10,13 +10,29 @@ export function TeamStatistics({ team }) {
         setView(selectedView)
     }
 
+    // const fetchMatchDetails = async (matchIds) => {
+    //     console.log("Match IDs:", matchIds);
+    //     const promises = matchIds.map((match) =>
+    //         gamesService.getPastMatchById(match.match_id)
+    //     );
+    //     const results = await Promise.all(promises)
+    //     return results.filter((match) => match !== undefined) // Filter out any undefined results
+    // }
     const fetchMatchDetails = async (matchIds) => {
-        const promises = matchIds.map((match) =>
-            gamesService.getPastMatchById(match.match_id)
-        );
-        const results = await Promise.all(promises)
-        return results.filter((match) => match !== undefined) // Filter out any undefined results
-    }
+        console.log("Match IDs:", matchIds);
+        const promises = matchIds.map(async (match) => {
+            try {
+                const result = await gamesService.getPastMatchById(match.match_id);
+                return result || null; // Ensure a null or fallback is returned
+            } catch (error) {
+                console.error(`Failed to fetch match ${match.match_id}:`, error);
+                return null;
+            }
+        });
+        const results = await Promise.all(promises);
+        return results.filter((match) => match !== null); // Filter out any null results
+    };
+    
 
     useEffect(() => {
         const loadMatches = async () => {
