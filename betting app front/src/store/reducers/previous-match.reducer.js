@@ -2,7 +2,7 @@ export const SET_PREVIOUS_MATCH = "SET_PREVIOUS_MATCH"
 export const SET_IS_LOADING = "SET_IS_LOADING"
 
 const initialState = {
-  previousMatches: null,
+  previousMatches: [],
   isLoading: true,
 }
 

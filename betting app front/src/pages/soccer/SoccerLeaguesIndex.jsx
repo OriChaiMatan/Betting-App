@@ -1,25 +1,30 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
-import { leaguesService } from '../../services/leagues.service'
-import { gamesService } from '../../services/games.service'
+import { useSelector } from 'react-redux'
+
+import { loadLeagues } from '../../store/actions/league.action'
+import { loadPreviousMatches } from '../../store/actions/previous-match.action'
+
 import { SearchBar } from '../../cmps/soccer/leagues-index/SearchBar'
 import { LeaguesList } from '../../cmps/soccer/leagues-index/LeaguesList'
 import { showErrorMsg } from '../../services/event-bus.service'
 
 export function SoccerLeaguesIndex() {
-    const [leagues, setLeagues] = useState([])
-    const [pastMatch, setPastMatch] = useState([])
+
+    const leagues = useSelector((storeState) => storeState.leagueModule.leagues)
+    const pastMatch = useSelector((storeState) => storeState.previousMatchModule.previousMatches)
+    // const [leagues, setLeagues] = useState([])
+    // const [pastMatch, setPastMatch] = useState([])
     const navigate = useNavigate()
 
     useEffect(() => {
-        loadLeagues()
+        loadLeaguesData()
         loadMatches()
     }, [])
 
-    async function loadLeagues() {
+    async function loadLeaguesData() {
         try {
-            const leaguesData = await leaguesService.query()
-            setLeagues(leaguesData)
+            await loadLeagues()
         } catch (err) {
             console.log('Error in loading leagues', err)
             showErrorMsg('Error in fetch Leagues, Please try again')
@@ -29,8 +34,7 @@ export function SoccerLeaguesIndex() {
 
     async function loadMatches() {
         try {
-            const data = await gamesService.getPastGames()
-            setPastMatch(data)
+            await loadPreviousMatches()
         } catch (err) {
             console.log('Error in loading leagues', err)
             showErrorMsg('Error in fetch Matches, Please try again')

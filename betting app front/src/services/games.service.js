@@ -7,7 +7,8 @@ export const gamesService = {
     getFutureGames, 
     getGamesByDate,
     getPastMatchById,
-    getFutureMatchById
+    getFutureMatchById,
+    getDefaultFilter
 }
 
 const PAST_STORAGE_KEY = 'past-games-data'
@@ -23,9 +24,13 @@ async function getPastGames() {
     return Array.isArray(pastGames) ? pastGames : []
 }
 
-async function getFutureGames() {
-    let futureGames = await storageService.query(FUTURE_STORAGE_KEY);
-    return Array.isArray(futureGames) ? futureGames : [];
+async function getFutureGames(filterBy) {
+    let futureGames = await storageService.query(FUTURE_STORAGE_KEY)
+    futureGames = Array.isArray(futureGames) ? futureGames : []
+    if (filterBy?.date) {
+        return futureGames.filter(game => game.match_date === filterBy.date);
+    }
+    return futureGames
 }
 
 // Generic function to get games by specific date(s)
@@ -42,6 +47,12 @@ function getFutureMatchById(matchId) {
     return storageService.get(FUTURE_STORAGE_KEY, (match) => match.match_id === matchId)
 }
 
+function getDefaultFilter() {
+    return {
+      match_date: ""
+    }
+  }
+
 async function _createGames() {
     let pastGames = utilService.loadFromStorage(PAST_STORAGE_KEY)
     let futureGames = utilService.loadFromStorage(FUTURE_STORAGE_KEY)
@@ -49,8 +60,8 @@ async function _createGames() {
     if (!pastGames || !pastGames.length) {
         console.log('No past games found, fetching from API...')
         const today = utilService.getTodayDate()
-        const pastGames3 = await _fetchGames({ from: '2024-08-01', to: today }) // Adjust date as needed
-        const pastGames202 = await _fetchGames({ from: '2024-08-01', to: today, leagueId: '202' }) // Adjust date as needed
+        const pastGames3 = await _fetchGames({ from: '2024-09-01', to: today }) // Adjust date as needed
+        const pastGames202 = await _fetchGames({ from: '2024-09-01', to: today, leagueId: '202' }) // Adjust date as needed
         pastGames = [...pastGames3, ...pastGames202]
         utilService.saveToStorage(PAST_STORAGE_KEY, pastGames)
     }

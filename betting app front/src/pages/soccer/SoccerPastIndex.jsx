@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
-import {gamesService} from '../../services/games.service'
+import { useSelector } from 'react-redux'
+
+import { loadPreviousMatches } from '../../store/actions/previous-match.action'
+
 import { SoccerPastMatchesList } from '../../cmps/soccer/past-match/SoccerPastMatchesList'
 import { SkeletonMatchPreview } from '../../cmps/loaders/SkeletonMatchPreview'
 import { showErrorMsg } from '../../services/event-bus.service'
 
 export function SoccerPastIndex() {
-    const [pastGames, setPastGames] = useState([])
+    const previousMatches = useSelector((storeState) => storeState.previousMatchModule.previousMatches)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -15,8 +18,7 @@ export function SoccerPastIndex() {
 
     async function loadPastGames() {
         try {
-            const pastGamesData = await gamesService.getPastGames() // Fetch past games
-            setPastGames(pastGamesData)
+            await loadPreviousMatches()
         } catch (err) {
             console.log('Error in loading past games', err)
             showErrorMsg('Error in fetch Previous Matches, Please try again')
@@ -26,10 +28,10 @@ export function SoccerPastIndex() {
 
     return (
         <section className='past-match-index'>
-            {pastGames.length === 0 ? (
+            {previousMatches.length === 0 ? (
                 <SkeletonMatchPreview />
             ) : (
-                <SoccerPastMatchesList matches={pastGames.slice(-15)} />
+                <SoccerPastMatchesList matches={previousMatches.slice(-15)} />
             )}
         </section>
     )

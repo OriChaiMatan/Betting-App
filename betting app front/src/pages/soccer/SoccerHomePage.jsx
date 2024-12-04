@@ -1,6 +1,10 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
-import { gamesService } from '../../services/games.service'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+
+import { loadPreviousMatches } from '../../store/actions/previous-match.action'
+import { loadFutureMatches } from '../../store/actions/future-match.action'
+
 import { ManualCarousel } from '../../cmps/soccer/home-page/MatchList'
 import { FutureMatchTable } from '../../cmps/soccer/home-page/FutureMatchTable'
 import { PastMatchTable } from '../../cmps/soccer/home-page/PastMatchTable'
@@ -8,28 +12,26 @@ import { showErrorMsg } from "../../services/event-bus.service"
 
 export function SoccerHomePage() {
 
-  const [futureMatches, setFutureMatches] = useState([])
-  const [pastMatches, setPastMatches] = useState([])
+  const futureMatches = useSelector((storeState) => storeState.futureMatchModule.futureMatches)
+  const previousMatches = useSelector((storeState) => storeState.previousMatchModule.previousMatches)
 
   useEffect(() => {
     loadFutureMatchess()
-    loadPastMatchess()
+    loadPastMatches()
   }, [])
 
   async function loadFutureMatchess() {
     try {
-      const data = await gamesService.getFutureGames()
-      setFutureMatches(data)
+      await loadFutureMatches()
     } catch (err) {
       console.log('Error in loading future matches', err)
       showErrorMsg('Error in fetching Future Matches, Please try again')
     }
   }
 
-  async function loadPastMatchess() {
+  async function loadPastMatches() {
     try {
-      const data = await gamesService.getPastGames()
-      setPastMatches(data)
+      await loadPreviousMatches()
     } catch (err) {
       console.log('Error in loading past matches', err)
       showErrorMsg('Error in fetching Previous Matches, Please try again')
@@ -37,7 +39,7 @@ export function SoccerHomePage() {
   }
 
   function getRandomMatchesForToday(matches, count) {
-    const today = new Date();
+    const today = new Date()
     // Filter matches for today's date
     const todayMatches = matches.filter((match) => {
       const matchDate = new Date(match.match_date)
@@ -59,7 +61,7 @@ export function SoccerHomePage() {
       <ManualCarousel matches={randomMatches} />
       <div className="home-container">
         <FutureMatchTable matches={futureMatches} />
-        <PastMatchTable matches={pastMatches} />
+        <PastMatchTable matches={previousMatches} />
       </div>
     </div>
   )

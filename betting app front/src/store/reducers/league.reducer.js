@@ -2,7 +2,7 @@ export const SET_LEAGUES = "SET_LEAGUES"
 export const SET_IS_LOADING = "SET_IS_LOADING"
 
 const initialState = {
-  leagues: null,
+  leagues: [],
   isLoading: true,
 }
 
