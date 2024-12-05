@@ -15,12 +15,27 @@
         background-color: $p2;
         color: $color-white;
         border: 1px solid rgba($color-white, .3);
-        cursor: pointer;
+        transition: all 0.3s ease-in-out;  /* Smooth transition for hover effect */
+
+        &:hover {
+            background-color: $teal1; /* Change background color on hover */
+            transform: scale(1.1);  /* Slightly scale up the button */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Add a subtle shadow */
+        }
+        
     }
 
-    .more-options{
+    .more-options {
         display: flex;
         gap: 2rem;
+
+        a {
+            text-decoration: none; 
+        }
+
+        button {
+            cursor: pointer;
+        }
     }
 
 }
