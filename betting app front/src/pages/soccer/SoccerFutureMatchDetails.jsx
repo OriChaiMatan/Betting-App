@@ -188,7 +188,7 @@ export function SoccerFutureMatchDetails() {
                     <div className='league-data'>
                         <img src={match.league_logo} alt="League Logo" />
                         <div className="league-info">
-                            <h3 className='heading-tertiary'>{match.league_name}</h3>
+                            <h1>{match.league_name}</h1>
                             <span>Season: {match.league_year}</span>
                         </div>
                     </div>

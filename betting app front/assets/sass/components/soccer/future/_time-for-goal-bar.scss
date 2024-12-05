@@ -69,7 +69,7 @@
             padding: 1rem;
 
             .bar {
-                background-color: rgba($n11, .6);  
+                background-color: rgba($n11, .6);
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
@@ -89,25 +89,42 @@
                     &:last-child {
                         border-right: none;
                     }
+
+                    @include respond(phone) {
+                        font-size: 1.6rem;
+                    }
                 }
             }
-    
+
             .minutes {
                 display: flex;
                 gap: 2rem;
                 align-items: center;
                 justify-content: space-between;
-                padding: 0 3rem 0  3rem;
+                padding: 0 3rem 0 3rem;
                 font-weight: bold;
 
-                span{
+                span {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     font-size: 1.4rem;
                     padding: 0.6rem;
                     width: 70%;
+                    height: 6rem;
                     text-align: center;
                     flex-grow: 1;
                     border-radius: 5px;
                     border: 2px solid rgba($n11, 1);
+
+                    @include respond(phone) {
+                        font-size: 1.3rem;
+                        width: 100%;
+                    }
+                }
+
+                @include respond(phone) {
+                    gap: 1rem;
                 }
             }
         }

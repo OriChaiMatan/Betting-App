@@ -8,7 +8,7 @@
     border: 2px solid rgba($n11, 1);
     background-color: rgba($p2, .3);
 
-    .title{
+    .title {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -16,7 +16,7 @@
         border-bottom: $default-border-bottom;
         width: 100%;
 
-        h3{
+        h3 {
             font-size: 2.2rem;
         }
     }
@@ -69,18 +69,24 @@
             display: flex;
             border-radius: 1rem;
             overflow: hidden;
-            height: 3rem;
+            height: 4rem;
             background-color: rgba($n5, 1);
             border: 0.5px solid $color-white;
 
             .progress-segment {
+                font-size: 1.5rem;
                 height: 100%;
                 transition: width 0.4s ease;
                 display: flex;
                 align-items: center;
-                padding: 1.5rem;
+                justify-content: center;
+                min-width: 10rem;
+                padding: 1rem;
+                flex-grow: 1;
+                white-space: nowrap;
+                text-overflow: ellipsis;
 
-                &.home {                    
+                &.home {
                     justify-content: start;
                     background-color: rgba($n11, 1);
                     border-left: 0.5rem;
@@ -97,13 +103,13 @@
                     justify-content: end;
                     background-color: rgba($n2, 1);
                     border-right: 0.5rem;
-                    clip-path: polygon(1.5% 0, 100% 0, 100% 100%, 0% 100%);
+                    clip-path: polygon(0 0, 100% 0, 98.5% 100%, 0% 100%);
                 }
             }
         }
     }
 
-    p{
+    p {
         display: flex;
         justify-content: center;
         font-size: 1.4rem;

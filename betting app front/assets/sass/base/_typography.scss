@@ -20,10 +20,6 @@ body {
     &.sidebar-open .side-bar {
         transform: translateX(0); // Ensure sidebar shows when toggled
       }
-    
-      &.sidebar-open .main-routes {
-        pointer-events: none; // Prevent interaction when sidebar is open
-      }
 
     @media only screen and (max-width: 1024px) {
         
@@ -57,6 +53,7 @@ body {
     }
 
     @include respond(phone){
+        font-size: 2rem;
         font-family: 2.5rem;
     }
 }

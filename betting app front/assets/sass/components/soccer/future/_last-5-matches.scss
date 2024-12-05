@@ -100,5 +100,10 @@
                 }
             }
         }
+
+        @include respond(phone){
+            display: flex;
+            flex-direction: column;
+        }
     }
 }

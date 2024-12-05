@@ -44,14 +44,17 @@ export function ProbabilitiesBar({ odds }) {
                         <div
                             className="progress-segment home"
                             style={{ width: `${oddsProbabilities.homeWin}%` }}
+                            title={`Home ${oddsProbabilities.homeWin}%`}
                         >Home {oddsProbabilities.homeWin}%</div>
                         <div
                             className="progress-segment draw"
                             style={{ width: `${oddsProbabilities.draw}%` }}
+                            title={`Draw ${oddsProbabilities.draw}%`}
                         >Draw {oddsProbabilities.draw}%</div>
                         <div
                             className="progress-segment away"
                             style={{ width: `${oddsProbabilities.awayWin}%` }}
+                            title={`Away ${oddsProbabilities.awayWin}%`}
                         >{oddsProbabilities.awayWin}% Away</div>
                     </div>
                 </div>
