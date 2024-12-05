@@ -48,6 +48,11 @@
                 width: 100%; // Full-width underline on hover
             }
         }
+
+        .active-link {
+            color: $teal1;  /* Example color for active link */
+            font-weight: bold;
+        }
     }
 
     .second-routes {
