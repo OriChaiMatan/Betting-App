@@ -21,11 +21,11 @@ export function PastMatchTablePreview({ match }) {
                     <div className='teams'>
                         <div className='team-preview'>
                             <img src={match.team_home_badge} alt="Home team badge" />
-                            <h3 className='heading-tertiary'>{match.match_hometeam_name} - Home Team</h3>
+                            <h3 className='heading-tertiary'>{match.match_hometeam_name}</h3>
                         </div>
                         <div className='team-preview'>
                             <img src={match.team_away_badge} alt="Home team badge" />
-                            <h3 className='heading-tertiary'>{match.match_awayteam_name} - Away Team</h3>
+                            <h3 className='heading-tertiary'>{match.match_awayteam_name}</h3>
                         </div>
                     </div>
                     <div className="score">

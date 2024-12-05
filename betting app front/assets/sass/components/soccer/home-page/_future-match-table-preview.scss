@@ -1,4 +1,4 @@
-.match-table-preview{
+.match-table-preview {
     display: flex;
     flex-direction: column;
     font-size: 1.6rem;
@@ -20,7 +20,7 @@
             align-items: center;
             gap: 1rem;
 
-            span{
+            span {
                 font-weight: bold;
             }
         }
@@ -30,20 +30,21 @@
             align-items: center;
             gap: 1rem;
 
-            span{
+            span {
                 font-weight: bold;
             }
         }
     }
 
-    .match-data{
+    .match-data {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 1rem;
         padding: 0.5rem;
         padding-top: 1rem;
 
-        .teams{
+        .teams {
             display: flex;
             flex-direction: column;
             gap: 2rem;
@@ -53,14 +54,18 @@
                 align-items: center;
                 gap: 1.5rem;
 
-                img{
+                img {
                     width: 4rem;
                     height: 4rem;
+                }
+
+                h1 {
+                    font-size: 1.9rem;
                 }
             }
         }
 
-        .odds{
+        .odds {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -77,16 +82,26 @@
                 border-radius: 1rem;
                 background-color: rgba($n11, 1);
                 border: 0.5px solid rgba($color-white, .4);
-    
+
                 span {
                     font-weight: bold;
                 }
-    
+
                 &:hover {
                     transform: scale(1.02);
                     text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
                     border: 0.5px solid rgba($color-white, 1);
                 }
+
+                @include respond(phone) {
+                    gap: 1rem;
+                    width: 8rem;
+                    height: 6rem;
+                }
+            }
+
+            @include respond(phone) {
+                gap: 1.5rem;
             }
         }
     }

@@ -73,11 +73,11 @@ export function FutureMatchTablePreview({ match }) {
                     <div className='teams'>
                         <div className='team-preview'>
                             <img src={match.team_home_badge} alt="Home team badge" />
-                            <h3 className='heading-tertiary'>{match.match_hometeam_name} - Home Team</h3>
+                            <h1>{match.match_hometeam_name}</h1>
                         </div>
                         <div className='team-preview'>
                             <img src={match.team_away_badge} alt="Home team badge" />
-                            <h3 className='heading-tertiary'>{match.match_awayteam_name} - Away Team</h3>
+                            <h1>{match.match_awayteam_name}</h1>
                         </div>
                     </div>
                     <div className='odds'> {/* Option for future- when click on odds option it will take the user to affiliate site ????? */}

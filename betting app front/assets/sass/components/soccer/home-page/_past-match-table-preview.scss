@@ -57,6 +57,12 @@
                     width: 4rem;
                     height: 4rem;
                 }
+
+                h3 {
+                    min-width: 6rem;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
             }
         }
 
