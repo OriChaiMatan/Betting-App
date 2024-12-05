@@ -91,6 +91,15 @@
                 &:hover::after {
                     width: 100%; // Full-width underline on hover
                 }
+
+                &.active-link {
+                    color: $teal1;
+                    font-weight: bold;
+                    
+                    &::after {
+                        width: 100%;
+                    }
+                }
             }
         }
     }
@@ -119,5 +128,11 @@
 @media only screen and (max-width: 768px){
     .side-bar{
         width: 35%;
+    }
+}
+
+@include respond(phone){
+    .side-bar{
+        width: 40%;
     }
 }

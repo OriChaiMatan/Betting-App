@@ -13,15 +13,15 @@ export function SideBar({ onToggleSidebar }) {
     return (
         <div className='side-bar'>
             <div className="first-routes">
-                <Link to={'/'} className='link-info' onClick={onToggleSidebar}>
+                <Link to={'/'} className='link-info' activeClassName="active-link" onClick={onToggleSidebar}>
                     <FaHome className='icon' />
                     <span>Home</span>
                 </Link>
-                <Link to={'/bet'} className='link-info' onClick={onToggleSidebar}>
+                <Link to={'/bet'} className='link-info' activeClassName="active-link" onClick={onToggleSidebar}>
                     <HiCubeTransparent className='icon' />
                     <span>Betting</span>
                 </Link>
-                <Link to={'/ai-assistant'} className='link-info' onClick={onToggleSidebar} >
+                <Link to={'/ai-assistant'} className='link-info' activeClassName="active-link" onClick={onToggleSidebar} >
                     <CgSmartphoneChip className='icon' />
                     <span>AI Recommendations</span>
                 </Link>
@@ -29,15 +29,15 @@ export function SideBar({ onToggleSidebar }) {
             <div className="second-routes">
                 <h1>Soccer</h1>
                 <div className="links">
-                    <Link to={'/leagues'} className='link-info' onClick={onToggleSidebar}>
+                    <Link to={'/leagues'} className='link-info' activeClassName="active-link" onClick={onToggleSidebar}>
                         <PiSoccerBallFill className='icon' />
                         <span>Leagues</span>
                     </Link>
-                    <Link to={'/future-match'} className='link-info' onClick={onToggleSidebar}>
+                    <Link to={'/future-match'} className='link-info' activeClassName="active-link" onClick={onToggleSidebar}>
                         <GiSoccerField className='icon' />
                         <span>Future Matches</span>
                     </Link>
-                    <Link to={'/past-match'} className='link-info' onClick={onToggleSidebar}>
+                    <Link to={'/past-match'} className='link-info' activeClassName="active-link" onClick={onToggleSidebar}>
                         <FaHistory className='icon' />
                         <span>Previous Matches</span>
                     </Link>
