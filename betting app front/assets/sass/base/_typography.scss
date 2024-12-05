@@ -19,19 +19,19 @@ body {
 
     &.sidebar-open .side-bar {
         transform: translateX(0); // Ensure sidebar shows when toggled
-      }
+    }
 
     @media only screen and (max-width: 1024px) {
-        
+
         .main-routes {
-            flex: 1; 
-            width: 100%; 
+            flex: 1;
+            width: 100%;
         }
 
         &.sidebar-open .main-routes {
             pointer-events: none; // Prevent interaction when sidebar is open
             opacity: 0.2; // Optional: Dim the content
-          }
+        }
     }
 }
 
@@ -48,11 +48,11 @@ body {
     font-size: $default-font-size;
     font-weight: 700;
 
-    @include respond(tab-port){
+    @include respond(tab-port) {
         font-family: 3rem;
     }
 
-    @include respond(phone){
+    @include respond(phone) {
         font-size: 2rem;
         font-family: 2.5rem;
     }

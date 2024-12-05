@@ -30,7 +30,7 @@ export function AppFooter() {
             rel="noopener noreferrer"
           >
             <img
-              src="assets/img/BwGambleAware.png"
+              src="../../../assets/img/BeGambleAware.png"
               alt="GambleAware.org"
               className='be-gamble-aware-logo'
             />
