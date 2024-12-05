@@ -18,7 +18,7 @@ import { AppFooter } from './cmps/AppFooter'
 import { UserMsg } from './cmps/UserMsg'
 
 export function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const location = useLocation()
 
   const handleResize = () => {
@@ -49,7 +49,7 @@ export function App() {
   return (
     <div>
       <SkeletonTheme baseColor="#080f25" highlightColor="#212c4d">
-        <AppHeader onToggleSidebar={toggleSidebar}/>
+        <AppHeader onToggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen}/>
         <section className={`main-content ${isSidebarOpen ? 'sidebar-open' : ''}`}>
         {isSidebarOpen && <SideBar onToggleSidebar={toggleSidebar} />}
           <div className="main-routes">

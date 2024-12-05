@@ -103,9 +103,10 @@
         top: 10vh;
         left: 0;
         width: 30%;
-        height: 100vh;
+        height: 90vh;
         background-color: rgba($p2, 1);
-        transform: translateX(-100%); // Hidden by default
+        transform: translateX(-100%);  // Hidden by default
+        transition: transform 0.5s ease-in-out;
         z-index: 200;
 
         &.visible {
