@@ -80,6 +80,9 @@
             justify-content: center;
             margin-left: 2rem;
             margin-right: 2rem;
+            min-width: 6rem; // You can adjust this based on your longest text
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
     }
 
@@ -120,5 +123,14 @@
 
     .statistic-data {
         grid-area: table;
+    }
+
+    @media only screen and (min-width: 1024px) and (max-width: 1150px) {
+        padding: 1.5rem;
+    }
+
+    @media only screen and (max-width: 800px) {
+        display: flex;
+        flex-direction: column;
     }
 }

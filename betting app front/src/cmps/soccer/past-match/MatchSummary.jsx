@@ -7,7 +7,7 @@ export function MatchSummary({ match }) {
         const goalEvents = match.goalscorer.map(goal => {
             const homeGoal = goal.home_scorer ? {
                 time: goal.time,
-                type:  <IoMdFootball />,
+                type: <IoMdFootball />,
                 player: goal.home_scorer,
                 team: 'home'
             } : null
@@ -127,6 +127,9 @@ export function MatchSummary({ match }) {
                 {/* Home Team Events */}
                 <div className="teams">
                     <div className="team">
+                        <div className="team-title">
+                            <h4>Home Team</h4>
+                        </div>
                         <div className="data">
                             {secondHalfEvents.filter(event => event.team === 'home').length === 0 ? (
                                 <p>No events for the home team in the 2nd half.</p>
@@ -142,6 +145,9 @@ export function MatchSummary({ match }) {
 
                     {/* Away Team Events */}
                     <div className="team">
+                        <div className="team-title">
+                            <h4>Away Team</h4>
+                        </div>
                         <div className="data">
                             {secondHalfEvents.filter(event => event.team === 'away').length === 0 ? (
                                 <p>No events for the away team in the 2nd half.</p>
