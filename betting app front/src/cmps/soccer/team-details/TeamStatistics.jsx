@@ -19,7 +19,6 @@ export function TeamStatistics({ team }) {
     //     return results.filter((match) => match !== undefined) // Filter out any undefined results
     // }
     const fetchMatchDetails = async (matchIds) => {
-        console.log("Match IDs:", matchIds);
         const promises = matchIds.map(async (match) => {
             try {
                 const result = await gamesService.getPastMatchById(match.match_id);

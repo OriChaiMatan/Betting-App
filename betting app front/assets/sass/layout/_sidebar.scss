@@ -1,7 +1,7 @@
 .side-bar {
     position: sticky;
-	top: 10vh;
-	z-index: 100;
+    top: 10vh;
+    z-index: 100;
     display: flex;
     flex-direction: column;
     width: 20%;
@@ -19,17 +19,61 @@
 
         .link-info {
             position: relative;
-            text-decoration: none; 
-            color: inherit; 
+            text-decoration: none;
+            color: inherit;
             display: flex;
             align-items: center;
             gap: 1rem;
             cursor: pointer;
             transition: color 0.3s ease-in-out;
 
+            &:hover {
+                text-decoration: none;
+                color: $teal1;
+                font-weight: bold;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: -3px; // Adjust position for underline
+                width: 0;
+                height: 2px;
+                background-color: $teal1;
+                transition: width 0.3s ease-in-out;
+            }
+
+            &:hover::after {
+                width: 100%; // Full-width underline on hover
+            }
+        }
+    }
+
+    .second-routes {
+        display: flex;
+        flex-direction: column;
+        padding-top: 2rem;
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 1rem;
+
+            .link-info {
+                position: relative;
+                text-decoration: none;
+                color: inherit;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                cursor: pointer;
+                transition: color 0.3s ease-in-out;
+
                 &:hover {
                     text-decoration: none;
-                    color: $teal1; 
+                    color: $teal1;
                     font-weight: bold;
                 }
 
@@ -47,51 +91,32 @@
                 &:hover::after {
                     width: 100%; // Full-width underline on hover
                 }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+
+    .side-bar {
+        position: fixed;
+        top: 10vh;
+        left: 0;
+        width: 30%;
+        height: 100vh;
+        background-color: rgba($p2, 1);
+        transform: translateX(-100%); // Hidden by default
+        z-index: 200;
+
+        &.visible {
+            transform: translateX(0); // Show on toggle
         }
     }
 
-    .second-routes{
-        display: flex;
-        flex-direction: column;
-        padding-top: 2rem;
+}
 
-        .links{
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            padding: 1rem;
-
-            .link-info {
-                position: relative;
-                text-decoration: none; 
-                color: inherit; 
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-                cursor: pointer;
-                transition: color 0.3s ease-in-out;
-    
-                    &:hover {
-                        text-decoration: none;
-                        color: $teal1; 
-                        font-weight: bold;
-                    }
-    
-                    &::after {
-                        content: '';
-                        position: absolute;
-                        left: 0;
-                        bottom: -3px; // Adjust position for underline
-                        width: 0;
-                        height: 2px;
-                        background-color: $teal1;
-                        transition: width 0.3s ease-in-out;
-                    }
-    
-                    &:hover::after {
-                        width: 100%; // Full-width underline on hover
-                    }
-            }
-        }
+@media only screen and (max-width: 768px){
+    .side-bar{
+        width: 35%;
     }
 }
