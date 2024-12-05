@@ -69,7 +69,7 @@
                 align-items: center;
                 gap: 1rem;
                 cursor: pointer;
-                transition: color 0.3s ease-in-out;
+                transition: color 0.3s ease;
 
                 &:hover {
                     text-decoration: none;
@@ -91,15 +91,11 @@
                 &:hover::after {
                     width: 100%; // Full-width underline on hover
                 }
+            }
 
-                &.active-link {
-                    color: $teal1;
-                    font-weight: bold;
-                    
-                    &::after {
-                        width: 100%;
-                    }
-                }
+            .active-link {
+                color: $teal1;  /* Example color for active link */
+                font-weight: bold;
             }
         }
     }
