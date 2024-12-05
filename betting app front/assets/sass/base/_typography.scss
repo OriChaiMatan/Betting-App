@@ -51,6 +51,14 @@ body {
 .heading-tertiary {
     font-size: $default-font-size;
     font-weight: 700;
+
+    @include respond(tab-port){
+        font-family: 3rem;
+    }
+
+    @include respond(phone){
+        font-family: 2.5rem;
+    }
 }
 
 .btn-text {
