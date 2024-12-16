@@ -39,7 +39,7 @@ export function SoccerFutureIndex() {
         loadTodayGames()
         loadTomorrowGames()
         loadNextTwoDayGames()
-        loadFutureGames() // only for development - remove when production!!!!
+        // loadFutureGames() // only for development - remove when production!!!!
     }, [])
 
     useEffect(() => {
@@ -53,24 +53,24 @@ export function SoccerFutureIndex() {
             case 'nextTwoDays':
                 setMatches(nextTwoDayGames);
                 break;
-            case 'future': // only for development - remove when production!!!!
-                setMatches(matches);
-                break;
+            // case 'future': // only for development - remove when production!!!!
+            //     setMatches(matches);
+            //     break;
             default:
                 setMatches(tomorrowGames);
                 break;
         }
     }, [selectedView, todayGames, tomorrowGames, nextTwoDayGames])
 
-    async function loadFutureGames() {   // only for development - remove when production!!!!
-        try {
-            await loadFutureMatches()
-        } catch (err) {
-            console.log('Error in loading today games', err)
-            showErrorMsg('Error in fetch Matches, Please try again')
-            navigate("/")
-        }
-    }
+    // async function loadFutureGames() {   // only for development - remove when production!!!!
+    //     try {
+    //         await loadFutureMatches()
+    //     } catch (err) {
+    //         console.log('Error in loading today games', err)
+    //         showErrorMsg('Error in fetch Matches, Please try again')
+    //         navigate("/")
+    //     }
+    // }
 
     async function loadTodayGames() {
         try {
@@ -109,7 +109,7 @@ export function SoccerFutureIndex() {
     return (
         <section className='future-match-index'>
             <nav className='match-nav'>
-            <button onClick={() => setSelectedView('future')} className={selectedView === 'future' ? 'active' : ''}>future </button>
+            {/* <button onClick={() => setSelectedView('future')} className={selectedView === 'future' ? 'active' : ''}>future </button> */}
                 <button onClick={() => setSelectedView('today')} className={selectedView === 'today' ? 'active' : ''}>Today <span>{formatDate(today)}</span></button>
                 <button onClick={() => setSelectedView('tomorrow')} className={selectedView === 'tomorrow' ? 'active' : ''}>Tomorrow <span>{formatDate(tomorrow)}</span></button>
                 <button onClick={() => setSelectedView('nextTwoDays')} className={selectedView === 'nextTwoDays' ? 'active' : ''}>Next 2 Days <span>{formatDate(next2days)}</span></button>
