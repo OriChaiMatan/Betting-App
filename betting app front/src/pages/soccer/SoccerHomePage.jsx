@@ -50,7 +50,8 @@ export function SoccerHomePage() {
       )
     })
     // Shuffle and get the desired number of matches
-    const shuffled = [...todayMatches].sort(() => 0.5 - Math.random())
+    const matchesToShuffle = todayMatches.length > 0 ? todayMatches : matches
+    const shuffled = [...matchesToShuffle].sort(() => 0.5 - Math.random())
     return shuffled.slice(0, count)
   }
 
