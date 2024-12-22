@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { FaTimes } from "react-icons/fa"
 
 
 import email_icon from '../../assets/img/email.png'
@@ -9,6 +10,11 @@ import hide_icon from '../../assets/img/hide.png'
 
 export function Login() {
     const [showPassword, setShowPassword] = useState(false)
+    const navigate = useNavigate()
+    
+        const handleBackClick = () => {
+            navigate(-1)
+        }
 
     const togglePasswordVisibility = () => {
         setShowPassword((prevState) => !prevState)
@@ -16,6 +22,7 @@ export function Login() {
 
     return (
         <div className='container'>
+            <div className="back-btn" onClick={handleBackClick}><FaTimes/></div>
             <div className='header'>
                 <div className="text">Login</div>
                 <div className="underline"></div>

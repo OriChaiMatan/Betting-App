@@ -8,13 +8,23 @@
     padding-bottom: 3rem;
     border-radius: 4rem;
 
+    .back-btn{
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        font-size: 2rem;
+        padding-top: 2rem;
+        padding-right: 2rem;
+        color: $n11;
+    }
+
     .header{
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 0.4rem;
         width: 100%;
-        margin-top: 3rem;
+        margin-top: 0.5rem;
 
         .text{
             color: $n11;
