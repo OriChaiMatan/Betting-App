@@ -13,7 +13,7 @@ export function Login() {
     const navigate = useNavigate()
     
         const handleBackClick = () => {
-            navigate(-1)
+            navigate('/')
         }
 
     const togglePasswordVisibility = () => {
