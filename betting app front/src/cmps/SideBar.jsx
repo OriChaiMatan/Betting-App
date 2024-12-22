@@ -43,6 +43,11 @@ export function SideBar({ onToggleSidebar }) {
                     </NavLink>
                 </div>
             </div>
+            <div className="login-signup">
+                <NavLink to={'/login'} className='login-signup-btn' onClick={onToggleSidebar}>
+                    <span>Login</span>
+                </NavLink>
+            </div>
         </div>
     )
 }

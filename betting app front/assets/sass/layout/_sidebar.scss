@@ -104,6 +104,33 @@
             }
         }
     }
+
+    .login-signup{
+        display: flex;
+        align-items: end;
+        justify-content: start;
+        height: 100%;
+        padding-bottom: 1rem;
+
+        .login-signup-btn{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            width: 10rem;
+            height: 5rem;
+            background-color: $n11;
+            border-radius: 8px;
+            border: 0.6px solid rgba($color-white, 0.8);
+            color: rgba($color-white, 0.8);
+
+            &:hover {
+                border: 0.6px solid rgba($teal1, 0.8);
+                transform: scale(1.05); 
+                color: $teal1;
+              }
+        }
+    }
 }
 
 @media only screen and (max-width: 1024px) {
