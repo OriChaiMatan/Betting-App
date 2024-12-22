@@ -1,0 +1,121 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 10rem;
+    width: 60rem;
+    background: $color-white;
+    padding-bottom: 3rem;
+    border-radius: 4rem;
+
+    .header{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.4rem;
+        width: 100%;
+        margin-top: 3rem;
+
+        .text{
+            color: $n11;
+            font-size: 3.5rem;
+            font-weight: bold;
+        }
+
+        .underline{
+            width: 12rem;
+            height: 6px;
+            background-color: $teal1;
+            border-radius: 9px;
+        }
+    }
+
+    .inputs{
+        margin-top: 5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        .input{
+            display: flex;
+            align-items: center;
+            margin: auto;
+            width: 48rem;
+            height: 6rem;
+            background-color: $color-gray;
+            border-radius: 0.6rem;
+
+            img{
+                margin: 0px 30px;
+            }
+
+            .toggle-password{
+                background: transparent;
+                border: none;
+                outline: none;
+                color: $color-dark-gray;
+                font-size: 1.9rem;
+            }
+
+            input{
+                height: 5rem;
+                width: 40rem;
+                background: transparent;
+                border: none;
+                outline: none;
+                color: $color-dark-gray;
+                font-size: 1.9rem;
+            }
+        }
+    }
+
+    .forgot-password{
+        padding-left: 6.2rem;
+        margin-top: 2.5rem;
+        color: #797979;
+        font-size: 1.8rem;
+
+        span{
+            color: $teal1;
+            cursor: pointer;
+        }
+    }
+
+    .submit-container{
+        display: flex;
+        margin: 3rem auto;
+    
+        .submit{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 22rem;
+            height: 6rem;
+            color: #fff;
+            background: $n6;
+            border-radius: 5rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+            cursor: pointer;
+        
+            &:hover{
+                background: rgba($teal1, 0.8);
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    .navigate{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        color: $color-dark-gray;
+        font-size: 1.8rem;
+    
+        .cta-link{
+            color: $teal1;
+            cursor: pointer;
+        }
+    }
+}

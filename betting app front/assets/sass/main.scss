@@ -48,6 +48,7 @@
 @import "components/loaders/skeleton-league-details";
 @import "components/loaders/skeleton-team-details";
 @import "components/soccer/team-details/next-match";
+@import "components/model";
 
 // LAYOUT
 @import "layout/_header";
@@ -65,3 +66,4 @@
 @import "pages/soccer/leagues-index";
 @import "pages/soccer/league-details";
 @import "pages/soccer/team-details";
+@import "pages/login-signup.scss";

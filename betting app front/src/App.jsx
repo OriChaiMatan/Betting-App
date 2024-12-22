@@ -57,8 +57,8 @@ export function App() {
           <div className="main-routes">
             <Routes>
               <Route path="/" element={<SoccerHomePage />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
+              {/* <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} /> */}
               <Route path='/past-match' element={<SoccerPastIndex />} />
               <Route path="/past-match-details/:matchId" element={<SoccerPastMatchDetails />} />
               <Route path='/future-match' element={<SoccerFutureIndex />} />
@@ -69,6 +69,18 @@ export function App() {
               <Route path="/bet" element={<BettingIndex />} />
               <Route path="/ai-assistant" element={<AiAssistant />} />
             </Routes>
+
+            {/* Modal Logic */}
+            {location.pathname === '/login' && (
+              <div className="modal">
+                <Login />
+              </div>
+            )}
+            {location.pathname === '/signup' && (
+              <div className="modal">
+                <Signup />
+              </div>
+            )}
           </div>
         </section>
         <AppFooter />
