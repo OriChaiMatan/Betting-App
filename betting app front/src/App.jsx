@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 import '../assets/sass/main.scss'
 import { SkeletonTheme } from 'react-loading-skeleton'
 import { SoccerHomePage } from './pages/soccer/SoccerHomePage'
+import { Login } from './pages/Login'
+import { Signup } from './pages/Signup'
 import { SoccerPastIndex } from './pages/soccer/SoccerPastIndex'
 import { SoccerFutureIndex } from './pages/soccer/SoccerFutureIndex'
 import { SoccerPastMatchDetails } from './pages/soccer/SoccerPastMatchDetails'
@@ -55,6 +57,8 @@ export function App() {
           <div className="main-routes">
             <Routes>
               <Route path="/" element={<SoccerHomePage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
               <Route path='/past-match' element={<SoccerPastIndex />} />
               <Route path="/past-match-details/:matchId" element={<SoccerPastMatchDetails />} />
               <Route path='/future-match' element={<SoccerFutureIndex />} />
