@@ -11,8 +11,11 @@ const initialState = {
     count: 0,
     user: userService.getLoggedinUser(),
     users: [],
-    watchedUser: null
+    watchedUser: null,
+    signupError: null, // To store the error message for signup
+    loading: false, // To track loading state
 }
+
 export function userReducer(state = initialState, action) {
     var newState = state
     switch (action.type) {

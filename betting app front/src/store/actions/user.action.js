@@ -17,6 +17,7 @@ export async function loadUsers() {
         store.dispatch({ type: LOADING_DONE })
     }
 }
+
 export async function removeUser(userId) {
     try {
         await userService.remove(userId)
@@ -25,6 +26,7 @@ export async function removeUser(userId) {
         console.log('UserActions: err in removeUser', err)
     }
 }
+
 export async function login(credentials) {
     try {
         const user = await userService.login(credentials)
@@ -40,6 +42,7 @@ export async function login(credentials) {
         throw err
     }
 }
+
 export async function signup(credentials) {
     try {
         const user = await userService.signup(credentials)
@@ -54,7 +57,23 @@ export async function signup(credentials) {
         showErrorMsg('Cannot signup')
         throw err
     }
+    // return async (dispatch) => {
+    //     try {
+    //         const user = await userService.signup(credentials);  // Await here to get the user
+    //         dispatch({
+    //             type: SET_USER,
+    //             user
+    //         });
+    //         socketService.login(user._id);
+    //         showSuccessMsg('Welcome ' + user.fullname + "!");
+    //         return user;  // Return the user here
+    //     } catch (err) {
+    //         showErrorMsg('Cannot signup');
+    //         throw err;
+    //     }
+    // };
 }
+
 export async function logout() {
     try {
         await userService.logout()
@@ -68,6 +87,7 @@ export async function logout() {
         throw err
     }
 }
+
 export async function loadUser(userId) {
     try {
         const user = await userService.getById(userId);

@@ -1,4 +1,4 @@
-import io from 'socket.io-client'
+import { io } from "socket.io-client"
 import { userService } from './user.service'
 
 const SOCKET_EMIT_LOGIN = 'set-user-socket'
