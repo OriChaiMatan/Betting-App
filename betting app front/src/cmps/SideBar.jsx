@@ -1,5 +1,8 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { logout } from '../store/actions/user.action'
+import { userService } from '../services/user.service'
 import { FaHome } from "react-icons/fa"
 import { HiCubeTransparent } from "react-icons/hi"
 import { CgSmartphoneChip } from "react-icons/cg"
@@ -10,6 +13,16 @@ import { FaHistory } from "react-icons/fa"
 
 
 export function SideBar({ onToggleSidebar }) {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const handleLogout = () => {
+        logout() // Dispatch logout action if using Redux
+        navigate('/')  // Redirect to login page after logging out
+    }
+
+    const isLoggedIn = userService.getLoggedinUser() !== null
+
     return (
         <div className='side-bar'>
             <div className="first-routes">
@@ -44,9 +57,13 @@ export function SideBar({ onToggleSidebar }) {
                 </div>
             </div>
             <div className="login-signup">
-                <NavLink to={'/login'} className='login-signup-btn' onClick={onToggleSidebar}>
-                    <span>Login</span>
-                </NavLink>
+            {isLoggedIn ? (
+                    <span className='login-signup-btn' onClick={handleLogout}>Log out</span> 
+                ) : (
+                    <NavLink to={'/login'} className='login-signup-btn' onClick={onToggleSidebar}>
+                        <span>Login</span>
+                    </NavLink>
+                )}
             </div>
         </div>
     )
