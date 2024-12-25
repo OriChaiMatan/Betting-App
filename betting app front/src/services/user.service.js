@@ -45,17 +45,21 @@ async function update({ _id }) {
 }
 
 async function login(userCred) {
-    if (!userCred.fullname) {
-        userCred.fullname = userCred.email.split("@")[0];
-    }
+    try {
+        if (!userCred.fullname) {
+            userCred.fullname = userCred.email.split("@")[0];
+        }
 
-    const user = await httpService.post('auth/login', userCred)
+        const user = await httpService.post('auth/login', userCred);
 
-    if (user) {
-        // setup socket
-        return saveLocalUser(user)
+        if (user) {
+            return saveLocalUser(user); // Success case
+        }
+    } catch (err) {
+        // Log the error and rethrow it
+        console.error("Login failed at service level:", err.message);
+        throw new Error("Incorrect email or password");
     }
-    throw new Error("Incorrect email or password");
 }
 
 async function signup(userCred) {

@@ -19,6 +19,7 @@ export function Signup() {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [allowNotifications, setAllowNotifications] = useState(false)
+    const [error, setError] = useState(null)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -36,10 +37,10 @@ export function Signup() {
 
     async function handleSubmit() {
         if (password !== confirmPassword) {
-            alert('Passwords do not match');
+            setError('Passwords do not match')
             return;
         }
-    
+
         const createAt = new Date().toISOString();
         const userData = {
             fullname: fullName,
@@ -48,15 +49,16 @@ export function Signup() {
             createAt,
             allowNotifications,
         };
-    
+
         try {
-            // Await the dispatched signup action's promise
-            const user = await signup(userData)  // No need for .payload
-            navigate('/');  // Redirect to the home page or wherever needed
-            // handleLogin({ userData.email, userData.password })
+            setError(null)
+            const user = await signup(userData)
+            if (user) {
+                navigate('/') // Navigate only if user is successfully returned
+            }
         } catch (err) {
             console.error('Signup failed:', err);
-            showErrorMsg('Signup failed. Please try again.');
+            setError('Signup failed, please try again.')
         }
     }
 
@@ -84,7 +86,7 @@ export function Signup() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)} />
                 </div>
-                <div className="input">
+                <div className={`input ${error ? 'error' : ''}`}>
                     <img src={password_icon} alt="password" />
                     <input
                         type={showPassword ? 'text' : 'password'}
@@ -98,7 +100,7 @@ export function Signup() {
                         onClick={togglePasswordVisibility}
                     />
                 </div>
-                <div className="input">
+                <div className={`input ${error ? 'error' : ''}`}>
                     <img src={password_icon} alt="confirm password" />
                     <input
                         type={showConfirmPassword ? 'text' : 'password'}
@@ -112,14 +114,15 @@ export function Signup() {
                         onClick={toggleConfirmPasswordVisibility}
                     />
                 </div>
+                {error && <div className="error-message">{error}</div>}
                 <div className="notifications">
-                    <label>
+                    <div className="allow-notification">
                         <input
                             type="checkbox"
                             checked={allowNotifications}
                             onChange={(e) => setAllowNotifications(e.target.checked)} />
-                        Allow Notifications
-                    </label>
+                        Allow notifications to stay updated with the latest news and updates!
+                    </div>
                 </div>
             </div>
             <div className="submit-container">

@@ -77,6 +77,17 @@
                 font-size: 1.9rem;
             }
         }
+
+        .input.error {
+            border: 2px solid red;
+        }
+    }
+
+    .error-message {
+        color: red;
+        font-size: 1.4rem;
+        margin-top: 8px;
+        text-align: center;
     }
 
     .forgot-password{
@@ -89,6 +100,15 @@
             color: $teal1;
             cursor: pointer;
         }
+    }
+
+    .allow-notification{
+        padding-left: 6.2rem;
+        margin-top: 0.5rem;
+        color: #797979;
+        font-size: 1.5rem;
+        display: flex;
+        gap: 1rem;
     }
 
     .submit-container{

@@ -14,6 +14,7 @@ export function Login() {
     const [showPassword, setShowPassword] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState(null)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -32,12 +33,13 @@ export function Login() {
         }
 
         try {
-            // Dispatch the login action
+            setError(null)
             const user = await login(userData)
-            navigate('/')
+            if (user) {
+                navigate('/') // Navigate only if user is successfully returned
+            }
         } catch (err) {
-            console.error('Login failed:', err)
-            showErrorMsg('Login failed. Please check your credentials and try again.')
+            setError('Incorrect email or password')
         }
     }
 
@@ -49,7 +51,7 @@ export function Login() {
                 <div className="underline"></div>
             </div>
             <div className="inputs">
-                <div className="input">
+                <div className={`input ${error ? 'error' : ''}`}>
                     <img src={email_icon} alt="email" />
                     <input
                         type="email"
@@ -57,7 +59,7 @@ export function Login() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)} />
                 </div>
-                <div className="input">
+                <div className={`input ${error ? 'error' : ''}`}>
                     <img src={password_icon} alt="password" />
                     <input
                         type={showPassword ? 'text' : 'password'}
@@ -72,6 +74,7 @@ export function Login() {
                     />
                 </div>
             </div>
+            {error && <div className="error-message">{error}</div>}
             <div className="forgot-password">Forgot your password? <span>Click Here !</span></div>
             <div className="submit-container">
                 <div className="submit" onClick={handleSubmit}>Login</div>

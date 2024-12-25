@@ -57,8 +57,6 @@ export function App() {
           <div className="main-routes">
             <Routes>
               <Route path="/" element={<SoccerHomePage />} />
-              {/* <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} /> */}
               <Route path='/past-match' element={<SoccerPastIndex />} />
               <Route path="/past-match-details/:matchId" element={<SoccerPastMatchDetails />} />
               <Route path='/future-match' element={<SoccerFutureIndex />} />
