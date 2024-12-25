@@ -20,6 +20,7 @@ export function Signup() {
     const [confirmPassword, setConfirmPassword] = useState('')
     const [allowNotifications, setAllowNotifications] = useState(false)
     const [error, setError] = useState(null)
+    const [error2, setError2] = useState(null)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -38,7 +39,12 @@ export function Signup() {
     async function handleSubmit() {
         if (password !== confirmPassword) {
             setError('Passwords do not match')
-            return;
+            return
+        }
+
+        if (!isValidEmail(email)) {
+            setError2('Please enter a valid email address')
+            return
         }
 
         const createAt = new Date().toISOString();
@@ -62,6 +68,23 @@ export function Signup() {
         }
     }
 
+    function isValidEmail(email) {
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return emailPattern.test(email);
+    }
+
+    const handleEmailChange = (e) => {
+        const emailValue = e.target.value
+        setEmail(emailValue)
+    
+        if (!isValidEmail(emailValue)) {
+            setError2('Please enter a valid email address')
+        } else {
+            setError2(null)
+        }
+    }
+    
+
     return (
         <div className='container'>
             <div className="back-btn" onClick={handleBackClick}><FaTimes /></div>
@@ -78,13 +101,13 @@ export function Signup() {
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)} />
                 </div>
-                <div className="input">
+                <div className={`input ${error2 ? 'error' : ''}`}>
                     <img src={email_icon} alt="email" />
                     <input
                         type="email"
                         placeholder='Email'
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)} />
+                        onChange={handleEmailChange}/>
                 </div>
                 <div className={`input ${error ? 'error' : ''}`}>
                     <img src={password_icon} alt="password" />
@@ -114,6 +137,7 @@ export function Signup() {
                         onClick={toggleConfirmPasswordVisibility}
                     />
                 </div>
+                {error2 && <div className="error-message">{error2}</div>}
                 {error && <div className="error-message">{error}</div>}
                 <div className="notifications">
                     <div className="allow-notification">
