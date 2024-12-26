@@ -1,11 +1,9 @@
 .container{
     display: flex;
     flex-direction: column;
-    margin: auto;
-    margin-top: 10rem;
     width: 60rem;
     background: $color-white;
-    padding-bottom: 3rem;
+    padding-bottom: 2rem;
     border-radius: 4rem;
 
     .back-btn{
@@ -14,7 +12,7 @@
         justify-content: end;
         font-size: 2rem;
         padding-top: 2rem;
-        padding-right: 2rem;
+        padding-right: 2.5rem;
         color: $n11;
     }
 
@@ -24,11 +22,10 @@
         align-items: center;
         gap: 0.4rem;
         width: 100%;
-        margin-top: 0.5rem;
 
         .text{
             color: $n11;
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: bold;
         }
 
@@ -41,22 +38,22 @@
     }
 
     .inputs{
-        margin-top: 5rem;
+        margin-top: 2rem;
         display: flex;
         flex-direction: column;
-        gap: 2rem;
+        gap: 1.5rem;
 
         .input{
             display: flex;
             align-items: center;
             margin: auto;
             width: 48rem;
-            height: 6rem;
+            height: 5rem;
             background-color: $color-gray;
             border-radius: 0.6rem;
 
             img{
-                margin: 0px 30px;
+                margin: 0px 2rem;
             }
 
             .toggle-password{
@@ -64,7 +61,7 @@
                 border: none;
                 outline: none;
                 color: $color-dark-gray;
-                font-size: 1.9rem;
+                font-size: 1.8rem;
             }
 
             input{
@@ -74,17 +71,17 @@
                 border: none;
                 outline: none;
                 color: $color-dark-gray;
-                font-size: 1.9rem;
+                font-size: 1.8rem;
             }
         }
 
         .input.error {
-            border: 2px solid red;
+            border: 2px solid rgba($r1, 1);
         }
     }
 
     .error-message {
-        color: red;
+        color: rgba($r1, 1);
         font-size: 1.4rem;
         margin-top: 8px;
         text-align: center;
@@ -92,9 +89,9 @@
 
     .forgot-password{
         padding-left: 6.2rem;
-        margin-top: 2.5rem;
+        margin-top: 1.5rem;
         color: #797979;
-        font-size: 1.8rem;
+        font-size: 1.6rem;
 
         span{
             color: $teal1;
@@ -113,13 +110,13 @@
 
     .submit-container{
         display: flex;
-        margin: 3rem auto;
+        margin: 2rem auto;
     
         .submit{
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 22rem;
+            width: 18rem;
             height: 6rem;
             color: #fff;
             background: $n6;
