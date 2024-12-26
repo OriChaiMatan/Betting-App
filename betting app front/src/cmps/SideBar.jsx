@@ -9,8 +9,7 @@ import { CgSmartphoneChip } from "react-icons/cg"
 import { PiSoccerBallFill } from "react-icons/pi"
 import { GiSoccerField } from "react-icons/gi"
 import { FaHistory } from "react-icons/fa"
-
-
+import { FaUserCircle } from "react-icons/fa"
 
 export function SideBar({ onToggleSidebar }) {
     const navigate = useNavigate()
@@ -56,6 +55,17 @@ export function SideBar({ onToggleSidebar }) {
                     </NavLink>
                 </div>
             </div>
+            {isLoggedIn && (
+                <div className="second-routes">
+                    <h1>My User</h1>
+                    <div className="links">
+                        <NavLink to={`/user/${userService.getLoggedinUser()?._id || ''}`} className={({ isActive }) => isActive ? 'link-info active-link' : 'link-info'} onClick={onToggleSidebar}>
+                            <FaUserCircle className='icon' />
+                            <span>Profile</span>
+                        </NavLink>
+                    </div>
+                </div>
+            )}
             <div className="login-signup">
             {isLoggedIn ? (
                     <span className='login-signup-btn' onClick={handleLogout}>Log out</span> 

@@ -68,10 +68,9 @@
     color: #222222;
   }
   
-  @media only screen and (max-width: 768px) {
+  @include respond(phone) {
     .user-msg {
-      max-width: 40%;
-      left: 2rem;
-      bottom: 8rem;
+      max-width: 50%;
+      font-size: 2rem;
     }
   }
