@@ -15,6 +15,7 @@ import { CallToActionHeader } from "../../cmps/soccer/future-match/CallToActionH
 import { SkeletonFutureMatchDetails } from "../../cmps/loaders/SkeletonFutureMatchDetails"
 import { MdOutlinePlace } from "react-icons/md"
 import { showErrorMsg } from "../../services/event-bus.service"
+import { FaRegStar } from "react-icons/fa6"
 
 
 export function SoccerFutureMatchDetails() {
@@ -223,6 +224,10 @@ export function SoccerFutureMatchDetails() {
                     </div>
                 </div>
                 <div className="details">
+                    <div className="add-to-favorite-match">
+                        <FaRegStar className="favorite-icon" />
+                        <span>Add match to your favorite list !</span> 
+                    </div>
                     {odds && <ProbabilitiesBar odds={odds} />}
                     <Last5Matches
                         homeLast5Games={homeLast5Games}

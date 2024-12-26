@@ -45,9 +45,24 @@
                 }
             }
         }
+
+        .add-to-favorite {
+            display: flex;
+            align-items: center;
+            padding: 2rem;
+            cursor: pointer;
+
+            .favorite-icon {
+                font-size: 2.4rem;
+            }
+
+            &:hover {
+                transform: scale(1.15);
+            }
+        }
     }
 
-    .navigate-to-match{
+    .navigate-to-match {
         padding-top: 2rem;
         display: flex;
         gap: 2rem;
@@ -61,14 +76,14 @@
             background-color: rgba($p2, 1);
             border-radius: 1rem;
             border: 0.5px solid rgba($n5, 1);
-    
+
             span {
                 font-size: 1.8rem;
             }
-    
+
             text-decoration: none; // Removes the underline
             color: inherit; // Inherits the color of its parent, or you can set a specific color
-    
+
             &:hover {
                 text-decoration: none;
                 transform: scale(1.02);

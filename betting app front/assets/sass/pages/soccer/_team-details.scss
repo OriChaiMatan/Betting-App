@@ -58,7 +58,24 @@
         }
     }
 
-    .navigate-to-match{
+    .add-to-favorite-team {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        font-size: 1.8rem;
+        gap: 1rem;
+        cursor: pointer;
+
+        .favorite-icon:hover {
+            transform: scale(1.2);
+        }
+
+        span{
+            color: $teal1;
+        }
+    }
+
+    .navigate-to-match {
         display: flex;
         gap: 2rem;
 
@@ -71,14 +88,14 @@
             background-color: rgba($p2, 1);
             border-radius: 1rem;
             border: 0.5px solid rgba($n5, 1);
-    
+
             span {
                 font-size: 1.8rem;
             }
-    
+
             text-decoration: none; // Removes the underline
             color: inherit; // Inherits the color of its parent, or you can set a specific color
-    
+
             &:hover {
                 text-decoration: none;
                 transform: scale(1.02);

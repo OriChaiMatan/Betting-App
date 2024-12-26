@@ -9,6 +9,7 @@ import { CallToActionHeader } from "../../cmps/soccer/future-match/CallToActionH
 import { MatchSummary } from "../../cmps/soccer/past-match/MatchSummary"
 import { SkeletonPastMatchDetails } from "../../cmps/loaders/SkeletonPastMatchDetails"
 import { MdOutlinePlace } from "react-icons/md"
+import { FaRegStar } from "react-icons/fa6"
 
 
 export function SoccerPastMatchDetails() {
@@ -90,6 +91,10 @@ export function SoccerPastMatchDetails() {
                     </div>
                 </div>
                 <div className="statistic-data">
+                    <div className="add-to-favorite-match">
+                        <FaRegStar className="favorite-icon" />
+                        <span>Add match to your favorite list !</span>
+                    </div>
                     <MatchSummary match={match} />
                     <ScoreTable match={match} />
                 </div>

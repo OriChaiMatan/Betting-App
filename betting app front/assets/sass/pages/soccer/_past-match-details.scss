@@ -123,6 +123,30 @@
 
     .statistic-data {
         grid-area: table;
+
+        .add-to-favorite-match {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            font-size: 1.9rem;
+            font-weight: bold;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 2px solid rgba($n11, 1);
+            background-color: rgba($p2, .3);
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+
+            span{
+                font-size: 1.7rem;
+            }
+
+            .favorite-icon:hover {
+                text-decoration: none;
+                transform: scale(1.2);
+            }
+        }
     }
 
     @media only screen and (min-width: 1024px) and (max-width: 1150px) {

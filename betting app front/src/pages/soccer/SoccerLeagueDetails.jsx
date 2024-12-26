@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
 import { useParams } from "react-router"
 import { leaguesService } from "../../services/leagues.service"
 import { gamesService } from "../../services/games.service"
@@ -10,6 +11,7 @@ import { SkeletonLeagueDetails } from "../../cmps/loaders/SkeletonLeagueDetails"
 import { SkeletonTabelHomePage } from "../../cmps/loaders/SkeletonTabelHomePage"
 import { SkeletonLeaguePreview } from "../../cmps/loaders/SkeletonLeaguePreview"
 import { showErrorMsg } from "../../services/event-bus.service"
+import { FaRegStar } from "react-icons/fa6"
 
 export function SoccerLeagueDetails() {
     const [league, setLeague] = useState(null)
@@ -56,6 +58,9 @@ export function SoccerLeagueDetails() {
                 <SkeletonLeagueDetails />
             ) : (
                 <div className="league-header">
+                    <div className="add-to-favorite">
+                        <FaRegStar className="favorite-icon"/>
+                    </div>
                     <img
                         src={league.league_logo}
                         alt={`${league.league_name} logo`}

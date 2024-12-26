@@ -21,6 +21,7 @@ import { SkeletonTabelHomePage } from "../../cmps/loaders/SkeletonTabelHomePage"
 import { PiSoccerBallFill } from "react-icons/pi"
 import { FcStatistics } from "react-icons/fc"
 import { FaHistory } from "react-icons/fa"
+import { FaRegStar } from "react-icons/fa6"
 
 export function SoccerTeamDetails() {
     const previousMatches = useSelector((storeState) => storeState.previousMatchModule.previousMatches)
@@ -113,6 +114,10 @@ export function SoccerTeamDetails() {
                         <h2 className="team-name">{team.team_name}</h2>
                         <p className="team-country">{team.team_country}, {team.team_founded ? `Founded: ${team.team_founded}` : "Founded: N/A"}</p>
                         <h3>Venue: {team.venue.venue_name}, {team.venue.venue_city} | Capacity: {team.venue.venue_capacity} | Surface: {team.venue.venue_surface}</h3>
+                        <div className="add-to-favorite-team">
+                            <FaRegStar className="favorite-icon" />
+                            <span>Add Team to your favorite list</span>
+                        </div>
                     </div>
                 )}
             </div>
