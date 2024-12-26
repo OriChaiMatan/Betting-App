@@ -18,6 +18,7 @@ import { AppHeader } from './cmps/AppHeader'
 import { SideBar } from './cmps/SideBar'
 import { AppFooter } from './cmps/AppFooter'
 import { UserMsg } from './cmps/UserMsg'
+import { UserDetails } from './pages/UserDetails'
 
 export function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -57,6 +58,7 @@ export function App() {
           <div className="main-routes">
             <Routes>
               <Route path="/" element={<SoccerHomePage />} />
+              <Route path='/user/:userId' element={<UserDetails />} />
               <Route path='/past-match' element={<SoccerPastIndex />} />
               <Route path="/past-match-details/:matchId" element={<SoccerPastMatchDetails />} />
               <Route path='/future-match' element={<SoccerFutureIndex />} />
