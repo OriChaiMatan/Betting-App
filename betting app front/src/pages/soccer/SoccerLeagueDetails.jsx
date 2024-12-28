@@ -10,13 +10,15 @@ import { MatchSection } from "../../cmps/soccer/league-details/MatchSection"
 import { SkeletonLeagueDetails } from "../../cmps/loaders/SkeletonLeagueDetails"
 import { SkeletonTabelHomePage } from "../../cmps/loaders/SkeletonTabelHomePage"
 import { SkeletonLeaguePreview } from "../../cmps/loaders/SkeletonLeaguePreview"
-import { showErrorMsg } from "../../services/event-bus.service"
+import { showErrorMsg, showSuccessMsg } from "../../services/event-bus.service"
 import { FaRegStar } from "react-icons/fa6"
+import { FaStar } from "react-icons/fa"
 
 export function SoccerLeagueDetails() {
     const [league, setLeague] = useState(null)
     const [pastMatches, setPastMatches] = useState([])
     const [futureMatches, setFutureMatches] = useState([])
+    const [isFavorite, setIsFavorite] = useState(false)
     const params = useParams()
     const navigate = useNavigate()
 
@@ -51,6 +53,11 @@ export function SoccerLeagueDetails() {
         }
     }
 
+    function toggleFavorite() {
+        setIsFavorite((prevState) => !prevState)
+        showSuccessMsg(!isFavorite ? "Added to Favorites" : "Removed from Favorites")
+    }
+
     return (
         <div className="league-details">
             <CallToActionHeader />
@@ -58,8 +65,12 @@ export function SoccerLeagueDetails() {
                 <SkeletonLeagueDetails />
             ) : (
                 <div className="league-header">
-                    <div className="add-to-favorite">
-                        <FaRegStar className="favorite-icon"/>
+                    <div className="add-to-favorite" onClick={toggleFavorite}>
+                        {isFavorite ? (
+                            <FaStar className="favorite-icon" />
+                        ) : (
+                            <FaRegStar className="favorite-icon" />
+                        )}
                     </div>
                     <img
                         src={league.league_logo}

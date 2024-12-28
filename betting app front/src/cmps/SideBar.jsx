@@ -10,6 +10,7 @@ import { PiSoccerBallFill } from "react-icons/pi"
 import { GiSoccerField } from "react-icons/gi"
 import { FaHistory } from "react-icons/fa"
 import { FaUserCircle } from "react-icons/fa"
+import { showSuccessMsg } from '../services/event-bus.service'
 
 export function SideBar({ onToggleSidebar }) {
     const navigate = useNavigate()
@@ -18,6 +19,7 @@ export function SideBar({ onToggleSidebar }) {
     const handleLogout = () => {
         logout() // Dispatch logout action if using Redux
         navigate('/')  // Redirect to login page after logging out
+        showSuccessMsg('Successfully logged out. See you soon!')
     }
 
     const isLoggedIn = userService.getLoggedinUser() !== null
