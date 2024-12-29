@@ -5,7 +5,8 @@ import { useSelector } from 'react-redux'
 
 import { leaguesService } from "../../services/leagues.service"
 import { gamesService } from "../../services/games.service"
-import { showErrorMsg } from "../../services/event-bus.service"
+import { userService } from "../../services/user.service"
+import { showErrorMsg, showSuccessMsg } from "../../services/event-bus.service"
 
 import { loadPreviousMatches } from '../../store/actions/previous-match.action'
 
@@ -22,6 +23,7 @@ import { PiSoccerBallFill } from "react-icons/pi"
 import { FcStatistics } from "react-icons/fc"
 import { FaHistory } from "react-icons/fa"
 import { FaRegStar } from "react-icons/fa6"
+import { FaStar } from "react-icons/fa"
 
 export function SoccerTeamDetails() {
     const previousMatches = useSelector((storeState) => storeState.previousMatchModule.previousMatches)
@@ -29,6 +31,7 @@ export function SoccerTeamDetails() {
     const [team, setTeam] = useState(null)
     const [nextMatch, setNextMatch] = useState(null)
     const [pastMatches, setPastMatches] = useState([])
+    const [isFavorite, setIsFavorite] = useState(false)
     const { leagueId, teamId } = useParams()
     const navigate = useNavigate()
 
@@ -39,6 +42,7 @@ export function SoccerTeamDetails() {
         loadTeam()
         fetchNextMatch()
         loadPastMatches()
+        checkIfFavorite()
     }, [leagueId, teamId])
 
     async function loadTeam() {
@@ -102,6 +106,64 @@ export function SoccerTeamDetails() {
         }
     }
 
+    function checkIfFavorite() {
+        const loggedInUser = userService.getLoggedinUser()
+        if (loggedInUser && loggedInUser.favoriteTeams) {
+            // Check if the team is in the user's favoriteTeams
+            const isFav = loggedInUser.favoriteTeams.some(
+                (favorite) => favorite.leagueId === leagueId && favorite.teamId === teamId
+            )
+            setIsFavorite(isFav)
+        }
+    }
+
+    async function onUpdateUser(user) {
+        try {
+            const response = await userService.update(user)
+            userService.updateLocalUserFields(user)
+        } catch (err) {
+            console.log('Error in onUpdateUser', err)
+        }
+    }
+
+    async function toggleFavorite() {
+        const prevState = isFavorite; // Save the previous state for rollback
+        setIsFavorite(!prevState); // Optimistic update
+
+        const loggedInUser = userService.getLoggedinUser();
+        if (!loggedInUser) {
+            console.error("User not logged in");
+            return;
+        }
+
+        const updatedUser = { ...loggedInUser };
+        if (!updatedUser.favoriteTeams) updatedUser.favoriteTeams = [];
+
+        // Check if the current team is already in the favorites
+        const favoriteIndex = updatedUser.favoriteTeams.findIndex(
+            (favorite) => favorite.leagueId === leagueId && favorite.teamId === teamId
+        );
+
+        if (prevState) {
+            // Remove from favorites
+            if (favoriteIndex > -1) {
+                updatedUser.favoriteTeams.splice(favoriteIndex, 1);
+            }
+        } else {
+            // Add to favorites
+            updatedUser.favoriteTeams.push({ leagueId, teamId });
+        }
+
+        try {
+            const savedUser = await onUpdateUser(updatedUser); // Update user on the backend
+            userService.updateLocalUserFields(savedUser); // Sync updated user locally
+        } catch (err) {
+            console.error("Error updating user:", err);
+            setIsFavorite(prevState); // Revert state on error
+            showErrorMsg("Error updating favorite teams, please try again.");
+        }
+    }
+
     return (
         <div className="team-details-page">
             <CallToActionHeader />
@@ -114,9 +176,18 @@ export function SoccerTeamDetails() {
                         <h2 className="team-name">{team.team_name}</h2>
                         <p className="team-country">{team.team_country}, {team.team_founded ? `Founded: ${team.team_founded}` : "Founded: N/A"}</p>
                         <h3>Venue: {team.venue.venue_name}, {team.venue.venue_city} | Capacity: {team.venue.venue_capacity} | Surface: {team.venue.venue_surface}</h3>
-                        <div className="add-to-favorite-team">
-                            <FaRegStar className="favorite-icon" />
-                            <span>Add Team to your favorite list</span>
+                        <div className="add-to-favorite-team" onClick={toggleFavorite}>
+                            {isFavorite ? (
+                                <>
+                                    <FaStar className="favorite-icon" />
+                                    <span>Remove Team from your favorite list</span>
+                                </>
+                            ) : (
+                                <>
+                                    <FaRegStar className="favorite-icon" />
+                                    <span>Add Team to your favorite list !</span>
+                                </>
+                            )}
                         </div>
                     </div>
                 )}

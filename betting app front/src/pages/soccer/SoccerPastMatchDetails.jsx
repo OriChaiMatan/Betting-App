@@ -54,46 +54,46 @@ export function SoccerPastMatchDetails() {
     }
 
     async function onUpdateUser(user) {
-            try {
-                const response = await userService.update(user)
-                userService.updateLocalUserFields(user)
-            } catch (err) {
-                console.log('Error in onUpdateUser', err)
-            }
+        try {
+            const response = await userService.update(user)
+            userService.updateLocalUserFields(user)
+        } catch (err) {
+            console.log('Error in onUpdateUser', err)
         }
-    
-        async function toggleFavorite() {
-            if (!match) {
-                console.error('Match not loaded yet')
-                return
-            }
-    
-            const prevState = isFavorite // Save previous state
-            setIsFavorite(!prevState) // Optimistic update
-    
-            const loggedInUser = userService.getLoggedinUser()
-            if (!loggedInUser) return // Ensure the user is logged in
-    
-            const updatedUser = { ...loggedInUser }
-            if (!updatedUser.favoriteMatches) updatedUser.favoriteMatches = []
-    
-            if (prevState) {
-                updatedUser.favoriteMatches = updatedUser.favoriteMatches.filter(
-                    (matchId) => matchId !== match.match_id
-                )
-            } else {
-                updatedUser.favoriteMatches.push(match.match_id)
-            }
-    
-            try {
-                const savedUser = await onUpdateUser(updatedUser) // Pass the correct object
-                userService.updateLocalUserFields(savedUser) // Sync local storage
-            } catch (err) {
-                console.error('Error updating user:', err)
-                setIsFavorite(prevState); // Revert to previous state if update fails
-                showErrorMsg('Error updating favorite leagues, please try again')
-            }
+    }
+
+    async function toggleFavorite() {
+        if (!match) {
+            console.error('Match not loaded yet')
+            return
         }
+
+        const prevState = isFavorite // Save previous state
+        setIsFavorite(!prevState) // Optimistic update
+
+        const loggedInUser = userService.getLoggedinUser()
+        if (!loggedInUser) return // Ensure the user is logged in
+
+        const updatedUser = { ...loggedInUser }
+        if (!updatedUser.favoriteMatches) updatedUser.favoriteMatches = []
+
+        if (prevState) {
+            updatedUser.favoriteMatches = updatedUser.favoriteMatches.filter(
+                (matchId) => matchId !== match.match_id
+            )
+        } else {
+            updatedUser.favoriteMatches.push(match.match_id)
+        }
+
+        try {
+            const savedUser = await onUpdateUser(updatedUser) // Pass the correct object
+            userService.updateLocalUserFields(savedUser) // Sync local storage
+        } catch (err) {
+            console.error('Error updating user:', err)
+            setIsFavorite(prevState); // Revert to previous state if update fails
+            showErrorMsg('Error updating favorite leagues, please try again')
+        }
+    }
 
     if (!match) return <SkeletonPastMatchDetails />
     return (
@@ -140,7 +140,7 @@ export function SoccerPastMatchDetails() {
                     </div>
                 </div>
                 <div className="statistic-data">
-                <div className="add-to-favorite-match" onClick={toggleFavorite}>
+                    <div className="add-to-favorite-match" onClick={toggleFavorite}>
                         {isFavorite ? (
                             <>
                                 <FaStar className="favorite-icon" />
