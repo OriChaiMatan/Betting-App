@@ -4,6 +4,7 @@ import { gamesService } from '../services/games.service'
 import { leaguesService } from '../services/leagues.service'
 import { LeaguesIconList } from '../cmps/user-details/LeaguesIconList'
 import { TeamsIconList } from '../cmps/user-details/TeamsIconList'
+import { MatchesIconList } from '../cmps/user-details/MatchesIconList'
 
 export function UserDetails() {
     const [user, setUser] = useState(null)
@@ -134,16 +135,10 @@ export function UserDetails() {
                     <TeamsIconList teams={teams} />
                 </div>
 
-
-                <h2>Matches</h2>
-                <ul>
-                    {matches.map(match => (
-                        <li key={match.match_id}>
-                            {match.match_hometeam_name} vs {match.match_awayteam_name} -{' '}
-                            {match.match_date}
-                        </li>
-                    ))}
-                </ul>
+                <div className="data">
+                    <h2>Favorited Matches:</h2>
+                    <MatchesIconList matches={matches} />
+                </div>
             </section>
         </div>
     );
