@@ -37,11 +37,11 @@ function remove(userId) {
     return httpService.delete(`${BASE_URL}${userId}`)
 }
 
-async function update({ _id }) {
-    const user = await httpService.put(`${BASE_URL}${_id}`, { _id })
+async function update( user ) {
+    var userToSave = await httpService.put(`${BASE_URL}${user._id}`, user)
     // Handle case in which admin updates other user's details
-    if (getLoggedinUser()._id === user._id) saveLocalUser(user)
-    return user
+    if (getLoggedinUser()._id === userToSave._id) saveLocalUser(userToSave)
+    return userToSave
 }
 
 async function login(userCred) {

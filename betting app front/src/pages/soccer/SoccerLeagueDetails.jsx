@@ -4,6 +4,7 @@ import { useSelector } from "react-redux"
 import { useParams } from "react-router"
 import { leaguesService } from "../../services/leagues.service"
 import { gamesService } from "../../services/games.service"
+import { userService } from "../../services/user.service"
 import { CallToActionHeader } from "../../cmps/soccer/future-match/CallToActionHeader"
 import { TeamSlider } from "../../cmps/soccer/league-details/TeamsSlider"
 import { MatchSection } from "../../cmps/soccer/league-details/MatchSection"
@@ -25,6 +26,10 @@ export function SoccerLeagueDetails() {
     useEffect(() => {
         loadLeague()
         loadMatches()
+        const loggedInUser = userService.getLoggedinUser()
+        if (loggedInUser && loggedInUser.favoriteLeagues) {
+            setIsFavorite(loggedInUser.favoriteLeagues.includes(params.leagueId))
+        }
     }, [params.leagueId])
 
     async function loadLeague() {
@@ -53,10 +58,48 @@ export function SoccerLeagueDetails() {
         }
     }
 
-    function toggleFavorite() {
-        setIsFavorite((prevState) => !prevState)
-        showSuccessMsg(!isFavorite ? "Added to Favorites" : "Removed from Favorites")
+    async function onUpdateUser(user) {
+        try {
+            const response = await userService.update(user)
+            userService.updateLocalUserFields(user)
+        } catch (err) {
+            console.log('Error in onUpdateUser', err)
+        }
     }
+
+    async function toggleFavorite() {
+        if (!league) {
+            console.error('League not loaded yet')
+            return
+        }
+
+        const prevState = isFavorite // Save previous state
+        setIsFavorite(!prevState) // Optimistic update
+
+        const loggedInUser = userService.getLoggedinUser()
+        if (!loggedInUser) return // Ensure the user is logged in
+
+        const updatedUser = { ...loggedInUser }
+        if (!updatedUser.favoriteLeagues) updatedUser.favoriteLeagues = [] 
+
+        if (prevState) {
+            updatedUser.favoriteLeagues = updatedUser.favoriteLeagues.filter(
+                (leagueId) => leagueId !== league.league_id
+            )
+        } else {
+            updatedUser.favoriteLeagues.push(league.league_id)
+        }
+
+        try {
+            const savedUser = await onUpdateUser(updatedUser) // Pass the correct object
+            userService.updateLocalUserFields(savedUser) // Sync local storage
+        } catch (err) {
+            console.error('Error updating user:', err)
+            setIsFavorite(prevState); // Revert to previous state if update fails
+            showErrorMsg('Error updating favorite leagues, please try again')
+        }
+    }
+
 
     return (
         <div className="league-details">
