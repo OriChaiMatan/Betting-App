@@ -27,5 +27,22 @@
             border: 0.8px solid rgba($teal1, 1);
         }
     }
+
+    .account-data{
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        .data{
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+            h2{
+                font-size: 2.4rem;
+                color: $teal1;
+            }
+        }
+    }
 }
   

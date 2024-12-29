@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { userService } from '../services/user.service'
 import { gamesService } from '../services/games.service'
 import { leaguesService } from '../services/leagues.service'
+import { LeaguesIconList } from '../cmps/user-details/LeaguesIconList'
 
 export function UserDetails() {
     const [user, setUser] = useState(null)
@@ -37,7 +38,7 @@ export function UserDetails() {
             const teamPromises = favoriteTeams.map(({ leagueId, teamId }) =>
                 leaguesService.getTeamByLeagueAndTeamId(leagueId, teamId)
             );
-    
+
             const data = await Promise.all(teamPromises)
             setTeams(data.filter(team => team))
         } catch (err) {
@@ -122,12 +123,10 @@ export function UserDetails() {
                 </p>
             </section>
             <section className="account-data">
-                <h2>Leagues</h2>
-                <ul>
-                    {leagues.map(league => (
-                        <li key={league.league_key}>{league.league_name}</li>
-                    ))}
-                </ul>
+                <div className="data">
+                    <h2>Favorited Leagues:</h2>
+                    <LeaguesIconList leagues={leagues} />
+                </div>
 
                 <h2>Teams</h2>
                 <ul>
