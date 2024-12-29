@@ -3,6 +3,7 @@ import { useParams } from "react-router"
 import { Link, useNavigate } from "react-router-dom"
 import { gamesService } from "../../services/games.service"
 import { utilService } from "../../services/util.service"
+import { userService } from "../../services/user.service"
 import { ScoreTable } from "../../cmps/soccer/past-match/ScoreTable"
 import { StickyHeader } from "../../cmps/soccer/StickyHeader"
 import { CallToActionHeader } from "../../cmps/soccer/future-match/CallToActionHeader"
@@ -10,16 +11,22 @@ import { MatchSummary } from "../../cmps/soccer/past-match/MatchSummary"
 import { SkeletonPastMatchDetails } from "../../cmps/loaders/SkeletonPastMatchDetails"
 import { MdOutlinePlace } from "react-icons/md"
 import { FaRegStar } from "react-icons/fa6"
+import { FaStar } from "react-icons/fa"
 
 
 export function SoccerPastMatchDetails() {
     const [match, setMatch] = useState(null)
     const [isSticky, setIsSticky] = useState(false)
+    const [isFavorite, setIsFavorite] = useState(false)
     const params = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
         loadMatch()
+        const loggedInUser = userService.getLoggedinUser()
+        if (loggedInUser && loggedInUser.favoriteMatches) {
+            setIsFavorite(loggedInUser.favoriteMatches.includes(params.matchId))
+        }
     }, [params.matchId])
 
     const handleScroll = () => {
@@ -45,6 +52,48 @@ export function SoccerPastMatchDetails() {
             navigate("/past-match")
         }
     }
+
+    async function onUpdateUser(user) {
+            try {
+                const response = await userService.update(user)
+                userService.updateLocalUserFields(user)
+            } catch (err) {
+                console.log('Error in onUpdateUser', err)
+            }
+        }
+    
+        async function toggleFavorite() {
+            if (!match) {
+                console.error('Match not loaded yet')
+                return
+            }
+    
+            const prevState = isFavorite // Save previous state
+            setIsFavorite(!prevState) // Optimistic update
+    
+            const loggedInUser = userService.getLoggedinUser()
+            if (!loggedInUser) return // Ensure the user is logged in
+    
+            const updatedUser = { ...loggedInUser }
+            if (!updatedUser.favoriteMatches) updatedUser.favoriteMatches = []
+    
+            if (prevState) {
+                updatedUser.favoriteMatches = updatedUser.favoriteMatches.filter(
+                    (matchId) => matchId !== match.match_id
+                )
+            } else {
+                updatedUser.favoriteMatches.push(match.match_id)
+            }
+    
+            try {
+                const savedUser = await onUpdateUser(updatedUser) // Pass the correct object
+                userService.updateLocalUserFields(savedUser) // Sync local storage
+            } catch (err) {
+                console.error('Error updating user:', err)
+                setIsFavorite(prevState); // Revert to previous state if update fails
+                showErrorMsg('Error updating favorite leagues, please try again')
+            }
+        }
 
     if (!match) return <SkeletonPastMatchDetails />
     return (
@@ -91,9 +140,18 @@ export function SoccerPastMatchDetails() {
                     </div>
                 </div>
                 <div className="statistic-data">
-                    <div className="add-to-favorite-match">
-                        <FaRegStar className="favorite-icon" />
-                        <span>Add match to your favorite list !</span>
+                <div className="add-to-favorite-match" onClick={toggleFavorite}>
+                        {isFavorite ? (
+                            <>
+                                <FaStar className="favorite-icon" />
+                                <span>Remove match from your favorite list</span>
+                            </>
+                        ) : (
+                            <>
+                                <FaRegStar className="favorite-icon" />
+                                <span>Add match to your favorite list!</span>
+                            </>
+                        )}
                     </div>
                     <MatchSummary match={match} />
                     <ScoreTable match={match} />

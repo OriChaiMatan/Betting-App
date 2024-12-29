@@ -4,6 +4,7 @@ import { useParams } from "react-router"
 import { Link, useNavigate } from "react-router-dom"
 import { gamesService } from "../../services/games.service"
 import { leaguesService } from "../../services/leagues.service"
+import { userService } from "../../services/user.service"
 import { utilService } from "../../services/util.service"
 import { Last5Matches } from "../../cmps/soccer/future-match/Last5Matches"
 import { ProbabilitiesBar } from "../../cmps/soccer/future-match/ProbabilitiesBar"
@@ -14,9 +15,9 @@ import { TimeForGoalBar } from "../../cmps/soccer/future-match/TimeForGoalBar"
 import { CallToActionHeader } from "../../cmps/soccer/future-match/CallToActionHeader"
 import { SkeletonFutureMatchDetails } from "../../cmps/loaders/SkeletonFutureMatchDetails"
 import { MdOutlinePlace } from "react-icons/md"
-import { showErrorMsg } from "../../services/event-bus.service"
+import { showErrorMsg, showSuccessMsg } from "../../services/event-bus.service"
 import { FaRegStar } from "react-icons/fa6"
-
+import { FaStar } from "react-icons/fa"
 
 export function SoccerFutureMatchDetails() {
     const [match, setMatch] = useState(null)
@@ -27,6 +28,7 @@ export function SoccerFutureMatchDetails() {
     const [awayLast5Games, setAwayLast5Games] = useState([])
     const [isSticky, setIsSticky] = useState(false)
     const [view, setView] = useState('fullMatch')
+    const [isFavorite, setIsFavorite] = useState(false)
     const params = useParams()
     const navigate = useNavigate()
 
@@ -35,6 +37,10 @@ export function SoccerFutureMatchDetails() {
 
     useEffect(() => {
         loadMatch()
+        const loggedInUser = userService.getLoggedinUser()
+        if (loggedInUser && loggedInUser.favoriteMatches) {
+            setIsFavorite(loggedInUser.favoriteMatches.includes(params.matchId))
+        }
     }, [params.matchId])
 
     useEffect(() => {
@@ -178,6 +184,47 @@ export function SoccerFutureMatchDetails() {
         setView(selectedView)
     }
 
+    async function onUpdateUser(user) {
+        try {
+            const response = await userService.update(user)
+            userService.updateLocalUserFields(user)
+        } catch (err) {
+            console.log('Error in onUpdateUser', err)
+        }
+    }
+
+    async function toggleFavorite() {
+        if (!match) {
+            console.error('Match not loaded yet')
+            return
+        }
+
+        const prevState = isFavorite // Save previous state
+        setIsFavorite(!prevState) // Optimistic update
+
+        const loggedInUser = userService.getLoggedinUser()
+        if (!loggedInUser) return // Ensure the user is logged in
+
+        const updatedUser = { ...loggedInUser }
+        if (!updatedUser.favoriteMatches) updatedUser.favoriteMatches = []
+
+        if (prevState) {
+            updatedUser.favoriteMatches = updatedUser.favoriteMatches.filter(
+                (matchId) => matchId !== match.match_id
+            )
+        } else {
+            updatedUser.favoriteMatches.push(match.match_id)
+        }
+
+        try {
+            const savedUser = await onUpdateUser(updatedUser) // Pass the correct object
+            userService.updateLocalUserFields(savedUser) // Sync local storage
+        } catch (err) {
+            console.error('Error updating user:', err)
+            setIsFavorite(prevState); // Revert to previous state if update fails
+            showErrorMsg('Error updating favorite leagues, please try again')
+        }
+    }
 
     if (!match || !homeTeam || !awayTeam) return <SkeletonFutureMatchDetails />
     return (
@@ -224,9 +271,18 @@ export function SoccerFutureMatchDetails() {
                     </div>
                 </div>
                 <div className="details">
-                    <div className="add-to-favorite-match">
-                        <FaRegStar className="favorite-icon" />
-                        <span>Add match to your favorite list !</span> 
+                    <div className="add-to-favorite-match" onClick={toggleFavorite}>
+                        {isFavorite ? (
+                            <>
+                                <FaStar className="favorite-icon" />
+                                <span>Remove match from your favorite list</span>
+                            </>
+                        ) : (
+                            <>
+                                <FaRegStar className="favorite-icon" />
+                                <span>Add match to your favorite list!</span>
+                            </>
+                        )}
                     </div>
                     {odds && <ProbabilitiesBar odds={odds} />}
                     <Last5Matches
