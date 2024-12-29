@@ -3,6 +3,7 @@ import { userService } from '../services/user.service'
 import { gamesService } from '../services/games.service'
 import { leaguesService } from '../services/leagues.service'
 import { LeaguesIconList } from '../cmps/user-details/LeaguesIconList'
+import { TeamsIconList } from '../cmps/user-details/TeamsIconList'
 
 export function UserDetails() {
     const [user, setUser] = useState(null)
@@ -128,12 +129,11 @@ export function UserDetails() {
                     <LeaguesIconList leagues={leagues} />
                 </div>
 
-                <h2>Teams</h2>
-                <ul>
-                    {teams.map(team => (
-                        <li key={team.team_key}>{team.team_name}</li>
-                    ))}
-                </ul>
+                <div className="data">
+                    <h2>Favorited Teams:</h2>
+                    <TeamsIconList teams={teams} />
+                </div>
+
 
                 <h2>Matches</h2>
                 <ul>

@@ -1,0 +1,17 @@
+.teams-icon-list{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+
+    li{
+        width: 12rem;
+        height: 12rem;
+
+        .team-name{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+    }
+}
