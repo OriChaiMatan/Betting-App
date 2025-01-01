@@ -14,6 +14,6 @@ const rootReducer = combineReducers({
     userModule: userReducer
 })
 
-export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
+export const store = createStore(rootReducer, composeEnhancers())
 
 window.gStore = store

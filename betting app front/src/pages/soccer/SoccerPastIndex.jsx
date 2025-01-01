@@ -1,37 +1,48 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams, useSearchParams } from "react-router-dom"
 import { useSelector } from 'react-redux'
 
-import { loadPreviousMatches } from '../../store/actions/previous-match.action'
+import { loadPreviousMatches, setFilterBy } from '../../store/actions/previous-match.action'
 
 import { SoccerPastMatchesList } from '../../cmps/soccer/past-match/SoccerPastMatchesList'
 import { SkeletonMatchPreview } from '../../cmps/loaders/SkeletonMatchPreview'
+import { PastIndexFilter } from '../../cmps/soccer/filters/PastIndexFilter'
 import { showErrorMsg } from '../../services/event-bus.service'
+import { gamesService } from '../../services/games.service'
 
 export function SoccerPastIndex() {
     const previousMatches = useSelector((storeState) => storeState.previousMatchModule.previousMatches)
-    const navigate = useNavigate()
+    const filterBy = useSelector((storeState) => storeState.previousMatchModule.filterBy)
+    const [searchParams, setSearchParams] = useSearchParams()
 
     useEffect(() => {
-        loadPastGames()
-    }, [])
+        setFilterBy(gamesService.getFilterFromParams(searchParams))
+    }, [searchParams])
 
-    async function loadPastGames() {
-        try {
-            await loadPreviousMatches()
-        } catch (err) {
-            console.log('Error in loading past games', err)
-            showErrorMsg('Error in fetch Previous Matches, Please try again')
-            navigate("/")
+    useEffect(() => {
+        if (filterBy) {
+            const sanitizedFilterBy = Object.fromEntries(
+                Object.entries(filterBy).filter(
+                    ([key, value]) => value !== undefined && value !== ""
+                )
+            )
+            setSearchParams(sanitizedFilterBy)  // Update the URL with the filter
+            loadPreviousMatches()
         }
+    }, [filterBy])
+    
+    function onSetFilter(fieldsToUpdate) {
+        console.log('Setting filter:', fieldsToUpdate)
+        setFilterBy(fieldsToUpdate)
     }
 
     return (
         <section className='past-match-index'>
+            <PastIndexFilter filterBy={filterBy} onSetFilter={onSetFilter} />
             {previousMatches.length === 0 ? (
                 <SkeletonMatchPreview />
             ) : (
-                <SoccerPastMatchesList matches={previousMatches.slice(-15)} />
+                <SoccerPastMatchesList matches={previousMatches} />
             )}
         </section>
     )

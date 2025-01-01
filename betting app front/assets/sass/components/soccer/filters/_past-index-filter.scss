@@ -1,0 +1,36 @@
+.past-index-filter{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    background-color: $n1;
+    border-radius: 5rem;
+    border: 1px solid rgba($color-white, 1);
+    font-size: 1.6rem;
+
+    input {
+        all: unset;
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+    
+    input:focus {
+        outline: none;
+        border-left: 1px solid $teal1;
+        border-right: 1px solid $teal1;
+    }
+
+    button {
+        background-color: $teal1;
+        color: $color-white;
+        padding: 0.8rem 2rem;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        width: 100%;
+        max-width: 200px;
+        margin-top: 1rem;
+    }
+}
