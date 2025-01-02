@@ -6,8 +6,7 @@ export function PastIndexFilter({ filterBy, onSetFilter }) {
 
 
     function onSubmitFilter(ev) {
-        ev.preventDefault();
-        console.log(filterByToEdit, 'filter by to edit')
+        ev.preventDefault()
         onSetFilter(filterByToEdit)
     }
 
@@ -19,6 +18,7 @@ export function PastIndexFilter({ filterBy, onSetFilter }) {
                 value={filterByToEdit.match_date}
                 onChange={handleChange}
                 placeholder="Date"
+                className="date-input"
             />
             <input
                 type="text"

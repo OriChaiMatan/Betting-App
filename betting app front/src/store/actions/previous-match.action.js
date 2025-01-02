@@ -6,7 +6,6 @@ export async function loadPreviousMatches() {
   store.dispatch({ type: SET_IS_LOADING, isLoading: true })
   try {
     const { filterBy } = store.getState().previousMatchModule
-    console.log(filterBy)
     const previousMatches = await gamesService.getPastGames(filterBy)
     store.dispatch({ type: SET_PREVIOUS_MATCH, previousMatches })
   } catch (err) {
