@@ -5,8 +5,8 @@ import { store } from "../store"
 export async function loadFutureMatches() {
   store.dispatch({ type: SET_IS_LOADING, isLoading: true })
   try {
-    const { filterBy } = store.getState().futureMatchModule
-    const futureMatches = await gamesService.getFutureGames(filterBy)
+    // const { filterBy } = store.getState().futureMatchModule
+    const futureMatches = await gamesService.getFutureGames()
     store.dispatch({ type: SET_FUTURE_MATCH, futureMatches })
   } catch (err) {
     console.log("Had issues loading future matches", err)

@@ -16,6 +16,10 @@ export function SoccerPastIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
 
     useEffect(() => {
+        loadPreviousMatches(); // Fetch matches only when filters change
+    }, [filterBy])
+
+    useEffect(() => {
         setFilterBy(gamesService.getFilterFromParams(searchParams))
     }, [searchParams])
 
@@ -25,21 +29,25 @@ export function SoccerPastIndex() {
                 Object.entries(filterBy).filter(
                     ([key, value]) => value !== undefined && value !== ""
                 )
-            )
-            setSearchParams(sanitizedFilterBy)  // Update the URL with the filter
-            loadPreviousMatches()
+            );
+    
+            // Only update searchParams if there's a change
+            const currentParams = Object.fromEntries([...searchParams]);
+            if (JSON.stringify(currentParams) !== JSON.stringify(sanitizedFilterBy)) {
+                setSearchParams(sanitizedFilterBy);
+            }
         }
-    }, [filterBy])
+    }, [filterBy]);
+    
     
     function onSetFilter(fieldsToUpdate) {
-        console.log('Setting filter:', fieldsToUpdate)
         setFilterBy(fieldsToUpdate)
     }
 
     return (
         <section className='past-match-index'>
             <PastIndexFilter filterBy={filterBy} onSetFilter={onSetFilter} />
-            {previousMatches.length === 0 ? (
+            {(previousMatches.length === 0 || !previousMatches) ? (
                 <SkeletonMatchPreview />
             ) : (
                 <SoccerPastMatchesList matches={previousMatches} />

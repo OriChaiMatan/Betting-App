@@ -17,8 +17,8 @@ async function getPastGames(filterBy) {
     return await httpService.get(PAST_BASE_URL, filterBy)
 }
 
-async function getFutureGames(filterBy) {
-    return await httpService.get(FUTURE_BASE_URL, filterBy)
+async function getFutureGames() {
+    return await httpService.get(FUTURE_BASE_URL)
 }
 
 async function getGamesByDate(date) {
