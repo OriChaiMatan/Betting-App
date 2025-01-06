@@ -5,8 +5,8 @@ export function PastIndexFilter({ filterBy, onSetFilter }) {
     const [filterByToEdit, handleChange] = useForm(filterBy, onSetFilter)
 
     useEffect(() => {
-        onSetFilter(filterByToEdit)
-      }, [filterByToEdit])
+    onSetFilter(filterByToEdit)
+  }, [filterByToEdit])
 
     function onSubmitFilter(ev) {
         ev.preventDefault()
@@ -39,5 +39,5 @@ export function PastIndexFilter({ filterBy, onSetFilter }) {
             />
             <button type="submit">Search</button>
         </form>
-    )
+    );
 }

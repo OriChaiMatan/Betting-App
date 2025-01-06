@@ -199,11 +199,15 @@ export function SoccerFutureMatchDetails() {
             return
         }
 
+        const loggedInUser = userService.getLoggedinUser()
+        if (!loggedInUser) {
+            // Show error message when the user is not logged in
+            showErrorMsg('You need to be logged in to favorite this match!');
+            return;
+        }
+
         const prevState = isFavorite // Save previous state
         setIsFavorite(!prevState) // Optimistic update
-
-        const loggedInUser = userService.getLoggedinUser()
-        if (!loggedInUser) return // Ensure the user is logged in
 
         const updatedUser = { ...loggedInUser }
         if (!updatedUser.favoriteMatches) updatedUser.favoriteMatches = []

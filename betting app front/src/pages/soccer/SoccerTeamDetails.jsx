@@ -127,14 +127,15 @@ export function SoccerTeamDetails() {
     }
 
     async function toggleFavorite() {
-        const prevState = isFavorite; // Save the previous state for rollback
-        setIsFavorite(!prevState); // Optimistic update
-
-        const loggedInUser = userService.getLoggedinUser();
+        const loggedInUser = userService.getLoggedinUser()
         if (!loggedInUser) {
-            console.error("User not logged in");
+            // Show error message when the user is not logged in
+            showErrorMsg('You need to be logged in to favorite this league!');
             return;
         }
+
+        const prevState = isFavorite; // Save the previous state for rollback
+        setIsFavorite(!prevState); // Optimistic update
 
         const updatedUser = { ...loggedInUser };
         if (!updatedUser.favoriteTeams) updatedUser.favoriteTeams = [];
