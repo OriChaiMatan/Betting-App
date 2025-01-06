@@ -14,6 +14,8 @@ export function SoccerHomePage() {
 
   const futureMatches = useSelector((storeState) => storeState.futureMatchModule.futureMatches)
   const previousMatches = useSelector((storeState) => storeState.previousMatchModule.previousMatches)
+  const filterBy = useSelector((storeState) => storeState.previousMatchModule.filterBy)
+
 
   useEffect(() => {
     loadFutureMatchess()

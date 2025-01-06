@@ -32,22 +32,21 @@ async function getPastMatchById(matchId) {
 }
 
 async function getFutureMatchById(matchId) {
-    console.log(matchId)
     const match = await httpService.get(`${FUTURE_BASE_URL}${matchId}`)
     return match
 }
 
 function getFilterFromParams(searchParams) {
-    const defaultFilter = getDefaultFilter();
-    const filterBy = {};
+    const defaultFilter = getDefaultFilter()
+    const filterBy = {}
     for (const field in defaultFilter) {
       if (Array.isArray(defaultFilter[field])) {
-        filterBy[field] = searchParams.getAll(field) || defaultFilter[field];
+        filterBy[field] = searchParams.getAll(field) || defaultFilter[field]
       } else {
-        filterBy[field] = searchParams.get(field) || defaultFilter[field];
+        filterBy[field] = searchParams.get(field) || defaultFilter[field]
       }
     }
-    return filterBy;
+    return filterBy
   }
 
 function getDefaultFilter() {
