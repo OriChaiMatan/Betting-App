@@ -26,22 +26,22 @@ export function SoccerPastIndex() {
     //     setFilterBy(gamesService.getFilterFromParams(searchParams))
     // }, [searchParams])
 
-    // useEffect(() => {
-    //     if (filterBy) {
-    //         const sanitizedFilterBy = Object.fromEntries(
-    //             Object.entries(filterBy).filter(
-    //                 ([key, value]) => value !== undefined && value !== ""
-    //             )
-    //         )
+    useEffect(() => {
+        if (filterBy) {
+            const sanitizedFilterBy = Object.fromEntries(
+                Object.entries(filterBy).filter(
+                    ([key, value]) => value !== undefined && value !== ""
+                )
+            )
     
-    //         // Only update searchParams if there's a change
-    //         const currentParams = Object.fromEntries([...searchParams]);
-    //         if (JSON.stringify(currentParams) !== JSON.stringify(sanitizedFilterBy)) {
-    //             setSearchParams(sanitizedFilterBy);
-    //         }
-    //     }
+            // Only update searchParams if there's a change
+            const currentParams = Object.fromEntries([...searchParams]);
+            if (JSON.stringify(currentParams) !== JSON.stringify(sanitizedFilterBy)) {
+                setSearchParams(sanitizedFilterBy);
+            }
+        }
 
-    // }, [filterBy]);
+    }, [filterBy]);
     
     
     function onSetFilter(fieldsToUpdate) {
