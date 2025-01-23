@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Logo from "../../assets/img/Logo.svg"
 
 export function AppFooter() {
   return (
     <footer className='app-footer'>
       <div className="logo">
-        <h3>BETTING APP</h3>
+        <img src={Logo} alt="Betting App Logo" className="logo" />
         <span>© Copyright 2024</span>
       </div>
       <div className="links">
