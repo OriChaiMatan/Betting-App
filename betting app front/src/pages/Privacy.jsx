@@ -2,7 +2,7 @@ import React from 'react'
 
 export function Privacy() {
     return (
-        <div>
+        <div className='privacy-pages'>
             <h1>Privacy Policy</h1>
 
             <section className="section">

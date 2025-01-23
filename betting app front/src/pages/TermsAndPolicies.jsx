@@ -2,7 +2,7 @@ import React from 'react'
 
 export function TermsAndPolicies() {
     return (
-        <div>
+        <div className='privacy-pages'>
             <h1>Terms and Conditions</h1>
             <p>
                 <strong>CAUTION:</strong> All betting in any form involves risk. Be aware and accept this risk before betting. Never bet with money you cannot afford to lose. No “safe” betting system has ever been devised, and no one can guarantee profits or freedom from loss. No representation is being made that any account will achieve profits or losses similar to those discussed. Betting tips and advice are provided with no guarantee of profit. The tips are provided with the best of intentions and are carefully researched but are for entertainment purposes only, and no liability of any sort, financial or otherwise, is assumed by 12xPRO or any connected company or party. Please only bet what you can afford to lose, and if you need support, information, or advice, visit the GambleAware website. There is no guarantee that, even with the best advice available, you will become a successful punter because not everyone has what it takes to be a successful punter. The software and betting website services discussed may be unsuitable for you depending upon your specific investment objectives and financial position. You must make your own decisions in light of your own objectives, risk profile, and circumstances. Use independent advisors as you believe necessary.

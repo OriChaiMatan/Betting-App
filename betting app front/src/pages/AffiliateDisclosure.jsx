@@ -2,7 +2,7 @@ import React from 'react'
 
 export function AffiliateDisclosure() {
     return (
-        <div>
+        <div className='privacy-pages'>
             <h1>Affiliate Disclosure</h1>
             <p>
                 <strong>12xPRO</strong> (<a href="https://12xpro.com" target="_blank" rel="noopener noreferrer">https://12xpro.com</a>)
