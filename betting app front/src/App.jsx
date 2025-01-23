@@ -19,6 +19,9 @@ import { SideBar } from './cmps/SideBar'
 import { AppFooter } from './cmps/AppFooter'
 import { UserMsg } from './cmps/UserMsg'
 import { UserDetails } from './pages/UserDetails'
+import { Privacy } from './pages/Privacy'
+import { TermsAndPolicies } from './pages/TermsAndPolicies'
+import { AffiliateDisclosure } from './pages/AffiliateDisclosure'
 
 export function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -68,6 +71,9 @@ export function App() {
               <Route path="/team-details/:leagueId/:teamId" element={<SoccerTeamDetails />} />
               <Route path="/bet" element={<BettingIndex />} />
               <Route path="/ai-assistant" element={<AiAssistant />} />
+              <Route path="/privacy-policy" element={<Privacy />} />
+              <Route path="/affiliate-disclosure" element={<AffiliateDisclosure />} />
+              <Route path="/terms-and-conditions" element={<TermsAndPolicies />} />
             </Routes>
 
             {/* Modal Logic */}
