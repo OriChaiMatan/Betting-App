@@ -69,7 +69,7 @@ export function SoccerPastIndex() {
             {(filteredMatches.length === 0 || !filteredMatches) ? (
                 <SkeletonMatchPreview />
             ) : (
-                <SoccerPastMatchesList matches={filteredMatches} />
+                <SoccerPastMatchesList matches={filteredMatches.reverse()} />
             )}
         </section>
     )
