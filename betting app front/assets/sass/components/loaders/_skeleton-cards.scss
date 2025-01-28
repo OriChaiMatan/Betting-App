@@ -2,4 +2,8 @@
     padding: 3rem;
     display: flex;
     gap: 2rem;
+
+    @include respond(phone) {
+        padding: 1rem;
+    }
 }

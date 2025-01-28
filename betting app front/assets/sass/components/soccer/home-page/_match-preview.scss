@@ -8,9 +8,18 @@
     border: 2px solid rgba($p2, 1);
     box-shadow: 0 1rem 2rem rgba($color-black, .5);
 
+    @include respond(phone) {
+        font-size: 1.6rem;
+    }
+
 
     .link {
         width: 55rem;
+
+        @include respond(phone) {
+            max-width: 45rem;
+            height: 100%;
+        }
     }
 
     .match-data-preview {
@@ -33,12 +42,24 @@
                 box-shadow: $default-box-shadow;
                 background-color: rgba($n11, 1);
             }
+
+            @include respond(phone) {
+                font-size: 1.8rem;
+            }
         }
 
         .match-date {
             display: flex;
             align-items: center;
             gap: 1rem;
+
+            @include respond(phone) {
+                font-size: 1.8rem;
+            }
+        }
+
+        @include respond(phone) {
+            height: 8rem;
         }
     }
 

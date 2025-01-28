@@ -8,6 +8,10 @@
     border: 2px solid rgba($n11, 1);
     background-color: rgba($p2, .3);
 
+    @include respond(phone) {
+        padding: 0.5rem;
+    }
+
     .title {
         display: flex;
         align-items: center;
