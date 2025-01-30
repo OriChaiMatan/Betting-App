@@ -52,6 +52,10 @@
                 background-color: rgba($p2, 1);
                 border: 0.5px solid rgba($color-white, .4);
 
+                @include respond(phone) {
+                    border: 1px solid rgba($color-white, .4);
+                }
+
                 a {
                     font-weight: bold;
                 }
@@ -72,6 +76,10 @@
             height: 4rem;
             background-color: rgba($n5, 1);
             border: 0.5px solid $color-white;
+
+            @include respond(phone) {
+                border: 1px solid $color-white;
+            }
 
             .progress-segment {
                 font-size: 1.5rem;
