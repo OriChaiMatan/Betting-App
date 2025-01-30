@@ -14,6 +14,10 @@
         align-items: center;
         width: 100%;
 
+        @include respond(phone) {
+            gap: 0;
+        }
+
         .team-info {
             display: flex;
             justify-content: space-between;

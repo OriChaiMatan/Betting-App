@@ -8,6 +8,10 @@
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
 
+    @include respond(phone) {
+        padding: 1rem;
+    }
+
     .call-to-action-header {
         grid-area: cta;
     }
@@ -53,6 +57,9 @@
         border: 2px solid rgba($n11, 1);
         background-color: rgba($p2, .3);
 
+        @include respond(phone) {
+            gap: 0;
+        }
 
         .team-preview {
             display: flex;
