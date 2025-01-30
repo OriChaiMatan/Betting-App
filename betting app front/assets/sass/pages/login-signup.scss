@@ -52,6 +52,10 @@
             background-color: $color-gray;
             border-radius: 0.6rem;
 
+            @include respond(phone) {
+                width: 35rem;
+            }
+
             img{
                 margin: 0px 2rem;
             }
