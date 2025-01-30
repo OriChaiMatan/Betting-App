@@ -15,7 +15,7 @@
         gap: 1rem;
     }
 
-    .league-matches{
+    .league-matches {
         display: flex;
         flex-direction: column;
         gap: 2rem;
@@ -24,18 +24,30 @@
             display: flex;
             gap: 1.5rem;
             align-items: center;
-    
-            .history-icon {
-                color: $teal1; 
-                font-size: 3.5rem; 
+
+            @include respond(phone) {
+                gap: 2rem;
             }
-    
+
+            .history-icon {
+                color: $teal1;
+                font-size: 3.5rem;
+
+                @include respond(phone) {
+                    font-size: 5rem;
+                }
+            }
+
             h3 {
                 font-size: 4rem;
+
+                @include respond(phone) {
+                    font-size: 3rem;
+                }
             }
         }
 
-        .navigate-to-match{
+        .navigate-to-match {
             display: flex;
             gap: 2rem;
 
@@ -48,14 +60,18 @@
                 background-color: rgba($p2, 1);
                 border-radius: 1rem;
                 border: 0.5px solid rgba($n5, 1);
-        
+
+                @include respond(phone) {
+                    border: 1px solid rgba($n5, 1);
+                }
+
                 span {
                     font-size: 1.8rem;
                 }
-        
+
                 text-decoration: none; // Removes the underline
                 color: inherit; // Inherits the color of its parent, or you can set a specific color
-        
+
                 &:hover {
                     text-decoration: none;
                     transform: scale(1.02);
