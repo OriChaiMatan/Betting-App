@@ -162,6 +162,7 @@
 
 @include respond(phone){
     .side-bar{
-        width: 40%;
+        width: 50%;
+        font-size: 1.9rem;
     }
 }
