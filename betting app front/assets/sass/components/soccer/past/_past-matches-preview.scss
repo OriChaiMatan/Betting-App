@@ -43,12 +43,20 @@
         padding-top: 1.5rem;
         gap: 2rem;
 
+        @include respond(phone) {
+            gap: 0;
+        }
+
         .team-preview {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 1rem;
             width: 20rem;
+
+            @include respond(phone) {
+                width: 15rem;
+            }
 
             img {
                 width: 8rem;

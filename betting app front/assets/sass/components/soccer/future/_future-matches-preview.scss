@@ -122,6 +122,10 @@
             background-color: rgba($p2, 1);
             border: 0.5px solid rgba($color-white, .4);
 
+            @include respond(phone) {
+                border: 1px solid rgba($color-white, .4);
+            }
+
             a {
                 font-weight: bold;
             }
@@ -160,6 +164,10 @@
             border-radius: 5px;
             background-color: rgba($p2, 1);
             border: 0.5px solid rgba($color-white, .4);
+
+            @include respond(phone) {
+                border: 1px solid rgba($color-white, .4);
+            }
 
             &:hover {
                 transform: scale(1.02);
