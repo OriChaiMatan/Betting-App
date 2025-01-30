@@ -135,10 +135,10 @@ export function UserDetails() {
                     <TeamsIconList teams={teams} />
                 </div>
 
-                <div className="data">
+                {/* <div className="data">
                     <h2>Favorited Matches:</h2>
                     <MatchesIconList matches={matches} />
-                </div>
+                </div> */}
             </section>
         </div>
     );
