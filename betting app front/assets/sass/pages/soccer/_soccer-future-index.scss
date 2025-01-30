@@ -1,11 +1,19 @@
 .future-match-index{
     padding: 4rem;
 
+    @include respond(phone) {
+        padding: 1rem;
+    }
+
     .match-nav {
         display: flex;
         justify-content: center;
         gap: 3rem;
         margin-bottom: 2rem;
+
+        @include respond(phone) {
+            padding: 2rem;
+        }
     
         button {
             width: 20rem;
