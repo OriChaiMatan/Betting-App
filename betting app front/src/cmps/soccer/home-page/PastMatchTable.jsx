@@ -6,6 +6,8 @@ import { SkeletonTabelHomePage } from '../../loaders/SkeletonTabelHomePage'
 
 export function PastMatchTable({ matches }) {
 
+    const finishedMatches = matches.filter(match => match.match_status === "Finished").slice(-5);
+
     return (
         <div className='match-past-table'>
             <div className="title">
@@ -22,7 +24,7 @@ export function PastMatchTable({ matches }) {
             {matches.length === 0 ? (
                 <SkeletonTabelHomePage />
             ) : (
-                <PastMatchTableList matches={matches.slice(-5)} />
+                <PastMatchTableList matches={finishedMatches} />
             )}
             <Link to={'/past-match'} className='link-to-matches' >
                 <span>All Previous Matches Here !</span>

@@ -47,7 +47,10 @@ export function SoccerPastIndex() {
     async function loadPastMatches() {
         try {
             const matches = await gamesService.getPastGames(filterBy)
-            setFilteredMatches(matches)
+
+            const finishedMatches = matches.filter(match => match.match_status === "Finished")
+
+            setFilteredMatches(finishedMatches)
         } catch (err) {
             console.log('Error in loading past matches', err)
             showErrorMsg('Error in fetching Previous Matches, Please try again')
@@ -69,7 +72,7 @@ export function SoccerPastIndex() {
             {(filteredMatches.length === 0 || !filteredMatches) ? (
                 <SkeletonMatchPreview />
             ) : (
-                <SoccerPastMatchesList matches={filteredMatches.reverse()} />
+                <SoccerPastMatchesList matches={filteredMatches.reverse().slice(-100)} />
             )}
         </section>
     )
